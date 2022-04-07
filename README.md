@@ -7,4 +7,4 @@ Peninsula University of Technology.
 ## UML Diagram
 
 
-![UML Diagram for Hospital Appointment App](uml/UML_Diagram.png)
+![UML Diagram for Hospital Appointment App](uml/UML-Diagram.png)
