@@ -15,6 +15,8 @@ import java.util.HashSet;
 public class DepartmentRepositoryImpl implements IRepository<Department, String> {
 
     private HashSet<Department> departments = new HashSet<Department>();
+    private DepartmentRepositoryImpl(){}
+    private static DepartmentRepositoryImpl instance = null;
 
     @Override
     public Department create(Department department) {
@@ -71,6 +73,20 @@ public class DepartmentRepositoryImpl implements IRepository<Department, String>
         }
 
         return status;
+    }
+
+    public HashSet<Department> getAll() {
+        return departments;
+    }
+
+    public static DepartmentRepositoryImpl getInstance()
+    {
+        if(instance == null)
+        {
+            instance = new DepartmentRepositoryImpl();
+        }
+
+        return instance;
     }
 
 }

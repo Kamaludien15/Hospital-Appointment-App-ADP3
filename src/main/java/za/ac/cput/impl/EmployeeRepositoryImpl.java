@@ -14,7 +14,9 @@ import java.util.HashSet;
 
 public class EmployeeRepositoryImpl implements IRepository<Employee, String> {
 
+    private static EmployeeRepositoryImpl instance = null;
     private HashSet<Employee> employees = new HashSet<Employee>();
+    private EmployeeRepositoryImpl(){}
 
     @Override
     public Employee create(Employee employee) {
@@ -74,6 +76,20 @@ public class EmployeeRepositoryImpl implements IRepository<Employee, String> {
 
         return status;
 
+    }
+
+    public HashSet<Employee> getAll() {
+        return employees;
+    }
+
+    public static EmployeeRepositoryImpl getInstance()
+    {
+        if(instance == null)
+        {
+            instance = new EmployeeRepositoryImpl();
+        }
+
+        return instance;
     }
 
 }
