@@ -1,5 +1,10 @@
 package za.ac.cput.Impl;
-
+/*
+ContactTypeRepository.java
+ entity for the ContactTypeRepository
+ Author: Kamaludien Sonday (218168128)
+ Date: 10 April 2022
+ */
 import za.ac.cput.domain.ContactType;
 
 import java.util.HashSet;

@@ -1,5 +1,12 @@
 package za.ac.cput.factory;
 
+/*
+ ContactTypeFactory.java
+ entity for the ContactTypeFactory
+ Author: Kamaludien Sonday (218168128)
+ Date: 10 April 2022
+ */
+
 import za.ac.cput.domain.ContactType;
 import za.ac.cput.util.Helper;
 

@@ -1,5 +1,12 @@
 package za.ac.cput.domain;
 
+/*
+ContactType.java
+ entity for the ContactType
+ Author: Kamaludien Sonday (218168128)
+ Date: 10 April 2022
+ */
+
 public class ContactType {
     private String contactTypeId;
     private String name;
