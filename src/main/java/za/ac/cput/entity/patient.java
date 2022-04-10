@@ -10,11 +10,12 @@ package za.ac.cput.entity;
  */
 
 public class patient {
-    int patientID;
-    String patientFirstName;
-    String patientLastName;
-    String patientDateOfBirth;
+    private String patientID;
+    private String patientFirstName;
+    private String patientLastName;
+    private String patientDateOfBirth;
 
+    //private constructor
     public patient(patientBuilder builder){
         this.patientID = builder.patientID;
         this.patientFirstName = builder.patientFirstName;
@@ -22,24 +23,37 @@ public class patient {
         this.patientDateOfBirth = builder.patientDateOfBirth;
     }
 
-    public int setPatientID(int patientID) {
-        this.patientID = patientID;
+    //setters and getters
+    public String getPatientID() {
         return patientID;
     }
 
-    public String setPatientFirstName(String patientFirstName) {
-        this.patientFirstName = patientFirstName;
+    public void setPatientID(String patientID) {
+        this.patientID = patientID;
+    }
+
+    public String getPatientFirstName() {
         return patientFirstName;
     }
 
-    public String setPatientLastName(String patientLastName) {
-        this.patientLastName = patientLastName;
+    public void setPatientFirstName(String patientFirstName) {
+        this.patientFirstName = patientFirstName;
+    }
+
+    public String getPatientLastName() {
         return patientLastName;
     }
 
-    public String setPatientDateOfBirth(String patientDateOfBirth) {
-        this.patientDateOfBirth = patientDateOfBirth;
+    public void setPatientLastName(String patientLastName) {
+        this.patientLastName = patientLastName;
+    }
+
+    public String getPatientDateOfBirth() {
         return patientDateOfBirth;
+    }
+
+    public void setPatientDateOfBirth(String patientDateOfBirth) {
+        this.patientDateOfBirth = patientDateOfBirth;
     }
 
     @Override
@@ -52,13 +66,14 @@ public class patient {
                 '}';
     }
 
+    //builder class
     public static class patientBuilder {
-        private int patientID;
+        private String patientID;
         private String patientFirstName;
         private String patientLastName;
         private String patientDateOfBirth;
 
-        public patientBuilder setPatientID(int patientID) {
+        public patientBuilder setPatientID(String patientID) {
             this.patientID = patientID;
             return this;
         }
@@ -75,6 +90,15 @@ public class patient {
 
         public patientBuilder setPatientDateOfBirth(String patientDateOfBirth) {
             this.patientDateOfBirth = patientDateOfBirth;
+            return this;
+        }
+
+        public patient.patientBuilder copy(patient patient){
+            this.patientID = patient.patientID;
+            this.patientFirstName = patient.patientFirstName;
+            this.patientLastName = patient.patientLastName;
+            this.patientDateOfBirth = patient.patientDateOfBirth;
+
             return this;
         }
 

@@ -10,11 +10,12 @@ package za.ac.cput.entity;
  */
 
 public class gender {
-    int genderID;
-    String name;
-    String description;
-    String sex;
+    private String genderID;
+    private String name;
+    private String description;
+    private String sex;
 
+    //private constructor
     public gender(genderBuilder builder){
         this.genderID = builder.genderID;
         this.name = builder.name;
@@ -22,43 +23,57 @@ public class gender {
         this.sex = builder.sex;
     }
 
-    public int setGenderID(int genderID) {
-        this.genderID = genderID;
+    //setters and getters
+    public String getGenderID() {
         return genderID;
     }
 
-    public String setName(String name) {
-        this.name = name;
+    public void setGenderID(String genderID) {
+        this.genderID = genderID;
+    }
+
+    public String getName() {
         return name;
     }
 
-    public String setDescription(String description) {
-        this.description = description;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
         return description;
     }
 
-    public String setSex(String sex) {
-        this.sex = sex;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getSex() {
         return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     @Override
     public String toString() {
         return "gender{" +
-                "genderID=" + genderID +
+                "genderID='" + genderID + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", sex='" + sex + '\'' +
                 '}';
     }
 
+    //builder class
     public static class genderBuilder{
-        private int genderID;
+        private String genderID;
         private String name;
         private String description;
         private String sex;
 
-        public genderBuilder setGenderID(int genderID) {
+        public genderBuilder setGenderID(String genderID) {
             this.genderID = genderID;
             return this;
         }
@@ -81,11 +96,20 @@ public class gender {
         @Override
         public String toString() {
             return "genderBuilder{" +
-                    "genderID=" + genderID +
+                    "genderID='" + genderID + '\'' +
                     ", name='" + name + '\'' +
                     ", description='" + description + '\'' +
                     ", sex='" + sex + '\'' +
                     '}';
+        }
+
+        public gender.genderBuilder copy(gender gender){
+            this.genderID = gender.genderID;
+            this.name = gender.name;
+            this.description = gender.description;
+            this.sex = gender.sex;
+
+            return this;
         }
 
         public gender Builder(){

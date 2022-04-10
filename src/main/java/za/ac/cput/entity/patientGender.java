@@ -12,23 +12,31 @@ package za.ac.cput.entity;
 import za.ac.cput.entity.patient;
 import za.ac.cput.entity.gender;
 
-public class patientGender {
-    int patientID;
-    int genderID;
+public class patientGender{
+    private String patientID;
+    private String genderID;
 
+    //private constructor
     public patientGender(patientGenderBuilder builder){
         this.patientID = builder.patientID;
         this.genderID = builder.genderID;
     }
 
-    public int setPatientID(int patientID) {
-        this.patientID = patientID;
+    //setters and getters
+    public String getPatientID() {
         return patientID;
     }
 
-    public int setGenderID(int genderID) {
-        this.genderID = genderID;
+    public void setPatientID(String patientID) {
+        this.patientID = patientID;
+    }
+
+    public String getGenderID() {
         return genderID;
+    }
+
+    public void setGenderID(String genderID) {
+        this.genderID = genderID;
     }
 
     @Override
@@ -39,17 +47,27 @@ public class patientGender {
                 '}';
     }
 
+    //builder class
     public static class patientGenderBuilder{
-        private int patientID;
-        private int genderID;
+        private String patientID;
+        private String genderID;
 
-        public patientGenderBuilder setPatientID(int patientID) {
+        public patientGenderBuilder setPatientID(String patientID) {
             this.patientID = patientID;
             return this;
         }
 
-        public patientGenderBuilder setGenderID(int genderID) {
+        public patientGenderBuilder setGenderID(String genderID) {
             this.genderID = genderID;
+            return this;
+        }
+
+
+
+        public patientGender.patientGenderBuilder copy(patientGender patientGender){
+            this.patientID = patientGender.patientID;
+            this.genderID = patientGender.genderID;
+
             return this;
         }
 

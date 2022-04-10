@@ -1,4 +1,4 @@
-package za.ac.cput.repository;
+package za.ac.cput.impl;
 
 /**
  *
@@ -9,25 +9,66 @@ package za.ac.cput.repository;
  *
  */
 
+import za.ac.cput.entity.Appointment;
+import za.ac.cput.entity.patient;
 import za.ac.cput.entity.patientGender;
 import za.ac.cput.repository.IRepository;
 
-public class patientGenderRepository implements IRepository<patientGender>{
+import java.util.HashSet;
+import java.util.Set;
 
-    @Override
-    public void create() {
+public class patientGenderRepositoryImpl implements IRepository<patientGender, String>{
+    private static patientGenderRepositoryImpl repository = null;
+    private Set<patientGender> patientGenderDB = null;
+
+    private patientGenderRepositoryImpl(){
+        patientGenderDB = new HashSet<patientGender>();
+    }
+
+    public static patientGenderRepositoryImpl getRepository(){
+        if(repository == null){
+            repository = new patientGenderRepositoryImpl();
+        }
+        return repository;
     }
 
     @Override
-    public patientGender read() {
+    public patientGender create(patientGender patientGender) {
+        boolean success = patientGenderDB.add(patientGender);
+        if(!success){
+            return null;
+        }
+        return patientGender;
+    }
+
+    @Override
+    public patientGender read(String s) {
+        patientGender patientGender = patientGenderDB.stream()
+                .filter(e -> e.getPatientID().equals(s))
+                .findAny()
+                .orElse(null);
+        return patientGender;
+    }
+
+    @Override
+    public patientGender update(patientGender patientGender) {
+        patientGender oldPatientGender = read(patientGender.getPatientID());
+        if(oldPatientGender != null){
+            patientGenderDB.remove(oldPatientGender);
+            patientGenderDB.add(patientGender);
+            return patientGender;
+        }
         return null;
     }
 
     @Override
-    public void delete() {
-    }
+    public boolean delete(String s) {
+        patientGender patientGenderToDelete = read(s);
+        if (patientGenderToDelete == null) {
+            return false;
+        }
 
-    @Override
-    public void update() {
+        patientGenderDB.remove(patientGenderToDelete);
+        return true;
     }
 }
