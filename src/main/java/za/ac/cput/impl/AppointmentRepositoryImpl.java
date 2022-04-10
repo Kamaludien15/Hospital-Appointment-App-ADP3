@@ -51,7 +51,7 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository {
         Appointment oldAppointment = read(appointment.getAppointmentID());
         if(oldAppointment != null){
             appointmentDB.remove(oldAppointment);
-            appointmentDB.add(oldAppointment);
+            appointmentDB.add(appointment);
             return appointment;
         }
         return null;
