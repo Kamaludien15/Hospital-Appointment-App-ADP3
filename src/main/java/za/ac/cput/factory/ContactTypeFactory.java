@@ -8,7 +8,6 @@ package za.ac.cput.factory;
  */
 
 import za.ac.cput.entity.ContactType;
-import za.ac.cput.util.Helper;
 
 public class ContactTypeFactory {
     public static ContactType createContactType(String name, boolean urgent, String description){
