@@ -6,7 +6,7 @@
  * */
 package za.ac.cput.factory;
 
-import za.ac.cput.domain.Medicine;
+import za.ac.cput.entity.Medicine;
 
 public class MedicineFactory {
     public static Medicine createMedicine(String medicineID, String volume, String dosage, String price) {

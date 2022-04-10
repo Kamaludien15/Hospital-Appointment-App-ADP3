@@ -4,7 +4,7 @@
  * Author: Mogamad Githr Parker (220408025)
  * Date: 10 April 2022
  * */
-package za.ac.cput.domain;
+package za.ac.cput.entity;
 
 public class Procedure {
     private String procedureID, procedureName, procedureDescription, procedureCost;

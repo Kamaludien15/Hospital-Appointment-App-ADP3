@@ -1,6 +1,6 @@
 package za.ac.cput.repository;
 
-import za.ac.cput.domain.Prescription;
+import za.ac.cput.entity.Prescription;
 
 import java.util.Set;
 

@@ -6,8 +6,7 @@
  * */
 package za.ac.cput.impl;
 
-import za.ac.cput.domain.Medicine;
-import za.ac.cput.domain.Procedure;
+import za.ac.cput.entity.Procedure;
 import za.ac.cput.repository.IRepository;
 
 import java.util.HashSet;
