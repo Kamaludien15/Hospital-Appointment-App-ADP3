@@ -16,7 +16,7 @@ public class patientGender{
     private String patientID;
     private String genderID;
 
-    //private constructor
+    //builder constructor
     public patientGender(patientGenderBuilder builder){
         this.patientID = builder.patientID;
         this.genderID = builder.genderID;
