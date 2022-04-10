@@ -1,12 +1,12 @@
-package za.ac.cput.Impl;
+package za.ac.cput.repository;
 /*
  IContactTypeRepository.java
  entity for the IContactTypeRepository
  Author: Kamaludien Sonday (218168128)
  Date: 10 April 2022
  */
+
 import za.ac.cput.entity.ContactType;
-import za.ac.cput.repository.IRepository;
 
 import java.util.Set;
 

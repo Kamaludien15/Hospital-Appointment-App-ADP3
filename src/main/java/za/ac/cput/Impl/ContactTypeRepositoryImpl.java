@@ -1,26 +1,27 @@
 package za.ac.cput.Impl;
 /*
-ContactTypeRepository.java
- entity for the ContactTypeRepository
+ContactTypeRepositoryImpl.java
+ entity for the ContactTypeRepositoryImpl
  Author: Kamaludien Sonday (218168128)
  Date: 10 April 2022
  */
 import za.ac.cput.entity.ContactType;
+import za.ac.cput.repository.IContactTypeRepository;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class ContactTypeRepository implements IContactTypeRepository{
-    private static ContactTypeRepository repository = null;
+public class ContactTypeRepositoryImpl implements IContactTypeRepository {
+    private static ContactTypeRepositoryImpl repository = null;
     private Set<ContactType> contactTypeDB = null;
 
-    private ContactTypeRepository(){
+    private ContactTypeRepositoryImpl(){
         contactTypeDB = new HashSet<ContactType>();
     }
 
-    private static ContactTypeRepository getRepository(){
+    public static ContactTypeRepositoryImpl getRepository(){
         if (repository==null){
-            repository = new ContactTypeRepository();
+            repository = new ContactTypeRepositoryImpl();
         }
         return repository;
     }
