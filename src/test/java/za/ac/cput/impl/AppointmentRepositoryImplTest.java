@@ -42,9 +42,9 @@ class AppointmentRepositoryImplTest {
                 .copy(appointment)
                 .setAppointmentDate("09-June-2023")
                 .build();
-
-        assertNotNull(repository.update(update));
-        System.out.println("Updated: " + update);
+        Appointment updatedApp = repository.update(update);
+        assertNotNull(updatedApp);
+        System.out.println("Updated: " + updatedApp.getAppointmentDate());
 
     }
 
