@@ -13,7 +13,9 @@ import java.util.*;
 
 public class EmployeeDepartmentRepoImp implements IRepository<EmployeeDepartment, String> {
 
+    private static EmployeeDepartmentRepoImp instance = null;
     private HashSet<EmployeeDepartment> empDepartment = new HashSet<EmployeeDepartment>();
+    private EmployeeDepartmentRepoImp(){}
 
     @Override
     public EmployeeDepartment create(EmployeeDepartment employeeDepartment) {
@@ -73,6 +75,20 @@ public class EmployeeDepartmentRepoImp implements IRepository<EmployeeDepartment
         }
 
         return status;
+    }
+
+    public HashSet<EmployeeDepartment> getAll() {
+        return empDepartment;
+    }
+
+    public static EmployeeDepartmentRepoImp getInstance()
+    {
+        if(instance == null)
+        {
+            instance = new EmployeeDepartmentRepoImp();
+        }
+
+        return instance;
     }
 
 }
