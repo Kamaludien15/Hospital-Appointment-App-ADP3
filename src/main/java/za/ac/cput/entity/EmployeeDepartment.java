@@ -2,7 +2,7 @@ package za.ac.cput.entity;
 
 /*
  Employee.java
- Entity for the Employee
+ entity for the Employee
  Author: Benelzane Kholani (218257465)
  Date: 10 April 2022
  */
@@ -10,24 +10,32 @@ package za.ac.cput.entity;
 public class EmployeeDepartment {
 
     //instance variables
-    private int departmentId;
-    private int employeeId;
+    private String departmentId;
+    private String employeeId;
+
+    public String getDepartmentId() {
+        return departmentId;
+    }
+
+    public String getEmployeeId() {
+        return employeeId;
+    }
 
     private EmployeeDepartment(){};
 
     public static class EmployeeDepartmentBuilder
     {
         //instance variables
-        private int departmentId;
-        private int employeeId;
+        private String departmentId;
+        private String employeeId;
 
-        public EmployeeDepartmentBuilder buildId(int id)
+        public EmployeeDepartmentBuilder buildId(String id)
         {
             this.departmentId = id;
             return this;
         }//end of buildId method
 
-        public EmployeeDepartmentBuilder buildEmployeeId(int id)
+        public EmployeeDepartmentBuilder buildEmployeeId(String id)
         {
             this.employeeId = id;
             return this;

@@ -2,7 +2,7 @@ package za.ac.cput.factory;
 
 /*
  Employee.java
- Entity for the Employee
+ entity for the Employee
  Author: Benelzane Kholani (218257465)
  Date: 10 April 2022
  */
@@ -11,7 +11,9 @@ import za.ac.cput.entity.Department;
 
 public class DepartmentFactory {
 
-    public Department getDepartment(int departmentId, String departmentName, int departmentSize, int departmentFloor)
+    private DepartmentFactory(){}
+
+    public static Department getDepartment(String departmentId, String departmentName, String departmentSize, String departmentFloor)
     {
         return new Department.DepartmentBuilder()
                 .buildId(departmentId)

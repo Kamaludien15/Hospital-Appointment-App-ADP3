@@ -2,7 +2,7 @@ package za.ac.cput.entity;
 
 /*
  Employee.java
- Entity for the Employee
+ entity for the Employee
  Author: Benelzane Kholani (218257465)
  Date: 10 April 2022
  */
@@ -10,21 +10,37 @@ package za.ac.cput.entity;
 public class Department {
 
     //instance variables
-    private int departmentId;
+    private String departmentId;
     private String departmentName;
-    private int departmentSize;
-    private int departmentFloor;
+    private String departmentSize;
+    private String departmentFloor;
+
+    public String getDepartmentId() {
+        return departmentId;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public String getDepartmentSize() {
+        return departmentSize;
+    }
+
+    public String getDepartmentFloor() {
+        return departmentFloor;
+    }
 
     private Department(){};
 
     public static class DepartmentBuilder
     {
-        private int departmentId;
+        private String departmentId;
         private String departmentName;
-        private int departmentSize;
-        private int departmentFloorNumber;
+        private String departmentSize;
+        private String departmentFloorNumber;
 
-        public DepartmentBuilder buildId(int departmentId)
+        public DepartmentBuilder buildId(String departmentId)
         {
             this.departmentId = departmentId;
             return this;
@@ -36,14 +52,14 @@ public class Department {
             return this;
         }//end of buildDepartmentName method
 
-        public DepartmentBuilder buildDepartmentSize(int departmentSize)
+        public DepartmentBuilder buildDepartmentSize(String departmentSize)
         {
             this.departmentSize = departmentSize;
             return this;
         }//end of buildDepartmentSize method
 
 
-        public DepartmentBuilder buildDepartmentFloor(int floorSize)
+        public DepartmentBuilder buildDepartmentFloor(String floorSize)
         {
             this.departmentFloorNumber = floorSize;
             return this;

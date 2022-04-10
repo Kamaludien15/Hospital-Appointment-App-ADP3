@@ -2,7 +2,7 @@ package za.ac.cput.entity;
 
 /*
  Employee.java
- Entity for the Employee
+ entity for the Employee
  Author: Benelzane Kholani (218257465)
  Date: 10 April 2022
  */
@@ -10,10 +10,26 @@ package za.ac.cput.entity;
 public class Employee {
 
     //instance variables
-    private int employeeId;
+    private String employeeId;
     private String employeeFirstName;
     private String employeeLastName;
     private String employeeDateOfBirth;
+
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public String getEmployeeFirstName() {
+        return employeeFirstName;
+    }
+
+    public String getEmployeeLastName() {
+        return employeeLastName;
+    }
+
+    public String getEmployeeDateOfBirth() {
+        return employeeDateOfBirth;
+    }
 
     private Employee()
     {
@@ -22,12 +38,28 @@ public class Employee {
     public static class EmployeeBuilder
     {
         //instance variables
-        private int employeeId;
+        private String employeeId;
         private String firstName;
         private String lastName;
         private String dateOfBirth;
 
-        public EmployeeBuilder buildId(int employeeId)
+        public String getEmployeeId() {
+            return employeeId;
+        }
+
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public String getDateOfBirth() {
+            return dateOfBirth;
+        }
+
+        public EmployeeBuilder buildId(String employeeId)
         {
             this.employeeId = employeeId;
             return this;
