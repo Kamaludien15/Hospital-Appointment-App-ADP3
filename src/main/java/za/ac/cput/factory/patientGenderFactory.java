@@ -14,11 +14,11 @@ import za.ac.cput.util.Helper;
 
 public class patientGenderFactory {
     public static patientGender createPatientGender(String patientID, String genderID){
-        //-----Checking for empty or null variables------
+        //Check for empty or null
         if(Helper.isNullEmpty(patientID) || Helper.isNullEmpty(genderID))
             return null;
 
-        //-----Generating AppointmentID-----
+        //Generating patientGenderID
         String patientIDGen = Helper.generateID();
 
         return new patientGender.patientGenderBuilder().setPatientID(patientID)

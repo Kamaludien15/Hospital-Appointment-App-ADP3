@@ -15,7 +15,7 @@ public class patient {
     private String patientLastName;
     private String patientDateOfBirth;
 
-    //private constructor
+    //builder constructor
     public patient(patientBuilder builder){
         this.patientID = builder.patientID;
         this.patientFirstName = builder.patientFirstName;

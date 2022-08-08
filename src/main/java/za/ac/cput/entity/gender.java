@@ -15,7 +15,7 @@ public class gender {
     private String description;
     private String sex;
 
-    //private constructor
+    //builder constructor
     public gender(genderBuilder builder){
         this.genderID = builder.genderID;
         this.name = builder.name;
