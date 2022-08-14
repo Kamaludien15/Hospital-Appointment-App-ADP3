@@ -7,7 +7,7 @@ package za.ac.cput.factory;
  Date: 10 April 2022
  */
 
-import za.ac.cput.entity.EmployeeDepartment;
+import za.ac.cput.domain.EmployeeDepartment;
 
 public class EmployeeDepartmentFactory {
 

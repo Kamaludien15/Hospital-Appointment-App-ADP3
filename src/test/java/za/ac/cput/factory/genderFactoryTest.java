@@ -1,13 +1,13 @@
 package za.ac.cput.factory;
 
-import za.ac.cput.entity.gender;
+import za.ac.cput.domain.Gender;
 import za.ac.cput.util.Helper;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class genderFactoryTest {
     public void patientFactoryTest(){
-        gender gender = new gender.genderBuilder().setGenderID(Helper.generateID())
+        Gender gender = new Gender.genderBuilder().setGenderID(Helper.generateID())
                                                       .setName(Helper.generateID())
                                                       .setDescription(Helper.generateID())
                                                       .setSex(Helper.generateID())
@@ -17,7 +17,7 @@ class genderFactoryTest {
 
     public void AppointmentFactoryTest(){
 
-        gender gender = genderFactory.createGender(Helper.generateID(), Helper.generateID(), Helper.generateID(), Helper.generateID());
+        Gender gender = GenderFactory.createGender(Helper.generateID(), Helper.generateID(), Helper.generateID(), Helper.generateID());
         assertNotNull(gender);
     }
 }

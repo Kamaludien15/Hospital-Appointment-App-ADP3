@@ -6,7 +6,7 @@
  * */
 package za.ac.cput.factory;
 
-import za.ac.cput.entity.Procedure;
+import za.ac.cput.domain.Procedure;
 
 public class ProcedureFactory {
     public static Procedure createProcedure(String procedureID, String procedureName, String procedureDescription, String procedureCost) {
