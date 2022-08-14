@@ -9,8 +9,9 @@ package za.ac.cput.impl;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import za.ac.cput.entity.Medicine;
+import za.ac.cput.domain.Medicine;
 import za.ac.cput.factory.MedicineFactory;
+import za.ac.cput.repository.impl.MedicineRepositoryImpl;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -6,7 +6,7 @@
 
 package za.ac.cput.factory;
 
-import za.ac.cput.entity.Hospital;
+import za.ac.cput.domain.Hospital;
 import za.ac.cput.util.Helper;
 
 public class HospitalFactory {
@@ -14,7 +14,7 @@ public class HospitalFactory {
     public static Hospital createHospital(String hospitalName, int hospitalCapacity, String hospitalSector){
 
         //-----Checking for empty or null variables------
-        if(Helper.isNullEmpty(hospitalName) || Helper.isNullEmpty(hospitalSector))
+        if(Helper.isEmptyOrNull(hospitalName) || Helper.isEmptyOrNull(hospitalSector))
             return null;
 
         //-----Generating AppointmentID-----

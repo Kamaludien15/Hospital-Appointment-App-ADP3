@@ -9,8 +9,9 @@ package za.ac.cput.impl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import za.ac.cput.entity.EmployeeDepartment;
+import za.ac.cput.domain.EmployeeDepartment;
 import za.ac.cput.factory.EmployeeDepartmentFactory;
+import za.ac.cput.repository.impl.EmployeeDepartmentRepoImp;
 
 import static org.junit.jupiter.api.Assertions.*;
 
