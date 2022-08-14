@@ -15,11 +15,11 @@ import za.ac.cput.util.Helper;
 public class patientFactory {
     public static patient createPatient(String patientID, String patientFirstName, String patientLastName, String patientDateOfBirth){
 
-        //-----Checking for empty or null variables------
+        //Check for empty or null
         if(Helper.isNullEmpty(patientID) || Helper.isNullEmpty(patientFirstName) || Helper.isNullEmpty(patientLastName) || Helper.isNullEmpty(patientDateOfBirth))
             return null;
 
-        //-----Generating AppointmentID-----
+        //Generating patientID
         String patientIDGen = Helper.generateID();
 
         return new patient.patientBuilder().setPatientID(patientID)

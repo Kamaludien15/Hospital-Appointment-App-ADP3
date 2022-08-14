@@ -9,10 +9,7 @@ package za.ac.cput.impl;
  *
  */
 
-import za.ac.cput.entity.Appointment;
 import za.ac.cput.entity.gender;
-import za.ac.cput.entity.patient;
-import za.ac.cput.entity.patientGender;
 import za.ac.cput.repository.IRepository;
 
 import java.util.HashSet;

@@ -14,11 +14,11 @@ import za.ac.cput.util.Helper;
 
 public class genderFactory {
     public static gender createGender(String genderID, String name, String description, String sex){
-        //-----Checking for empty or null variables------
+        //Check for empty or null
         if(Helper.isNullEmpty(genderID) || Helper.isNullEmpty(name) || Helper.isNullEmpty(description) || Helper.isNullEmpty(sex))
             return null;
 
-        //-----Generating AppointmentID-----
+        //Generating genderID
         String genderIDGen = Helper.generateID();
 
         return new gender.genderBuilder().setGenderID(genderID)
