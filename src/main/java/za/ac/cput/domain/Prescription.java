@@ -6,8 +6,19 @@
  * */
 package za.ac.cput.domain;
 
+import javax.persistence.*;
+import java.util.Objects;
+
+@Entity
 public class Prescription {
-    private String scriptRef, medicineID, scriptIssueDate, scriptRecurrence;
+    @Id
+    private String scriptRef;
+    private String scriptIssueDate;
+    private String scriptRecurrence;
+    @ManyToOne
+    private Medicine medicineID;
+
+    protected Prescription() {}
 
     private Prescription(Builder builder) {
         this.scriptRef = builder.scriptRef;
@@ -20,53 +31,28 @@ public class Prescription {
         return scriptRef;
     }
 
-    public void setScriptRef(String scriptRef) {
-        this.scriptRef = scriptRef;
-    }
-
-    public String getMedicineID() {
-        return medicineID;
-    }
-
-    public void setMedicineID(String medicineID) {
-        this.medicineID = medicineID;
-    }
-
     public String getScriptIssueDate() {
         return scriptIssueDate;
-    }
-
-    public void setScriptIssueDate(String scriptIssueDate) {
-        this.scriptIssueDate = scriptIssueDate;
     }
 
     public String getScriptRecurrence() {
         return scriptRecurrence;
     }
 
-    public void setScriptRecurrence(String scriptRecurrence) {
-        this.scriptRecurrence = scriptRecurrence;
-    }
-
-    @Override
-    public String toString() {
-        return "Prescription{" +
-                "scriptRef='" + scriptRef + '\'' +
-                ", medicineID='" + medicineID + '\'' +
-                ", scriptIssueDate='" + scriptIssueDate + '\'' +
-                ", scriptRecurrence='" + scriptRecurrence + '\'' +
-                '}';
+    public Medicine getMedicineID() {
+        return medicineID;
     }
 
     public static class Builder {
-        private String scriptRef, medicineID, scriptIssueDate, scriptRecurrence;
+        private String scriptRef, scriptIssueDate, scriptRecurrence;
+        private Medicine medicineID;
 
         public Builder setScriptRef(String scriptRef) {
             this.scriptRef = scriptRef;
             return this;
         }
 
-        public Builder setMedicineID(String medicineID) {
+        public Builder setMedicineID(Medicine medicineID) {
             this.medicineID = medicineID;
             return this;
         }
@@ -92,5 +78,28 @@ public class Prescription {
         public Prescription build() {
             return new Prescription(this);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Prescription that = (Prescription) o;
+        return scriptRef.equals(that.scriptRef) && scriptIssueDate.equals(that.scriptIssueDate) && scriptRecurrence.equals(that.scriptRecurrence) && medicineID.equals(that.medicineID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(scriptRef, scriptIssueDate, scriptRecurrence, medicineID);
+    }
+
+    @Override
+    public String toString() {
+        return "Prescription{" +
+                "scriptRef='" + scriptRef + '\'' +
+                ", scriptIssueDate='" + scriptIssueDate + '\'' +
+                ", scriptRecurrence='" + scriptRecurrence + '\'' +
+                ", medicineID=" + medicineID +
+                '}';
     }
 }
