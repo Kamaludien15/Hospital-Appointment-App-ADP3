@@ -21,8 +21,8 @@ class DepartmentFactoryTest {
     @BeforeEach
     public void setUp() {
 
-        department   = DepartmentFactory.getDepartment("2", "IT", "100", "5");
-        department2  = DepartmentFactory.getDepartment("4", "Finance", "50", "8");
+        department   = DepartmentFactory.createDepartment("IT", "100", "5");
+        department2  = DepartmentFactory.createDepartment( "Finance", "50", "8");
     }
 
     @Test

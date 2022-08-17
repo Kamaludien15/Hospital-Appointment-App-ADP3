@@ -7,9 +7,17 @@ package za.ac.cput.domain;
  Date: 10 April 2022
  */
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.util.Objects;
+
+@Entity
 public class Department {
 
     //instance variables
+    @Id
+    @Column(name="departmentId")
     private String departmentId;
     private String departmentName;
     private String departmentSize;
@@ -31,7 +39,7 @@ public class Department {
         return departmentFloor;
     }
 
-    private Department(){};
+    private Department(){}
 
     public static class DepartmentBuilder
     {
@@ -76,7 +84,28 @@ public class Department {
             return department;
         }//end  of getDepartment method
 
-
     }//end of DepartmentBuilder
 
+    @Override
+    public String toString() {
+        return "Department{" +
+                "departmentId='" + departmentId + '\'' +
+                ", departmentName='" + departmentName + '\'' +
+                ", departmentSize='" + departmentSize + '\'' +
+                ", departmentFloor='" + departmentFloor + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Department that = (Department) o;
+        return Objects.equals(departmentId, that.departmentId) && Objects.equals(departmentName, that.departmentName) && Objects.equals(departmentSize, that.departmentSize) && Objects.equals(departmentFloor, that.departmentFloor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(departmentId, departmentName, departmentSize, departmentFloor);
+    }
 }

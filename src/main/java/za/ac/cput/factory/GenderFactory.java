@@ -15,7 +15,7 @@ import za.ac.cput.util.Helper;
 public class GenderFactory {
     public static Gender createGender(String genderID, String name, String description, String sex){
         //Check for empty or null
-        if(Helper.isNullEmpty(genderID) || Helper.isNullEmpty(name) || Helper.isNullEmpty(description) || Helper.isNullEmpty(sex))
+        if(Helper.isEmptyOrNull(genderID) || Helper.isEmptyOrNull(name) || Helper.isEmptyOrNull(description) || Helper.isEmptyOrNull(sex))
             return null;
 
         //Generating genderID

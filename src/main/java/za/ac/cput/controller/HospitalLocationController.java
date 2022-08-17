@@ -5,6 +5,7 @@
 */
 package za.ac.cput.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +15,13 @@ import za.ac.cput.api.HospitalLocationAPI;
 import za.ac.cput.domain.HospitalLocation;
 
 
+import javax.validation.Valid;
 import java.util.List;
 
 
 @RestController
 @RequestMapping("/hospital_appointment_management-db/hospitalLocation")
+@Slf4j
 public class HospitalLocationController {
 
     private HospitalLocationAPI api;

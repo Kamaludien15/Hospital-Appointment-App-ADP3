@@ -7,9 +7,17 @@ package za.ac.cput.domain;
  Date: 10 April 2022
  */
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.util.Objects;
+
+@Entity
 public class Employee {
 
     //instance variables
+    @Id
+    @Column(name="employeeId")
     private String employeeId;
     private String employeeFirstName;
     private String employeeLastName;
@@ -95,4 +103,26 @@ public class Employee {
 
     }//end of EmployeeBuilder class
 
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "employeeId='" + employeeId + '\'' +
+                ", employeeFirstName='" + employeeFirstName + '\'' +
+                ", employeeLastName='" + employeeLastName + '\'' +
+                ", employeeDateOfBirth='" + employeeDateOfBirth + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return Objects.equals(employeeId, employee.employeeId) && Objects.equals(employeeFirstName, employee.employeeFirstName) && Objects.equals(employeeLastName, employee.employeeLastName) && Objects.equals(employeeDateOfBirth, employee.employeeDateOfBirth);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(employeeId, employeeFirstName, employeeLastName, employeeDateOfBirth);
+    }
 }//end of Employee class

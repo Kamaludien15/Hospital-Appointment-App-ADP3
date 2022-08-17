@@ -23,8 +23,8 @@ class EmployeeRepositoryImplTest {
 
     @BeforeEach
     public void setUp() {
-        employee   = EmployeeFactory.getEmployee("2", "Peter", "Bale", "02-03-88");
-        employee2  = EmployeeFactory.getEmployee("2", "Peter", "Kate", "02-03-88");
+        employee   = EmployeeFactory.createEmployee("2", "Peter", "Bale", "02-03-88");
+        employee2  = EmployeeFactory.createEmployee("2", "Peter", "Kate", "02-03-88");
         employeeRepository = EmployeeRepositoryImpl.getInstance();
         employeeRepository.create(employee);
     }

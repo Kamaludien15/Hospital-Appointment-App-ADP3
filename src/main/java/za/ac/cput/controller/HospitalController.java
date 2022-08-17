@@ -5,18 +5,22 @@
 */
 package za.ac.cput.controller;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import za.ac.cput.api.HospitalAPI;
 import za.ac.cput.domain.Hospital;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
 @RestController
 @RequestMapping("/hospital_appointment_management-db/hospital")
+@Log4j2
 public class HospitalController {
 
     private HospitalAPI api;

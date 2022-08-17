@@ -10,6 +10,7 @@ package za.ac.cput.factory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.Employee;
+import za.ac.cput.util.Helper;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,9 +21,8 @@ class EmployeeFactoryTest {
 
     @BeforeEach
     public void setUp() {
-
-       employee  = EmployeeFactory.getEmployee("2", "Peter", "Bale", "02-03-88");
-       employee2 = EmployeeFactory.getEmployee("4", "Kate", "Derek", "02-03-88");
+       employee  = EmployeeFactory.createEmployee("Peter", "Bale", "02-03-88");
+       employee2 = EmployeeFactory.createEmployee("Kate", "Derek", "02-03-88");
     }
 
     @Test
