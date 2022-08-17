@@ -3,8 +3,9 @@ package za.ac.cput.impl;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import za.ac.cput.entity.patient;
-import za.ac.cput.factory.patientFactory;
+import za.ac.cput.domain.Patient;
+import za.ac.cput.factory.PatientFactory;
+import za.ac.cput.repository.impl.patientRepositoryImpl;
 import za.ac.cput.util.Helper;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,30 +13,30 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.MethodName.class)
 class patientRepositoryImplTest {
     private static patientRepositoryImpl repository = patientRepositoryImpl.getRepository();
-    private static patient patient = patientFactory.createPatient(Helper.generateID(), Helper.generateID(), Helper.generateID(),
+    private static Patient patient = PatientFactory.createPatient(Helper.generateID(), Helper.generateID(), Helper.generateID(),
             Helper.generateID());
 
     @Test
     void a_create() {
-        patient created = repository.create(patient);
+        Patient created = repository.create(patient);
         assertEquals(patient.getPatientID(), created.getPatientID());
         System.out.println("Created: " + created);
     }
 
     @Test
     void b_read() {
-        patient read = repository.read(patient.getPatientID());
+        Patient read = repository.read(patient.getPatientID());
         assertNotNull(read);
         System.out.println("Read:" + read);
     }
 
     @Test
     void c_update() {
-        patient update = new patient.patientBuilder()
+        Patient update = new Patient.patientBuilder()
                 .copy(patient)
                 .setPatientLastName("Fortuin")
                 .Builder();
-        patient updatedApp = repository.update(update);
+        Patient updatedApp = repository.update(update);
         assertNotNull(updatedApp);
         System.out.println("Updated: " + updatedApp.getPatientLastName());
 

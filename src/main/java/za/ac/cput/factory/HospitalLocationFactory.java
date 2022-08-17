@@ -6,16 +6,22 @@
 
 package za.ac.cput.factory;
 
-import za.ac.cput.entity.HospitalLocation;
+import za.ac.cput.domain.Hospital;
+import za.ac.cput.domain.HospitalLocation;
+import za.ac.cput.domain.Location;
 import za.ac.cput.util.Helper;
 
 public class HospitalLocationFactory {
 
-    public static HospitalLocation createHospitalLocation(String hospitalID, String locationID){
+    public static HospitalLocation createHospitalLocation(Hospital hospital, Location location){
+
+        //-----Generating HospitalLocationID-----
+        String hospitalLocationID = Helper.generateID();
 
         HospitalLocation hospitalLocation = new HospitalLocation.Builder()
-                .setHospitalID(hospitalID)
-                .setLocationID(locationID)
+                .setHospitalLocationId(hospitalLocationID)
+                .setHospital(hospital)
+                .setLocation(location)
                 .build();
 
         return hospitalLocation;

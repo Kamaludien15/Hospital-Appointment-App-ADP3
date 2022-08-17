@@ -9,7 +9,9 @@ package za.ac.cput.factory;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import za.ac.cput.entity.EmployeeDepartment;
+import za.ac.cput.domain.Department;
+import za.ac.cput.domain.Employee;
+import za.ac.cput.domain.EmployeeDepartment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,11 +20,22 @@ class EmployeeDepartmentFactoryTest {
     private EmployeeDepartment employeeDepartment1;
     private EmployeeDepartment employeeDepartment2;
 
+    private  Employee employee;
+    private  Department department;
+
+    private  Employee employee1;
+    private  Department department1;
+
     @BeforeEach
     public void setUp() {
+        employee = EmployeeFactory.createEmployee("Kholani", "Benelzane", "20 March");
+        department = DepartmentFactory.createDepartment("Surgeon", "45", "9");
 
-        employeeDepartment1  = EmployeeDepartmentFactory.getEmployeeDepartment("2","4");
-        employeeDepartment2  = EmployeeDepartmentFactory.getEmployeeDepartment("3","5");
+        employee1 = EmployeeFactory.createEmployee("Ernest", "Benzema", "22 April");
+        department1 = DepartmentFactory.createDepartment("Bio Engineer", "77", "13");
+
+        employeeDepartment1  = EmployeeDepartmentFactory.createEmployeeDepartment(employee,department);
+        employeeDepartment2  = EmployeeDepartmentFactory.createEmployeeDepartment(employee1,department1);
     }
 
     @Test
@@ -30,8 +43,8 @@ class EmployeeDepartmentFactoryTest {
 
         //test if the instance variables are as expected
         assertAll("EmployeeFactory",
-                ()->assertEquals("2", employeeDepartment1.getDepartmentId()),
-                ()->assertEquals("4", employeeDepartment1.getEmployeeId()));
+                ()->assertEquals("2", employeeDepartment1.getEmployeeDepartmentId()),
+                ()->assertEquals("4", employeeDepartment1.getEmployeeDepartmentId()));
     }//end of testEquality method
 
     @Test

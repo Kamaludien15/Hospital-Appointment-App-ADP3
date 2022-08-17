@@ -7,7 +7,7 @@
 package za.ac.cput.factory;
 
 
-import za.ac.cput.entity.Location;
+import za.ac.cput.domain.Location;
 import za.ac.cput.util.Helper;
 
 public class LocationFactory {
@@ -15,7 +15,7 @@ public class LocationFactory {
     public static Location createLocation(String streetName, int streetNun, String suburb, int postalCode){
 
         //-----Checking for empty or null variables------
-        if(Helper.isNullEmpty(streetName) || Helper.isNullEmpty(suburb))
+        if(Helper.isEmptyOrNull(streetName) || Helper.isEmptyOrNull(suburb))
             return null;
 
         //-----Generating AppointmentID-----

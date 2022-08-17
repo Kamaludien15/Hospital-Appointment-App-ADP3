@@ -6,7 +6,7 @@
  * */
 package za.ac.cput.factory;
 
-import za.ac.cput.entity.Prescription;
+import za.ac.cput.domain.Prescription;
 
 public class PrescriptionFactory {
     public static Prescription createPrescription(String scriptRef, String medicineID, String scriptIssueDate, String scriptRecurrence) {

@@ -8,8 +8,9 @@ package za.ac.cput.impl;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
-import za.ac.cput.entity.Appointment;
+import za.ac.cput.domain.Appointment;
 import za.ac.cput.factory.AppointmentFactory;
+import za.ac.cput.repository.impl.AppointmentRepositoryImpl;
 import za.ac.cput.util.Helper;
 import org.junit.jupiter.api.TestMethodOrder;
 

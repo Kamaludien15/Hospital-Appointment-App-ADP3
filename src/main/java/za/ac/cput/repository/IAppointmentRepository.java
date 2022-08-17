@@ -6,12 +6,13 @@
 
 package za.ac.cput.repository;
 
-import za.ac.cput.entity.Appointment;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import za.ac.cput.domain.Appointment;
 
-import java.util.Set;
+@Repository
+public interface IAppointmentRepository extends JpaRepository<Appointment, String> {
 
-public interface IAppointmentRepository extends IRepository<Appointment, String>{
-
-    public Set<Appointment> getAll();
+    public Appointment findByAppointmentID(String id);
 
 }
