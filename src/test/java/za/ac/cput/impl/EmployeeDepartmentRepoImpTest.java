@@ -9,8 +9,9 @@ package za.ac.cput.impl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import za.ac.cput.entity.EmployeeDepartment;
+import za.ac.cput.domain.EmployeeDepartment;
 import za.ac.cput.factory.EmployeeDepartmentFactory;
+import za.ac.cput.repository.impl.EmployeeDepartmentRepoImp;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,9 +23,10 @@ class EmployeeDepartmentRepoImpTest {
 
     @BeforeEach
     public void setUp() {
-        employeeDepartmentRepoImp = new EmployeeDepartmentRepoImp();
+        employeeDepartmentRepoImp = EmployeeDepartmentRepoImp.getInstance();
         employeeDepartment  = EmployeeDepartmentFactory.getEmployeeDepartment("2", "4");
         employeeDepartment2 = EmployeeDepartmentFactory.getEmployeeDepartment("2", "5");
+        employeeDepartmentRepoImp.create(employeeDepartment);
     }
 
 
@@ -35,19 +37,24 @@ class EmployeeDepartmentRepoImpTest {
 
     @Test
     void testRead() {
-        employeeDepartmentRepoImp.create(employeeDepartment);
         assertNotNull(employeeDepartmentRepoImp.read("4"));
     }
 
     @Test
     void testUpdate() {
-        employeeDepartmentRepoImp.create(employeeDepartment);
         assertNotNull(employeeDepartmentRepoImp.update(employeeDepartment2));
+    }
+
+
+    @Test
+    void testGetAll()
+    {
+        assertNotNull(employeeDepartmentRepoImp.getAll());
     }
 
     @Test
     void testDelete() {
-        employeeDepartmentRepoImp.create(employeeDepartment);
         assertTrue(employeeDepartmentRepoImp.delete("4"));
     }
+
 }

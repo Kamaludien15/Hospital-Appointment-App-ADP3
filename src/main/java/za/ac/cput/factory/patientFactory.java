@@ -4,28 +4,28 @@ package za.ac.cput.factory;
  *
  * Rhegan Albert Fortuin
  * 219273693
- * Patient entity
- * 07 April 2022
+ * PatientFactory
+ * 15 August 2022
  *
  */
 
-import za.ac.cput.entity.patient;
+import za.ac.cput.domain.Patient;
 import za.ac.cput.util.Helper;
 
-public class patientFactory {
-    public static patient createPatient(String patientID, String patientFirstName, String patientLastName, String patientDateOfBirth){
+public class PatientFactory {
+    public static Patient createPatient(String patientFirstName, String patientLastName, String patientDateOfBirth){
 
         //Check for empty or null
-        if(Helper.isNullEmpty(patientID) || Helper.isNullEmpty(patientFirstName) || Helper.isNullEmpty(patientLastName) || Helper.isNullEmpty(patientDateOfBirth))
+        if(Helper.checkingEntity(patientFirstName) || Helper.checkingEntity(patientLastName) || Helper.checkingEntity(patientDateOfBirth))
             return null;
 
         //Generating patientID
-        String patientIDGen = Helper.generateID();
+        String patientID = Helper.generateID();
 
-        return new patient.patientBuilder().setPatientID(patientID)
+        return new Patient.patientBuilder().setPatientID(patientID)
                                            .setPatientFirstName(patientFirstName)
                                            .setPatientLastName(patientLastName)
                                            .setPatientDateOfBirth(patientDateOfBirth)
-                                           .Builder();
+                                           .build();
     }
 }

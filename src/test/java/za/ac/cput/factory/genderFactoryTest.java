@@ -1,23 +1,27 @@
+/**
+ * Rhegan Albert Fortuin
+ * 219273693
+ * GenderFactoryTest
+ * 15 August 2022
+ */
+
 package za.ac.cput.factory;
 
-import za.ac.cput.entity.gender;
+import org.junit.jupiter.api.Test;
+import za.ac.cput.domain.Gender;
 import za.ac.cput.util.Helper;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class genderFactoryTest {
+class GenderFactoryTest {
+
+    @Test
     public void patientFactoryTest(){
-        gender gender = new gender.genderBuilder().setGenderID(Helper.generateID())
-                                                      .setName(Helper.generateID())
-                                                      .setDescription(Helper.generateID())
-                                                      .setSex(Helper.generateID())
-                                                      .Builder();
-        assertNotNull(gender);
-    }
-
-    public void AppointmentFactoryTest(){
-
-        gender gender = genderFactory.createGender(Helper.generateID(), Helper.generateID(), Helper.generateID(), Helper.generateID());
+        Gender gender = new Gender.genderBuilder().setGenderID(Helper.generateID())
+                                                      .setName("Rhegan")
+                                                      .setDescription("Born a male on the 19th of August in the year 2000")
+                                                      .setSex("Male")
+                                                      .build();
         assertNotNull(gender);
     }
 }
