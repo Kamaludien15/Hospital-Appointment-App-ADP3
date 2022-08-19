@@ -1,13 +1,17 @@
 package za.ac.cput.domain;
 
+<<<<<<< HEAD
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+=======
+>>>>>>> 0841c97978f4d9d8b54b66f900a2c5ba1a055ebe
 /**
  *
  * Rhegan Albert Fortuin
  * 219273693
+<<<<<<< HEAD
  * PatientGender entity
  * 15 August 2022
  *
@@ -30,10 +34,24 @@ public class PatientGender implements Serializable {
     //builder constructor
     public PatientGender(patientGenderBuilder builder){
         this.patientGenderID = builder.patientGenderID;
+=======
+ * Patient entity
+ * 07 April 2022
+ *
+ */
+
+public class PatientGender {
+    private String patientID;
+    private String genderID;
+
+    //builder constructor
+    public PatientGender(patientGenderBuilder builder){
+>>>>>>> 0841c97978f4d9d8b54b66f900a2c5ba1a055ebe
         this.patientID = builder.patientID;
         this.genderID = builder.genderID;
     }
 
+<<<<<<< HEAD
     //constructor
     protected PatientGender() {}
 
@@ -72,10 +90,36 @@ public class PatientGender implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(patientID, genderID);
+=======
+    //setters and getters
+    public String getPatientID() {
+        return patientID;
+    }
+
+    public void setPatientID(String patientID) {
+        this.patientID = patientID;
+    }
+
+    public String getGenderID() {
+        return genderID;
+    }
+
+    public void setGenderID(String genderID) {
+        this.genderID = genderID;
+    }
+
+    @Override
+    public String toString() {
+        return "patientGender{" +
+                "patientID=" + patientID +
+                ", genderID=" + genderID +
+                '}';
+>>>>>>> 0841c97978f4d9d8b54b66f900a2c5ba1a055ebe
     }
 
     //builder class
     public static class patientGenderBuilder{
+<<<<<<< HEAD
         private String patientGenderID;
         private Patient patientID;
         private Gender genderID;
@@ -86,11 +130,21 @@ public class PatientGender implements Serializable {
         }
 
         public patientGenderBuilder setPatientID(Patient patientID) {
+=======
+        private String patientID;
+        private String genderID;
+
+        public patientGenderBuilder setPatientID(String patientID) {
+>>>>>>> 0841c97978f4d9d8b54b66f900a2c5ba1a055ebe
             this.patientID = patientID;
             return this;
         }
 
+<<<<<<< HEAD
         public patientGenderBuilder setGenderID(Gender genderID) {
+=======
+        public patientGenderBuilder setGenderID(String genderID) {
+>>>>>>> 0841c97978f4d9d8b54b66f900a2c5ba1a055ebe
             this.genderID = genderID;
             return this;
         }
@@ -104,7 +158,11 @@ public class PatientGender implements Serializable {
             return this;
         }
 
+<<<<<<< HEAD
         public PatientGender build(){
+=======
+        public PatientGender Builder(){
+>>>>>>> 0841c97978f4d9d8b54b66f900a2c5ba1a055ebe
             return new PatientGender(this);
         }
     }
