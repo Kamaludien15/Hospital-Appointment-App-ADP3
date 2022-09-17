@@ -11,7 +11,7 @@ import za.ac.cput.util.Helper;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.MethodName.class)
-class genderRepositoryImplTest {
+class GenderRepositoryImplTest {
     private static genderRepositoryImpl repository = genderRepositoryImpl.getRepository();
     private static Gender gender = GenderFactory.createGender(Helper.generateID(), Helper.generateID(), Helper.generateID(), Helper.generateID());
 
