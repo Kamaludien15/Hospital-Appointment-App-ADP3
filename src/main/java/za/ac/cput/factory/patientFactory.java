@@ -26,6 +26,6 @@ public class PatientFactory {
                                            .setPatientFirstName(patientFirstName)
                                            .setPatientLastName(patientLastName)
                                            .setPatientDateOfBirth(patientDateOfBirth)
-                                           .Builder();
+                                           .build();
     }
 }
