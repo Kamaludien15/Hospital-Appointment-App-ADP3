@@ -1,5 +1,9 @@
 package za.ac.cput.domain;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
+
 /**
  *
  * Rhegan Albert Fortuin
@@ -12,7 +16,7 @@ package za.ac.cput.domain;
 @Entity
 public class PatientGender implements Serializable {
     @Id
-    @Column (name = "patientGender_id")
+    @Column(name = "patientGender_id")
     private String patientGenderID;
 
     @ManyToOne
