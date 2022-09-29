@@ -6,20 +6,14 @@ import za.ac.cput.util.Helper;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class patientFactoryTest {
+class PatientFactoryTest {
+    @Test
     public void patientFactoryTest(){
         Patient patient = new Patient.patientBuilder().setPatientID(Helper.generateID())
-                                                      .setPatientFirstName(Helper.generateID())
-                                                      .setPatientLastName(Helper.generateID())
-                                                      .setPatientDateOfBirth(Helper.generateID())
-                                                      .Builder();
-        assertNotNull(patient);
-    }
-
-    @Test
-    public void AppointmentFactoryTest(){
-
-        Patient patient = PatientFactory.createPatient(Helper.generateID(), Helper.generateID(), Helper.generateID(), Helper.generateID());
+                                                      .setPatientFirstName("Rhegan")
+                                                      .setPatientLastName("Fortuin")
+                                                      .setPatientDateOfBirth("19 August 2000")
+                                                      .build();
         assertNotNull(patient);
     }
 }

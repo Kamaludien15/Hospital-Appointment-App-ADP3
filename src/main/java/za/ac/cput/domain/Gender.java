@@ -4,12 +4,16 @@ package za.ac.cput.domain;
  *
  * Rhegan Albert Fortuin
  * 219273693
- * Patient entity
- * 07 April 2022
+ * Gender entity
+ * 14 August 2022
  *
  */
 
+@Entity
 public class Gender {
+    //variables
+    @Id
+    @Column(name = "gender_id")
     private String genderID;
     private String name;
     private String description;
@@ -23,39 +27,26 @@ public class Gender {
         this.sex = builder.sex;
     }
 
-    //setters and getters
+    //constructor
+    protected Gender() {}
+
+    //getters
     public String getGenderID() {
         return genderID;
-    }
-
-    public void setGenderID(String genderID) {
-        this.genderID = genderID;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getSex() {
         return sex;
     }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
+    //toString
     @Override
     public String toString() {
         return "gender{" +
@@ -64,6 +55,21 @@ public class Gender {
                 ", description='" + description + '\'' +
                 ", sex='" + sex + '\'' +
                 '}';
+    }
+
+    //Equals
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Gender that = (Gender) o;
+        return genderID.equals(that.genderID) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(sex, that.sex);
+    }
+
+    //Hashcode
+    @Override
+    public int hashCode() {
+        return Objects.hash(genderID, name, description, sex);
     }
 
     //builder class
@@ -103,7 +109,7 @@ public class Gender {
                     '}';
         }
 
-        public Gender.genderBuilder copy(Gender gender){
+        public genderBuilder copy(Gender gender){
             this.genderID = gender.genderID;
             this.name = gender.name;
             this.description = gender.description;
@@ -111,8 +117,7 @@ public class Gender {
 
             return this;
         }
-
-        public Gender Builder(){
+        public Gender build(){
             return new Gender(this);
         }
     }

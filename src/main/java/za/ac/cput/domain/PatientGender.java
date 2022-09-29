@@ -4,62 +4,92 @@ package za.ac.cput.domain;
  *
  * Rhegan Albert Fortuin
  * 219273693
- * Patient entity
- * 07 April 2022
+ * PatientGender entity
+ * 15 August 2022
  *
  */
 
-public class PatientGender {
-    private String patientID;
-    private String genderID;
+@Entity
+public class PatientGender implements Serializable {
+    @Id
+    @Column (name = "patientGender_id")
+    private String patientGenderID;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_id", referencedColumnName = "patient_id")
+    private Patient patientID;
+
+    @ManyToOne
+    @JoinColumn(name = "gender_id", referencedColumnName = "gender_id")
+    private Gender genderID;
 
     //builder constructor
     public PatientGender(patientGenderBuilder builder){
+        this.patientGenderID = builder.patientGenderID;
         this.patientID = builder.patientID;
         this.genderID = builder.genderID;
     }
 
-    //setters and getters
-    public String getPatientID() {
+    //constructor
+    protected PatientGender() {}
+
+    //getters
+    public String getPatientGenderID() {
+        return patientGenderID;
+    }
+    public Patient getPatientID() {
         return patientID;
     }
 
-    public void setPatientID(String patientID) {
-        this.patientID = patientID;
-    }
-
-    public String getGenderID() {
+    public Gender getGenderID() {
         return genderID;
     }
 
-    public void setGenderID(String genderID) {
-        this.genderID = genderID;
-    }
-
+    //toString
     @Override
     public String toString() {
-        return "patientGender{" +
-                "patientID=" + patientID +
+        return "PatientGender{" +
+                "patientGenderID='" + patientGenderID + '\'' +
+                ", patientID=" + patientID +
                 ", genderID=" + genderID +
                 '}';
     }
 
+    //Equals
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PatientGender that = (PatientGender) o;
+        return patientID.equals(that.patientID) && Objects.equals(genderID, that.genderID);
+    }
+
+    //Hashcode
+    @Override
+    public int hashCode() {
+        return Objects.hash(patientID, genderID);
+    }
+
     //builder class
     public static class patientGenderBuilder{
-        private String patientID;
-        private String genderID;
+        private String patientGenderID;
+        private Patient patientID;
+        private Gender genderID;
 
-        public patientGenderBuilder setPatientID(String patientID) {
+        public patientGenderBuilder setPatientGenderID(String patientGenderID) {
+            this.patientGenderID = patientGenderID;
+            return this;
+        }
+
+        public patientGenderBuilder setPatientID(Patient patientID) {
             this.patientID = patientID;
             return this;
         }
 
-        public patientGenderBuilder setGenderID(String genderID) {
+        public patientGenderBuilder setGenderID(Gender genderID) {
             this.genderID = genderID;
             return this;
         }
-
-
 
         public PatientGender.patientGenderBuilder copy(PatientGender patientGender){
             this.patientID = patientGender.patientID;
@@ -68,9 +98,8 @@ public class PatientGender {
             return this;
         }
 
-        public PatientGender Builder(){
+        public PatientGender build(){
             return new PatientGender(this);
         }
     }
-
 }

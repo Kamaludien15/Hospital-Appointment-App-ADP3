@@ -11,8 +11,9 @@ import za.ac.cput.util.Helper;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.MethodName.class)
-class patientRepositoryImplTest {
-    private static patientRepositoryImpl repository = patientRepositoryImpl.getRepository();
+
+class PatientRepositoryImplTest {
+    private static PatientRepositoryImpl repository = patientRepositoryImpl.getRepository();
     private static Patient patient = PatientFactory.createPatient(Helper.generateID(), Helper.generateID(), Helper.generateID(),
             Helper.generateID());
 

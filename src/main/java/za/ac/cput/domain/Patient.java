@@ -5,11 +5,16 @@ package za.ac.cput.domain;
  * Rhegan Albert Fortuin
  * 219273693
  * Patient entity
- * 07 April 2022
+* 14 August 2022
  *
  */
 
+@Entity
 public class Patient {
+    //variables
+    @Id
+    @Column(name = "patient_id")
+
     private String patientID;
     private String patientFirstName;
     private String patientLastName;
@@ -23,39 +28,27 @@ public class Patient {
         this.patientDateOfBirth = builder.patientDateOfBirth;
     }
 
-    //setters and getters
+    //constructor
+    protected Patient() {}
+
+    //getters
     public String getPatientID() {
         return patientID;
-    }
-
-    public void setPatientID(String patientID) {
-        this.patientID = patientID;
     }
 
     public String getPatientFirstName() {
         return patientFirstName;
     }
 
-    public void setPatientFirstName(String patientFirstName) {
-        this.patientFirstName = patientFirstName;
-    }
-
     public String getPatientLastName() {
         return patientLastName;
-    }
-
-    public void setPatientLastName(String patientLastName) {
-        this.patientLastName = patientLastName;
     }
 
     public String getPatientDateOfBirth() {
         return patientDateOfBirth;
     }
 
-    public void setPatientDateOfBirth(String patientDateOfBirth) {
-        this.patientDateOfBirth = patientDateOfBirth;
-    }
-
+    //toString
     @Override
     public String toString() {
         return "patient{" +
@@ -64,6 +57,21 @@ public class Patient {
                 ", patientLastName=" + patientLastName +
                 ", patientDateOfBirth=" + patientDateOfBirth +
                 '}';
+    }
+
+    //Equals
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Patient that = (Patient) o;
+        return patientID.equals(that.patientID) && Objects.equals(patientFirstName, that.patientFirstName) && Objects.equals(patientLastName, that.patientLastName) && Objects.equals(patientDateOfBirth, that.patientDateOfBirth);
+    }
+
+    //Hashcode
+    @Override
+    public int hashCode() {
+        return Objects.hash(patientID, patientFirstName, patientLastName, patientDateOfBirth);
     }
 
     //builder class
@@ -92,8 +100,7 @@ public class Patient {
             this.patientDateOfBirth = patientDateOfBirth;
             return this;
         }
-
-        public Patient.patientBuilder copy(Patient patient){
+        public patientBuilder copy(Patient patient){
             this.patientID = patient.patientID;
             this.patientFirstName = patient.patientFirstName;
             this.patientLastName = patient.patientLastName;
@@ -102,9 +109,8 @@ public class Patient {
             return this;
         }
 
-        public Patient Builder(){
+        public Patient build(){
             return new Patient(this);
         }
     }
-
 }

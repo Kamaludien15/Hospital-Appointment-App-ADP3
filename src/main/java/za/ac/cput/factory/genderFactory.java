@@ -25,6 +25,6 @@ public class GenderFactory {
                                          .setName(name)
                                          .setDescription(description)
                                          .setSex(sex)
-                                         .Builder();
+                                         .build();
     }
 }
