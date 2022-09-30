@@ -13,12 +13,12 @@ package za.ac.cput.factory;
 import za.ac.cput.domain.Gender;
 import za.ac.cput.domain.Patient;
 import za.ac.cput.domain.PatientGender;
-import za.ac.cput.util.Helper;
+import za.ac.cput.util.*;
 
 public class PatientGenderFactory {
     public static PatientGender createPatientGender(String patientGenderID, Patient patientID, Gender genderID){
         //Check for empty or null
-        if(Helper.isNullEmpty(patientID) || Helper.isNullEmpty(genderID))
+        if(Helper.isEmptyOrNull(patientID.toString()) || Helper.isEmptyOrNull(genderID.toString()))
             return null;
 
         //Generating patientGenderID

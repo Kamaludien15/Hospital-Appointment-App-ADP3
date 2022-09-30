@@ -10,13 +10,13 @@ package za.ac.cput.factory;
  */
 
 import za.ac.cput.domain.Patient;
-import za.ac.cput.util.Helper;
+import za.ac.cput.util.*;
 
 public class PatientFactory {
     public static Patient createPatient(String patientID, String patientFirstName, String patientLastName, String patientDateOfBirth){
 
         //Check for empty or null
-        if(Helper.isNullEmpty(patientID) || Helper.isNullEmpty(patientFirstName) || Helper.isNullEmpty(patientLastName) || Helper.isNullEmpty(patientDateOfBirth))
+        if(Helper.isEmptyOrNull(patientID) || Helper.isEmptyOrNull(patientFirstName) || Helper.isEmptyOrNull(patientLastName) || Helper.isEmptyOrNull(patientDateOfBirth))
             return null;
 
         //Generating patientID

@@ -1,5 +1,10 @@
 package za.ac.cput.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.util.Objects;
+
 /**
  *
  * Rhegan Albert Fortuin

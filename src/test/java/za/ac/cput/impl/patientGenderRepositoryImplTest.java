@@ -5,14 +5,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import za.ac.cput.domain.PatientGender;
 import za.ac.cput.factory.PatientGenderFactory;
-import za.ac.cput.repository.impl.patientGenderRepositoryImpl;
-import za.ac.cput.util.Helper;
+import za.ac.cput.repository.*;
+import za.ac.cput.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.MethodName.class)
 class patientGenderRepositoryImplTest {
-    private static patientGenderRepositoryImpl repository = patientGenderRepositoryImpl.getRepository();
+    private static patientGenderRepository repository = patientGenderRepository.getRepository();
     private static PatientGender patientGender = PatientGenderFactory.createPatientGender(Helper.generateID(), Helper.generateID());
 
     @Test

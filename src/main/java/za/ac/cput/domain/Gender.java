@@ -1,12 +1,15 @@
 package za.ac.cput.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.util.Objects;
+
 /**
- *
  * Rhegan Albert Fortuin
  * 219273693
  * Gender entity
  * 14 August 2022
- *
  */
 
 @Entity
@@ -20,7 +23,7 @@ public class Gender {
     private String sex;
 
     //builder constructor
-    public Gender(genderBuilder builder){
+    public Gender(genderBuilder builder) {
         this.genderID = builder.genderID;
         this.name = builder.name;
         this.description = builder.description;
@@ -28,7 +31,8 @@ public class Gender {
     }
 
     //constructor
-    protected Gender() {}
+    protected Gender() {
+    }
 
     //getters
     public String getGenderID() {
@@ -46,6 +50,7 @@ public class Gender {
     public String getSex() {
         return sex;
     }
+
     //toString
     @Override
     public String toString() {
@@ -73,7 +78,7 @@ public class Gender {
     }
 
     //builder class
-    public static class genderBuilder{
+    public static class genderBuilder {
         private String genderID;
         private String name;
         private String description;
@@ -109,7 +114,7 @@ public class Gender {
                     '}';
         }
 
-        public genderBuilder copy(Gender gender){
+        public genderBuilder copy(Gender gender) {
             this.genderID = gender.genderID;
             this.name = gender.name;
             this.description = gender.description;
@@ -117,7 +122,8 @@ public class Gender {
 
             return this;
         }
-        public Gender build(){
+
+        public Gender build() {
             return new Gender(this);
         }
     }
