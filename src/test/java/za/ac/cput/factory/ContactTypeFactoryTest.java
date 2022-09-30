@@ -8,6 +8,7 @@ package za.ac.cput.factory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.ContactType;
+import za.ac.cput.util.Helper;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,18 +25,14 @@ class ContactTypeFactoryTest {
     }
 
     @Test
-    void testEquality() {
-        assertSame(contact1, contact3);
-        assertNotSame(contact1, contact2);
+    void ContactTypeTest() {
+        ContactType contactType = new ContactType.Builder().setContactTypeId(Helper.generateID()).setName("Mark").setUrgent(true).setDescription("I am a doctor").build();
+        assertNotNull(contactType);
     }
 
     @Test
-    void testIdentity() {
-        assertSame(contact1, contact2);
-    }
-
-    @Test
-    void testNull() {
-        assertNotNull(contact1);
+    void ContactTypeFactoryTest() {
+        ContactType contactType = ContactTypeFactory.createContactType("Mark", true, "I am a doctor!");
+        assertNotNull(contactType);
     }
 }
