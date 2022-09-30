@@ -8,13 +8,19 @@ package za.ac.cput.factory;
  */
 
 import za.ac.cput.domain.Employee;
+import za.ac.cput.util.Helper;
 
 public class EmployeeFactory {
 
     private EmployeeFactory(){}
 
-    public static Employee getEmployee(String empId, String firstName, String lastName, String dateOfBirth)
+    public static Employee createEmployee(String firstName, String lastName, String dateOfBirth)
     {
+        if(Helper.isEmptyOrNull(firstName) || Helper.isEmptyOrNull(lastName) || Helper.isEmptyOrNull(dateOfBirth))
+            return null;
+
+        String empId = Helper.generateID();
+
         return new Employee.EmployeeBuilder()
                 .buildId(empId)
                 .buildName(firstName)

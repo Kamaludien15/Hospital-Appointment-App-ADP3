@@ -8,13 +8,19 @@ package za.ac.cput.factory;
  */
 
 import za.ac.cput.domain.Department;
+import za.ac.cput.util.Helper;
 
 public class DepartmentFactory {
 
     private DepartmentFactory(){}
 
-    public static Department getDepartment(String departmentId, String departmentName, String departmentSize, String departmentFloor)
+    public static Department createDepartment(String departmentName, String departmentSize, String departmentFloor)
     {
+        if(Helper.isEmptyOrNull(departmentName) || Helper.isEmptyOrNull(departmentSize) || Helper.isEmptyOrNull(departmentFloor))
+            return null;
+
+        String departmentId = Helper.generateID();
+
         return new Department.DepartmentBuilder()
                 .buildId(departmentId)
                 .buildDepartmentName(departmentName)

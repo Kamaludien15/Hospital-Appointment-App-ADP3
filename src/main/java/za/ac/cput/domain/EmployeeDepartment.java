@@ -7,49 +7,91 @@ package za.ac.cput.domain;
  Date: 10 April 2022
  */
 
-public class EmployeeDepartment {
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
 
-    //instance variables
-    private String departmentId;
-    private String employeeId;
+@Entity
+public class EmployeeDepartment implements Serializable {
 
-    public String getDepartmentId() {
-        return departmentId;
+    @Id
+    @Column(name="employeeDepartmentId")
+    private String employeeDepartmentId;
+
+    @ManyToOne
+    @JoinColumn(name = "employeeId", referencedColumnName = "employeeId")
+    private Employee employee;
+
+    @OneToMany
+    @JoinColumn(name = "departmentId", referencedColumnName = "departmentId")
+    private Department department;
+
+    private EmployeeDepartment(){}
+
+    public String getEmployeeDepartmentId() {
+        return employeeDepartmentId;
     }
 
-    public String getEmployeeId() {
-        return employeeId;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    private EmployeeDepartment(){};
+    public Department getDepartment() {
+        return department;
+    }
 
-    public static class EmployeeDepartmentBuilder
-    {
-        //instance variables
-        private String departmentId;
-        private String employeeId;
+    public static class EmployeeDepartmentBuilder{
 
-        public EmployeeDepartmentBuilder buildId(String id)
-        {
-            this.departmentId = id;
+        private String employeeDepartmentId;
+        private Employee employee;
+        private Department department;
+
+
+
+        public EmployeeDepartmentBuilder setEmployeeDepartmentId(String employeeDepartmentId) {
+            this.employeeDepartmentId = employeeDepartmentId;
             return this;
-        }//end of buildId method
+        }
 
-        public EmployeeDepartmentBuilder buildEmployeeId(String id)
-        {
-            this.employeeId = id;
+        public EmployeeDepartmentBuilder setEmployee(Employee employee) {
+            this.employee = employee;
             return this;
-        }//end of buildEmployeeId method
+        }
 
-        public EmployeeDepartment getEmployeeDepartment()
-        {
+        public EmployeeDepartmentBuilder setDepartment(Department department) {
+            this.department = department;
+            return this;
+        }
+
+        public EmployeeDepartment build(){
             EmployeeDepartment employeeDepartment = new EmployeeDepartment();
-            employeeDepartment.departmentId       = this.departmentId;
-            employeeDepartment.employeeId         = this.employeeId;
-
+            employeeDepartment.employeeDepartmentId = this.employeeDepartmentId;
+            employeeDepartment.employee   = this.employee;
+            employeeDepartment.department = this.department;
             return employeeDepartment;
-        }//end of getEmployeeDepartment method
+        }
 
-    }//end of EmployeeDepartmentBuilder class
+    }//end of builder class
 
+    @Override
+    public String toString() {
+        return "EmployeeDepartment{" +
+                "employeeDepartmentId='" + employeeDepartmentId + '\'' +
+                ", employee=" + employee +
+                ", department=" + department +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EmployeeDepartment that = (EmployeeDepartment) o;
+        return Objects.equals(employeeDepartmentId, that.employeeDepartmentId) && Objects.equals(employee, that.employee) && Objects.equals(department, that.department);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(employeeDepartmentId, employee, department);
+    }
 }
