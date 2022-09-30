@@ -15,7 +15,8 @@ class ProcedureFactoryTest {
 
     @Test
     void createProcedure() {
-        Procedure procedure = ProcedureFactory.createProcedure("1002006", "X-Ray", "Chest x-ray", "R2500.00");
+        Procedure procedure = ProcedureFactory.createProcedure("X-Ray", "Chest x-ray",
+                "R2500.00");
         assertNotNull(procedure);
         System.out.println(procedure);
     }

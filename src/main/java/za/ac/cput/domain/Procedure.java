@@ -6,8 +6,19 @@
  * */
 package za.ac.cput.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.util.Objects;
+
+@Entity
 public class Procedure {
-    private String procedureID, procedureName, procedureDescription, procedureCost;
+    @Id
+    private String procedureID;
+    private String procedureName;
+    private String procedureDescription;
+    private String procedureCost;
+
+    protected Procedure() {}
 
     private Procedure(Builder builder) {
         this.procedureID = builder.procedureID;
@@ -20,42 +31,16 @@ public class Procedure {
         return procedureID;
     }
 
-    public void setProcedureID(String procedureID) {
-        this.procedureID = procedureID;
-    }
-
     public String getProcedureName() {
         return procedureName;
-    }
-
-    public void setProcedureName(String procedureName) {
-        this.procedureName = procedureName;
     }
 
     public String getProcedureDescription() {
         return procedureDescription;
     }
 
-    public void setProcedureDescription(String procedureDescription) {
-        this.procedureDescription = procedureDescription;
-    }
-
     public String getProcedureCost() {
         return procedureCost;
-    }
-
-    public void setProcedureCost(String procedureCost) {
-        this.procedureCost = procedureCost;
-    }
-
-    @Override
-    public String toString() {
-        return "Procedure{" +
-                "procedureID='" + procedureID + '\'' +
-                ", procedureName='" + procedureName + '\'' +
-                ", procedureDescription='" + procedureDescription + '\'' +
-                ", procedureCost='" + procedureCost + '\'' +
-                '}';
     }
 
     public static class Builder {
@@ -92,5 +77,28 @@ public class Procedure {
         public Procedure build() {
             return new Procedure(this);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Procedure procedure = (Procedure) o;
+        return procedureID.equals(procedure.procedureID) && procedureName.equals(procedure.procedureName) && procedureDescription.equals(procedure.procedureDescription) && procedureCost.equals(procedure.procedureCost);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(procedureID, procedureName, procedureDescription, procedureCost);
+    }
+
+    @Override
+    public String toString() {
+        return "Procedure{" +
+                "procedureID='" + procedureID + '\'' +
+                ", procedureName='" + procedureName + '\'' +
+                ", procedureDescription='" + procedureDescription + '\'' +
+                ", procedureCost='" + procedureCost + '\'' +
+                '}';
     }
 }

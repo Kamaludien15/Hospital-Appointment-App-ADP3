@@ -7,9 +7,17 @@
 package za.ac.cput.factory;
 
 import za.ac.cput.domain.Procedure;
+import za.ac.cput.util.Helper;
 
 public class ProcedureFactory {
-    public static Procedure createProcedure(String procedureID, String procedureName, String procedureDescription, String procedureCost) {
-        return new Procedure.Builder().setProcedureID(procedureID).setProcedureName(procedureName).setProcedureDescription(procedureDescription).setProcedureCost(procedureCost).build();
+    public static Procedure createProcedure(String procedureName, String procedureDescription, String procedureCost) {
+        String procedureID = Helper.generateID();
+
+        if (Helper.isEmptyOrNull(procedureName) || Helper.isEmptyOrNull(procedureDescription) ||
+                Helper.isEmptyOrNull(procedureCost))
+            throw new IllegalArgumentException();
+
+        return new Procedure.Builder().setProcedureID(procedureID).setProcedureName(procedureName).
+                setProcedureDescription(procedureDescription).setProcedureCost(procedureCost).build();
     }
 }

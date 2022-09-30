@@ -15,7 +15,8 @@ class MedicineFactoryTest {
 
     @Test
     void createMedicine() {
-        Medicine medicine = MedicineFactory.createMedicine("1001002", "100ml", "5ml", "R150.00");
+        Medicine medicine = MedicineFactory.createMedicine("Ibuprofen", "100ml", "5ml",
+                "R150.00");
         assertNotNull(medicine);
         System.out.println(medicine);
     }
