@@ -2,41 +2,41 @@ package za.ac.cput.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import za.ac.cput.factory.LocationFactory;
-import za.ac.cput.repository.ILocationRepository;
+import za.ac.cput.domain.PatientGender;
+import za.ac.cput.factory.PatientGenderFactory;
 import za.ac.cput.repository.IPatientGenderRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PatientGenderService implements IPatientGender{
+public class PatientGenderService implements IPatientGenderService{
 
     private static IPatientGenderRepository repository = null;
 
     @Autowired
-    private LocationService(ILocationRepository locationRepository){
-        this.repository = locationRepository;
+    private PatientGenderService(IPatientGenderRepository patientGenderRepository){
+        this.repository = patientGenderRepository;
     }
 
     @Override
-    public Location save(Location location) {
-        Location obj = LocationFactory.createLocation(location.getStreetName(), location.getStreetNum(), location.getSuburb(), location.getPostalCode());
+    public PatientGender save(PatientGender patientGender) {
+        PatientGender obj = PatientGenderFactory.createPatientGender(patientGender.getPatientGenderID(), patientGender.getPatientID(), patientGender.getGenderID());
         return this.repository.save(obj);
     }
 
     @Override
-    public Optional<Location> read(String id) {
+    public Optional<PatientGender> read(String id) {
         return this.repository.findById(id);
     }
 
     @Override
-    public void delete(Location location) {
-        this.repository.delete(location);
+    public void delete(PatientGender patientGender) {
+        this.repository.delete(patientGender);
     }
 
     @Override
-    public List<Location> getAll() {
+    public List<PatientGender> getAll() {
         return this.repository.findAll();
     }
 }

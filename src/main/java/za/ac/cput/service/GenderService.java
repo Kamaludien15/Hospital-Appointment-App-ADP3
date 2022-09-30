@@ -2,9 +2,9 @@ package za.ac.cput.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import za.ac.cput.factory.LocationFactory;
+import za.ac.cput.domain.Gender;
+import za.ac.cput.factory.GenderFactory;
 import za.ac.cput.repository.IGenderRepository;
-import za.ac.cput.repository.ILocationRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,28 +15,28 @@ public class GenderService implements IGenderService{
     private static IGenderRepository repository = null;
 
     @Autowired
-    private LocationService(ILocationRepository locationRepository){
-        this.repository = locationRepository;
+    private GenderService(IGenderRepository genderRepository){
+        this.repository = genderRepository;
     }
 
     @Override
-    public Location save(Location location) {
-        Location obj = LocationFactory.createLocation(location.getStreetName(), location.getStreetNum(), location.getSuburb(), location.getPostalCode());
+    public Gender save(Gender gender) {
+        Gender obj = GenderFactory.createGender(gender.getGenderID(), gender.getName(), gender.getDescription(), gender.getSex());
         return this.repository.save(obj);
     }
 
     @Override
-    public Optional<Location> read(String id) {
+    public Optional<Gender> read(String id) {
         return this.repository.findById(id);
     }
 
     @Override
-    public void delete(Location location) {
-        this.repository.delete(location);
+    public void delete(Gender gender) {
+        this.repository.delete(gender);
     }
 
     @Override
-    public List<Location> getAll() {
+    public List<Gender> getAll() {
         return this.repository.findAll();
     }
 }
