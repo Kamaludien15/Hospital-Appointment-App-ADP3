@@ -6,9 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import za.ac.cput.api.AppointmentAPI;
 import za.ac.cput.api.PatientGenderAPI;
-import za.ac.cput.domain.Appointment;
 import za.ac.cput.domain.PatientGender;
 
 import javax.validation.Valid;
