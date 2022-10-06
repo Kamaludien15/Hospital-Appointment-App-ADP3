@@ -24,14 +24,14 @@ public class EmployeeController {
         this.employeeAPI = employeeAPI;
     }
 
-    @PostMapping("saveEmployee")
+    @PostMapping("save")
     public ResponseEntity<Employee> save(@Valid @RequestBody Employee employee){
         log.info("Save request: {}", employee);
         Employee response = this.employeeAPI.save(employee);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("readEmployee/{employee_id}")
+    @GetMapping("read/{employee_id}")
     public ResponseEntity<Employee> read(@PathVariable String employee_id){
         log.info("Read request: {}", employee_id);
         Employee response = this.employeeAPI.read(employee_id)
@@ -39,14 +39,14 @@ public class EmployeeController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("deleteEmployee/{employee}")
+    @DeleteMapping("delete/{employee}")
     public ResponseEntity<Void> delete(@PathVariable Employee employee){
         log.info("Delete request: {}", employee);
         this.employeeAPI.delete(employee);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("getAllEmployees")
+    @GetMapping("all")
     public ResponseEntity<List<Employee>> getAll(){
         List<Employee> response = this.employeeAPI.getAll();
         return ResponseEntity.ok(response);

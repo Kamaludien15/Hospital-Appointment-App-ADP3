@@ -6,5 +6,5 @@ import za.ac.cput.domain.PatientGender;
 
 @Repository
 public interface IPatientGenderRepository extends JpaRepository<PatientGender, String> {
-    public PatientGender findByPatientGenderID(String id);
+    //public PatientGender findPatientGenderByPatientGenderID(String id);
 }

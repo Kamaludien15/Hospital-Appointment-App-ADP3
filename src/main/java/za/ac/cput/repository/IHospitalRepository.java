@@ -14,6 +14,6 @@ import za.ac.cput.domain.Hospital;
 @Repository
 public interface IHospitalRepository extends JpaRepository<Hospital, String> {
 
-    public Hospital findHospitalByHospitalCapacity(int capacity);
+    //public Hospital findHospitalByHospitalCapacity(int capacity);
 
 }

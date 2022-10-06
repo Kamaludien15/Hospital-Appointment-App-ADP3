@@ -17,9 +17,9 @@ class AppointmentFactoryTest {
     Patient patient = PatientFactory.createPatient("Rick", "Rock", "01-Janurary-1999");
     Hospital hospital = HospitalFactory.createHospital("Spring View Hospital", 1000, "Private");
     Employee employee = EmployeeFactory.createEmployee("James", "Johnson", "01-Janurary-1997");
-    Medicine medicine = MedicineFactory.createMedicine("500ml", "Twice Day", 500);
+    Medicine medicine = MedicineFactory.createMedicine("Panado", "500ml", "Twice a day", "R500.00");
     Prescription prescription = PrescriptionFactory.createPrescription(medicine, "01-Janurary-2022", "Twice a year");
-    Procedure procedure = ProcedureFactory.createProcedure("Eye Sight Test", "Test patients eyesight strength", 1000);
+    Procedure procedure = ProcedureFactory.createProcedure("Eye Sight Test", "Test patients eyesight strength", "R1000");
 
     //Testing Builder class for Appointment entity
     @Test

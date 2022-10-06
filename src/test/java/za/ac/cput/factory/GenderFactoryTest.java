@@ -17,5 +17,6 @@ class GenderFactoryTest {
                                                       .setSex("Male")
                                                       .build();
         assertNotNull(gender);
+        System.out.println(gender);
     }
 }

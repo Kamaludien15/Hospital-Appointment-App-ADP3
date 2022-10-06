@@ -6,5 +6,5 @@ import za.ac.cput.domain.Employee;
 
 @Repository
 public interface IEmployeeRepository extends JpaRepository<Employee, String> {
-    public Employee findEmployeeByName(String employeeName);
+    //public Employee findEmployeeByEmployeeFirstName(String employeeName);
 }

@@ -13,6 +13,6 @@ import za.ac.cput.domain.Appointment;
 @Repository
 public interface IAppointmentRepository extends JpaRepository<Appointment, String> {
 
-    public Appointment findByAppointmentID(String id);
+    //public Appointment findByAppointmentID(String id);
 
 }

@@ -6,13 +6,18 @@
  * */
 package za.ac.cput.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
+
 @Entity
+@Table(name = "MEDICALPRO")
 public class Procedure {
     @Id
+    @Column(name = "procedure_id")
     private String procedureID;
     private String procedureName;
     private String procedureDescription;

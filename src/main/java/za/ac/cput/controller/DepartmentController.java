@@ -24,14 +24,14 @@ public class DepartmentController {
         this.departmentAPI = departmentAPI;
     }
 
-    @PostMapping("saveDepartment")
+    @PostMapping("save")
     public ResponseEntity<Department> save(@Valid @RequestBody Department department){
         log.info("Save request: {}", department);
         Department response = this.departmentAPI.save(department);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("readDepartment/{departmentId}")
+    @GetMapping("read/{department_id}")
     public ResponseEntity<Department> read(@PathVariable String departmentId){
         log.info("Read request: {}", departmentId);
         Department response = this.departmentAPI.read(departmentId)
@@ -39,14 +39,14 @@ public class DepartmentController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("deleteDepartment/{department}")
+    @DeleteMapping("delete/{department}")
     public ResponseEntity<Void> delete(@PathVariable Department department){
         log.info("Delete request: {}", department);
         this.departmentAPI.delete(department);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("getAllDepartments")
+    @GetMapping("all")
     public ResponseEntity<List<Department>> getAll(){
         List<Department> response = this.departmentAPI.getAll();
         return ResponseEntity.ok(response);

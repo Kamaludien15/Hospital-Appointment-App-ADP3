@@ -13,6 +13,6 @@ import za.ac.cput.domain.Location;
 @Repository
 public interface ILocationRepository extends JpaRepository<Location, String> {
 
-    public Location findLocationByPostalCodeContaining(int postalCode);
+    //public Location findLocationByPostalCodeContaining(int postalCode);
 
 }

@@ -12,5 +12,5 @@ import java.util.List;
 
 public interface IMedicineService extends IService<Medicine, String> {
     List<Medicine> getAll();
-    Medicine findByName(String name);
+//    Medicine findByName(String name);
 }

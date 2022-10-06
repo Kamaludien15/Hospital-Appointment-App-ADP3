@@ -1,5 +1,6 @@
 package za.ac.cput.api;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import za.ac.cput.domain.ContactType;
 import za.ac.cput.service.IContactTypeService;
@@ -10,8 +11,10 @@ import java.util.Optional;
 @Component
 public class ContactTypeAPI {
 
+
     private final IContactTypeService contactTypeService;
 
+    @Autowired
     public ContactTypeAPI(IContactTypeService contactTypeService){
         this.contactTypeService = contactTypeService;
     }

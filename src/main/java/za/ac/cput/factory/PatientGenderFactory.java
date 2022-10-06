@@ -16,7 +16,7 @@ import za.ac.cput.domain.PatientGender;
 import za.ac.cput.util.*;
 
 public class PatientGenderFactory {
-    public static PatientGender createPatientGender(String patientGenderID, Patient patientID, Gender genderID){
+    public static PatientGender createPatientGender(Patient patientID, Gender genderID){
         //Check for empty or null
         if(Helper.isEmptyOrNull(patientID.toString()) || Helper.isEmptyOrNull(genderID.toString()))
             return null;
@@ -24,7 +24,7 @@ public class PatientGenderFactory {
         //Generating patientGenderID
         String patientIDGen = Helper.generateID();
 
-        return new PatientGender.patientGenderBuilder().setPatientGenderID(patientGenderID)
+        return new PatientGender.patientGenderBuilder().setPatientGenderID(patientIDGen)
                                                        .setPatientID(patientID)
                                                        .setGenderID(genderID)
                                                        .build();

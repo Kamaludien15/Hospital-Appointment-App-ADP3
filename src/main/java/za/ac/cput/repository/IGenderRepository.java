@@ -6,5 +6,5 @@ import za.ac.cput.domain.Gender;
 
 @Repository
 public interface IGenderRepository extends JpaRepository<Gender, String> {
-    public Gender findByGenderID(String id);
+    //public Gender findByGenderID(String id);
 }

@@ -6,5 +6,5 @@ import za.ac.cput.domain.Patient;
 
 @Repository
 public interface IPatientRepository extends JpaRepository<Patient, String> {
-    public Patient findByPatientID(String id);
+    //public Patient findPatientByPatientID(String id);
 }

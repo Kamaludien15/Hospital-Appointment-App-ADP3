@@ -11,7 +11,7 @@ public class PatientContact implements Serializable {
     private String patientContactId;
 
     @OneToOne
-    @JoinColumn(name = "contactType_id", referencedColumnName = "contactType_id")
+    @JoinColumn(name = "contact_type_id", referencedColumnName = "contact_type_id")
     private ContactType contactType;
 
     @OneToOne

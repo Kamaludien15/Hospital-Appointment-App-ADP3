@@ -43,8 +43,8 @@ public class MedicineService implements IMedicineService {
         return this.repository.findAll();
     }
 
-    @Override
-    public Medicine findByName(String name) {
-        return this.repository.findByMedicineName(name);
-    }
+//    @Override
+//    public Medicine findByName(String name) {
+//        return this.repository.findMedicineByMedicineName(name);
+//    }
 }

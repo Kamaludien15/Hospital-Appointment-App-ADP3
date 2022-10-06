@@ -12,10 +12,12 @@ import java.util.Objects;
 @Entity
 public class Prescription {
     @Id
+    @Column(name = "prescription_id")
     private String scriptRef;
     private String scriptIssueDate;
     private String scriptRecurrence;
     @ManyToOne
+    @JoinColumn(name = "medicine_id", referencedColumnName = "medicine_id")
     private Medicine medicineID;
 
     protected Prescription() {}

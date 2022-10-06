@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Medicine;
 import za.ac.cput.factory.MedicineFactory;
+import za.ac.cput.service.MedicineService;
 
 import java.util.List;
 import java.util.Optional;
@@ -54,10 +55,10 @@ class MedicineServiceTest {
         assertEquals(1, medicineList.size());
     }
 
-    @Test
-    void findByName() {
-        Medicine saved = medicineService.save(medicine);
-        Medicine readName = medicineService.findByName(saved.getMedicineName());
-        assertEquals(readName.getMedicineName(), saved.getMedicineName());
-    }
+//    @Test
+//    void findByName() {
+//        Medicine saved = medicineService.save(medicine);
+//        Medicine readName = medicineService.findByName(saved.getMedicineName());
+//        assertEquals(readName.getMedicineName(), saved.getMedicineName());
+//    }
 }

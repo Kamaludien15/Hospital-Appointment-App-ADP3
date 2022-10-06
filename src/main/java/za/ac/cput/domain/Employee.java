@@ -17,7 +17,7 @@ public class Employee {
 
     //instance variables
     @Id
-    @Column(name="employeeId")
+    @Column(name="employee_id")
     private String employeeId;
     private String employeeFirstName;
     private String employeeLastName;
@@ -39,7 +39,7 @@ public class Employee {
         return employeeDateOfBirth;
     }
 
-    private Employee()
+    protected Employee()
     {
     }//end of private constructor
 

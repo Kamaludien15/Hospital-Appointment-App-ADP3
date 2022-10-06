@@ -10,9 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 import za.ac.cput.domain.Appointment;
-import za.ac.cput.service.IAppointmentService;
-import za.ac.cput.service.IEmployeeService;
-import za.ac.cput.service.IHospitalService;
+import za.ac.cput.service.*;
 
 import java.util.List;
 import java.util.Optional;

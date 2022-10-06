@@ -12,5 +12,5 @@ import za.ac.cput.domain.Medicine;
 
 @Repository
 public interface IMedicineRepository extends JpaRepository<Medicine, String> {
-    Medicine findByMedicineName(String name);
+    //Medicine findMedicineByMedicineName(String name);
 }

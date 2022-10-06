@@ -11,7 +11,7 @@ public class EmployeeContact implements Serializable {
     private String employeeContactId;
 
     @OneToOne
-    @JoinColumn(name = "contacType_id", referencedColumnName = "contacType_id")
+    @JoinColumn(name = "contact_type_id", referencedColumnName = "contact_type_id")
     private ContactType contactType;
 
     @OneToOne

@@ -24,14 +24,14 @@ public class EmployeeDepartmentController {
         this.employeeDepartmentApi = employeeDepartmentApi;
     }
 
-    @PostMapping("saveEmployeeDepartment")
+    @PostMapping("save")
     public ResponseEntity<EmployeeDepartment> save(@Valid @RequestBody EmployeeDepartment employeeDepartment){
         log.info("Save request: {}", employeeDepartment);
         EmployeeDepartment response = this.employeeDepartmentApi.save(employeeDepartment);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("readEmployeeDepartment/{employeeDepartmentId}")
+    @GetMapping("read/{employee_department_id}")
     public ResponseEntity<EmployeeDepartment> read(@PathVariable String employeeDepartmentId){
         log.info("Read request: {}", employeeDepartmentId);
         EmployeeDepartment response = this.employeeDepartmentApi.read(employeeDepartmentId)
@@ -39,14 +39,14 @@ public class EmployeeDepartmentController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("deleteEmployeeInDepartment/{employeeInDepartment}")
+    @DeleteMapping("delete/{employee_in_department}")
     public ResponseEntity<Void> delete(@PathVariable EmployeeDepartment employeeInDepartment){
         log.info("Delete request: {}", employeeInDepartment);
         this.employeeDepartmentApi.delete(employeeInDepartment);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("getAllEmployeeDepartments")
+    @GetMapping("all")
     public ResponseEntity<List<EmployeeDepartment>> getAll(){
         List<EmployeeDepartment> response = this.employeeDepartmentApi.getAll();
         return ResponseEntity.ok(response);

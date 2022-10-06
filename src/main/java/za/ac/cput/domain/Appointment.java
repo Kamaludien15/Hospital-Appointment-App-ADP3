@@ -30,7 +30,7 @@ public class Appointment implements Serializable {
     @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
     private Employee employee;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "prescription_id", referencedColumnName = "prescription_id")
     private Prescription prescription;
 

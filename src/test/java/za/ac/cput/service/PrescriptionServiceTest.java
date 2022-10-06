@@ -13,6 +13,7 @@ import za.ac.cput.domain.Medicine;
 import za.ac.cput.domain.Prescription;
 import za.ac.cput.factory.MedicineFactory;
 import za.ac.cput.factory.PrescriptionFactory;
+import za.ac.cput.service.PrescriptionService;
 
 import java.util.List;
 import java.util.Optional;

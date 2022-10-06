@@ -15,6 +15,7 @@ import za.ac.cput.api.LocationAPI;
 import za.ac.cput.domain.Hospital;
 import za.ac.cput.domain.Location;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -30,14 +31,14 @@ public class LocationController {
 
     @PostMapping("save")
     public ResponseEntity<Location> save(@Valid @RequestBody Location location){
-        log.info("Save request: {}", location);
+        //log.info("Save request: {}", location);
         Location response = this.api.save(location);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("read/{location_id}")
     public ResponseEntity<Location> read(@PathVariable String id){
-        log.info("Read request: {}", id);
+        //log.info("Read request: {}", id);
         Location response = this.api.read(id)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Location not found"));
         return ResponseEntity.ok(response);
@@ -45,8 +46,8 @@ public class LocationController {
 
     @DeleteMapping("delete/{location}")
     public ResponseEntity<Void> delete(@PathVariable Location location){
-        log.info("Delete request: {}", Location);
-        this.api.delete(Location);
+        //log.info("Delete request: {}", Location);
+        this.api.delete(location);
         return ResponseEntity.noContent().build();
     }
 

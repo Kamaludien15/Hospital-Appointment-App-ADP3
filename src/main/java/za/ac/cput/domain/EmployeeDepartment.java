@@ -15,18 +15,18 @@ import java.util.Objects;
 public class EmployeeDepartment implements Serializable {
 
     @Id
-    @Column(name="employeeDepartmentId")
+    @Column(name="employee_department_id")
     private String employeeDepartmentId;
 
-    @ManyToOne
-    @JoinColumn(name = "employeeId", referencedColumnName = "employeeId")
+    @OneToOne
+    @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
     private Employee employee;
 
-    @OneToMany
-    @JoinColumn(name = "departmentId", referencedColumnName = "departmentId")
+    @OneToOne
+    @JoinColumn(name = "department_id", referencedColumnName = "department_id")
     private Department department;
 
-    private EmployeeDepartment(){}
+    protected EmployeeDepartment(){}
 
     public String getEmployeeDepartmentId() {
         return employeeDepartmentId;

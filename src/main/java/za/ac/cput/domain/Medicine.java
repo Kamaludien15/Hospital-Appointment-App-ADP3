@@ -6,6 +6,7 @@
  * */
 package za.ac.cput.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Objects;
@@ -13,6 +14,7 @@ import java.util.Objects;
 @Entity
 public class Medicine {
     @Id
+    @Column(name ="medicine_id")
     private String medicineID;
     private String medicineName;
     private String volume;

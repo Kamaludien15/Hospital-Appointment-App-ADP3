@@ -31,7 +31,7 @@ public class PatientGenderController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("read/{appointment_id}")
+    @GetMapping("read/{patient_gender_id}")
     public ResponseEntity<PatientGender> read(@PathVariable String id){
         log.info("Read request: {}", id);
         PatientGender response = this.api.read(id)
@@ -39,7 +39,7 @@ public class PatientGenderController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("delete/{appointment}")
+    @DeleteMapping("delete/{patientGender}")
     public ResponseEntity<Void> delete(@PathVariable PatientGender patientGender){
         log.info("Delete request: {}", patientGender);
         this.api.delete(patientGender);

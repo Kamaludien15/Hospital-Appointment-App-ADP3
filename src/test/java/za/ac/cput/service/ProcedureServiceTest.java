@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Procedure;
 import za.ac.cput.factory.ProcedureFactory;
+import za.ac.cput.service.ProcedureService;
 
 import java.util.List;
 import java.util.Optional;

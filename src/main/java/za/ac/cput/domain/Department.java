@@ -17,7 +17,7 @@ public class Department {
 
     //instance variables
     @Id
-    @Column(name="departmentId")
+    @Column(name="department_id")
     private String departmentId;
     private String departmentName;
     private String departmentSize;
@@ -39,7 +39,7 @@ public class Department {
         return departmentFloor;
     }
 
-    private Department(){}
+    protected Department(){}
 
     public static class DepartmentBuilder
     {

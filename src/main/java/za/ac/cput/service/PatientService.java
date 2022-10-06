@@ -21,7 +21,7 @@ public class PatientService implements IPatientService{
 
     @Override
     public Patient save(Patient patient) {
-        Patient obj = PatientFactory.createPatient(patient.getPatientID(), patient.getPatientFirstName(), patient.getPatientLastName(), patient.getPatientDateOfBirth());
+        Patient obj = PatientFactory.createPatient(patient.getPatientFirstName(), patient.getPatientLastName(), patient.getPatientDateOfBirth());
         return this.repository.save(obj);
     }
 

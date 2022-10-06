@@ -1,5 +1,6 @@
 package za.ac.cput.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/hospital_appointment_management-db/ContactType")
+@Slf4j
 public class ContactTypeController {
 
     private ContactTypeAPI api;

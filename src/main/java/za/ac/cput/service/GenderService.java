@@ -21,7 +21,7 @@ public class GenderService implements IGenderService{
 
     @Override
     public Gender save(Gender gender) {
-        Gender obj = GenderFactory.createGender(gender.getGenderID(), gender.getName(), gender.getDescription(), gender.getSex());
+        Gender obj = GenderFactory.createGender(gender.getName(), gender.getDescription(), gender.getSex());
         return this.repository.save(obj);
     }
 

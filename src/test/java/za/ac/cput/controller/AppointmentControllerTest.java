@@ -15,13 +15,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import za.ac.cput.domain.*;
-import za.ac.cput.domain.Address;
-import za.ac.cput.domain.City;
-import za.ac.cput.domain.Country;
 import za.ac.cput.factory.*;
-import za.ac.cput.factory.AddressFactory;
-import za.ac.cput.factory.CityFactory;
-import za.ac.cput.factory.CountryFactory;
 
 import java.util.Arrays;
 
@@ -51,9 +45,9 @@ class AppointmentControllerTest {
         this.patient = PatientFactory.createPatient("Rick", "Rock", "01-Janurary-1999");
         this.hospital = HospitalFactory.createHospital("Spring View Hospital", 1000, "Private");
         this.employee = EmployeeFactory.createEmployee("James", "Johnson", "01-Janurary-1997");
-        this.medicine = MedicineFactory.createMedicine("500ml", "Twice Day", 500);
+        this.medicine = MedicineFactory.createMedicine("Panado", "500ml", "Twice a day", "R500.00");
         this.prescription = PrescriptionFactory.createPrescription(medicine, "01-Janurary-2022", "Twice a year");
-        this.procedure = ProcedureFactory.createProcedure("Eye Sight Test", "Test patients eyesight strength", 1000);
+        this.procedure = ProcedureFactory.createProcedure("Eye Sight Test", "Test patients eyesight strength", "R1000");
         this.appointment = AppointmentFactory.createAppointment(patient,hospital,employee,prescription,procedure,"01-January-2022");
 
         this.baseUrl = "http://localhost:"+ this.port + "hospital_appointment_management-db/appointment/";

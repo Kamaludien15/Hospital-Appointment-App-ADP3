@@ -6,5 +6,5 @@ import za.ac.cput.domain.Department;
 
 @Repository
 public interface IDepartmentRepository extends JpaRepository<Department, String> {
-    public Department findDepartmentByName(String departmentName);
+    //public Department findDepartmentByDepartmentName(String departmentName);
 }
