@@ -21,8 +21,7 @@ public class PatientContactService implements IPatientContactService{
 
     @Override
     public PatientContact save(PatientContact patientContact) {
-        PatientContact obj = PatientContactFactory.createPatientContact(patientContact.getContactType(), patientContact.getPatient());
-        return this.repository.save(obj);
+        return this.repository.save(patientContact);
     }
 
     @Override

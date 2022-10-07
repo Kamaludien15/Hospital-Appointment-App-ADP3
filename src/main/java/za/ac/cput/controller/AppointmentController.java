@@ -37,9 +37,9 @@ public class AppointmentController {
     }
 
     @GetMapping("read/{appointment_id}")
-    public ResponseEntity<Appointment> read(@PathVariable String id){
-        log.info("Read request: {}", id);
-        Appointment response = this.api.read(id)
+    public ResponseEntity<Appointment> read(@PathVariable String appointment_id){
+        log.info("Read request: {}", appointment_id);
+        Appointment response = this.api.read(appointment_id)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found"));
         return ResponseEntity.ok(response);
     }

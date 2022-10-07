@@ -21,8 +21,7 @@ public class EmployeeContactService implements IEmployeeContactService{
 
     @Override
     public EmployeeContact save(EmployeeContact employeeContact) {
-        EmployeeContact obj = EmployeeContactFactory.createEmployeeContact(employeeContact.getContactType(), employeeContact.getEmployee());
-        return this.repository.save(obj);
+        return this.repository.save(employeeContact);
     }
 
     @Override

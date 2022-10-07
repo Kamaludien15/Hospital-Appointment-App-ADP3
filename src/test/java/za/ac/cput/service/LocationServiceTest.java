@@ -21,9 +21,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class LocationServiceTest {
 
-    private Location location;
-
     @Autowired private LocationService service;
+    private Location location;
 
     @BeforeEach
     void setUp() {
@@ -40,7 +39,7 @@ class LocationServiceTest {
         Location saved = this.service.save(this.location);
         System.out.println(saved);
         assertNotNull(saved);
-        assertSame(this.location, saved);
+        assertSame(this.location.getLocationID(), saved.getLocationID());
     }
 
     @Test
@@ -49,7 +48,7 @@ class LocationServiceTest {
         Optional<Location> read = this.service.read(location.getLocationID());
         assertAll(
                 ()->assertTrue(read.isPresent()),
-                ()->assertSame(saved, read.get())
+                ()->assertSame(saved.getLocationID(), read.get().getLocationID())
         );
     }
 

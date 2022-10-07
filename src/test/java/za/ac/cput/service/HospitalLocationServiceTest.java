@@ -26,6 +26,8 @@ class HospitalLocationServiceTest {
     private HospitalLocation hospitalLocation;
 
     @Autowired private HospitalLocationService service;
+    @Autowired private HospitalService serviceHospital;
+    @Autowired private LocationService serviceLocation;
 
     @BeforeEach
     void setUp() {
@@ -37,28 +39,36 @@ class HospitalLocationServiceTest {
     @AfterEach
     void tearDown() {
         this.service.delete(hospitalLocation);
+        this.serviceLocation.delete(this.location);
+        this.serviceHospital.delete(this.hospital);
     }
 
     @Test
     void save() {
+        Hospital savedHospital = this.serviceHospital.save(this.hospital);
+        Location savedLocation = this.serviceLocation.save(this.location);
         HospitalLocation saved = this.service.save(this.hospitalLocation);
         System.out.println(saved);
         assertNotNull(saved);
-        assertSame(this.hospitalLocation, saved);
+        assertSame(this.hospitalLocation.getHospitalLocationId(), saved.getHospitalLocationId());
     }
 
     @Test
     void read() {
+        Hospital savedHospital = this.serviceHospital.save(this.hospital);
+        Location savedLocation = this.serviceLocation.save(this.location);
         HospitalLocation saved = this.service.save(this.hospitalLocation);
         Optional<HospitalLocation> read = this.service.read(hospitalLocation.getHospitalLocationId());
         assertAll(
                 ()->assertTrue(read.isPresent()),
-                ()->assertSame(saved, read.get())
+                ()->assertSame(saved.getHospitalLocationId(), read.get().getHospitalLocationId())
         );
     }
 
     @Test
     void delete() {
+        Hospital savedHospital = this.serviceHospital.save(this.hospital);
+        Location savedLocation = this.serviceLocation.save(this.location);
         HospitalLocation saved = this.service.save(this.hospitalLocation);
         this.service.delete(saved);
         List<HospitalLocation> addressSet = this.service.getAll();
@@ -67,6 +77,8 @@ class HospitalLocationServiceTest {
 
     @Test
     void getAll() {
+        Hospital savedHospital = this.serviceHospital.save(this.hospital);
+        Location savedLocation = this.serviceLocation.save(this.location);
         this.service.save(this.hospitalLocation);
         List<HospitalLocation> addressSet = this.service.getAll();
         assertEquals(1,addressSet.size());

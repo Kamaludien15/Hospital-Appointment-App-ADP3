@@ -21,8 +21,7 @@ public class PatientGenderService implements IPatientGenderService{
 
     @Override
     public PatientGender save(PatientGender patientGender) {
-        PatientGender obj = PatientGenderFactory.createPatientGender(patientGender.getPatientID(), patientGender.getGenderID());
-        return this.repository.save(obj);
+        return this.repository.save(patientGender);
     }
 
     @Override

@@ -28,22 +28,22 @@ class HospitalLocationControllerTest {
     @LocalServerPort
     private int port;
 
-    @Autowired private HospitalLocationController hospitalLocationController;
     @Autowired private TestRestTemplate restTemplate;
 
-    private HospitalLocation hospitalLocation;
-    private Hospital hospital;
-    private Location location;
+    private static Hospital hospital = HospitalFactory.createHospital("Spring View Hospital", 1000, "Private");
+    private static Location location = LocationFactory.createLocation("Johnson",75,"Deip River",7600);
+    private static HospitalLocation hospitalLocation = HospitalLocationFactory.createHospitalLocation(hospital, location);
     private String baseUrl;
+
+
 
     @BeforeEach
     void setUp() {
-        assertNotNull(hospitalLocationController);
-        this.location = LocationFactory.createLocation("Johnson",75,"Deip River",7600);
-        this.hospital = HospitalFactory.createHospital("Spring View Hospital", 1000, "Private");
-        this.hospitalLocation = HospitalLocationFactory.createHospitalLocation(hospital, location);
-
-        this.baseUrl = "http://localhost:"+ this.port + "hospital_appointment_management-db/hospitalLocation/";
+        String urlHospital = "http://localhost:"+ this.port + "/hospital_appointment_management-db/hospital/save";
+        ResponseEntity<Hospital> responseHospital = this.restTemplate.postForEntity(urlHospital, this.hospital, Hospital.class);
+        String urlLocation = "http://localhost:"+ this.port + "/hospital_appointment_management-db/location/save";
+        ResponseEntity<Location> responseLocation = this.restTemplate.postForEntity(urlLocation, this.location, Location.class);
+        this.baseUrl = "http://localhost:"+ this.port + "/hospital_appointment_management-db/hospitalLocation/";
     }
 
     @AfterEach
@@ -51,7 +51,7 @@ class HospitalLocationControllerTest {
     }
 
     @Test
-    void save() {
+    void a_save() {
         String url = baseUrl + "save";
         System.out.println(url);
         ResponseEntity<HospitalLocation> response = this.restTemplate.postForEntity(url, this.hospitalLocation, HospitalLocation.class);
@@ -63,7 +63,7 @@ class HospitalLocationControllerTest {
     }
 
     @Test
-    void read() {
+    void b_read() {
         String url = baseUrl+"read/" + this.hospitalLocation.getHospitalLocationId();
         System.out.println(url);
         ResponseEntity<HospitalLocation> response = this.restTemplate.getForEntity(url, HospitalLocation.class);
@@ -74,7 +74,7 @@ class HospitalLocationControllerTest {
     }
 
     @Test
-    void getAll() {
+    void c_getAll() {
         String url = baseUrl + "all";
         System.out.println(url);
         ResponseEntity<HospitalLocation[]> response = this.restTemplate.getForEntity(url, HospitalLocation[].class);
@@ -86,7 +86,7 @@ class HospitalLocationControllerTest {
     }
 
     @Test
-    void delete() {
+    void d_delete() {
         String url = baseUrl + "delete/" + this.hospitalLocation.getHospitalLocationId();
         this.restTemplate.delete(url);
     }

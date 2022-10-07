@@ -13,6 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.*;
 import za.ac.cput.factory.*;
+import za.ac.cput.repository.IHospitalLocationRepository;
+import za.ac.cput.repository.IHospitalRepository;
+import za.ac.cput.repository.ILocationRepository;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +25,8 @@ import java.util.Optional;
 class IHospitalLocationRepositoryTest {
 
     @Autowired private IHospitalLocationRepository hospitalLocationRepository;
+    @Autowired private ILocationRepository locationRepository;
+    @Autowired private IHospitalRepository hospitalRepository;
     private Hospital hospital;
     private Location location;
     private HospitalLocation hospitalLocation;
@@ -35,29 +41,40 @@ class IHospitalLocationRepositoryTest {
     @AfterEach
     void tearDown(){
         this.hospitalLocationRepository.delete(this.hospitalLocation);
+        this.locationRepository.delete(this.location);
+        this.hospitalRepository.delete(this.hospital);
     }
 
     @Test
     void save() {
+        Hospital savedHospital = this.hospitalRepository.save(this.hospital);
+        Location savedLocation = this.locationRepository.save(this.location);
         HospitalLocation saved = this.hospitalLocationRepository.save(this.hospitalLocation);
+
         System.out.println(saved);
         assertNotNull(saved);
-        assertSame(this.hospitalLocation, saved);
+        assertSame(this.hospitalLocation.getHospital().getHospitalID(), saved.getHospital().getHospitalID());
     }
 
     @Test
     void read() {
+        Hospital savedHospital = this.hospitalRepository.save(this.hospital);
+        Location savedLocation = this.locationRepository.save(this.location);
         HospitalLocation saved = this.hospitalLocationRepository.save(this.hospitalLocation);
+
         Optional<HospitalLocation> read = this.hospitalLocationRepository.findById(this.hospitalLocation.getHospitalLocationId());
         assertAll(
                 ()->assertTrue(read.isPresent()),
-                ()->assertSame(saved, read.get())
+                ()->assertSame(saved.getHospitalLocationId(), read.get().getHospitalLocationId())
         );
     }
 
     @Test
     void delete() {
+        Hospital savedHospital = this.hospitalRepository.save(this.hospital);
+        Location savedLocation = this.locationRepository.save(this.location);
         HospitalLocation saved = this.hospitalLocationRepository.save(this.hospitalLocation);
+
         this.hospitalLocationRepository.delete(saved);
         List<HospitalLocation> hospitalLocationList = this.hospitalLocationRepository.findAll();
         assertEquals(0,hospitalLocationList.size());
@@ -65,7 +82,10 @@ class IHospitalLocationRepositoryTest {
 
     @Test
     void getAll() {
+        Hospital savedHospital = this.hospitalRepository.save(this.hospital);
+        Location savedLocation = this.locationRepository.save(this.location);
         this.hospitalLocationRepository.save(this.hospitalLocation);
+
         List<HospitalLocation> hospitalLocationList = this.hospitalLocationRepository.findAll();
         assertEquals(1,hospitalLocationList.size());
     }

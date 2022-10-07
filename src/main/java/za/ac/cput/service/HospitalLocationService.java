@@ -26,8 +26,7 @@ public class HospitalLocationService implements IHospitalLocationService{
 
     @Override
     public HospitalLocation save(HospitalLocation hospitalLocation) {
-        HospitalLocation obj = HospitalLocationFactory.createHospitalLocation(hospitalLocation.getHospital(), hospitalLocation.getLocation());
-        return this.repository.save(obj);
+        return this.repository.save(hospitalLocation);
     }
 
     @Override

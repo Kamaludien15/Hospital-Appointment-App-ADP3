@@ -27,18 +27,15 @@ class LocationControllerTest {
     @LocalServerPort
     private int port;
 
-    @Autowired private LocationController locationController;
+
     @Autowired private TestRestTemplate restTemplate;
 
-    private Location location;
+    private static Location location = LocationFactory.createLocation("Johnson",75,"Deip River",7600);
     private String baseUrl;
 
     @BeforeEach
     void setUp() {
-        assertNotNull(locationController);
-        this.location = LocationFactory.createLocation("Johnson",75,"Deip River",7600);
-
-        this.baseUrl = "http://localhost:"+ this.port + "hospital_appointment_management-db/location/";
+        this.baseUrl = "http://localhost:"+ this.port + "/hospital_appointment_management-db/location/";
     }
 
     @AfterEach
@@ -46,7 +43,7 @@ class LocationControllerTest {
     }
 
     @Test
-    void save() {
+    void a_save() {
         String url = baseUrl + "save";
         System.out.println(url);
         ResponseEntity<Location> response = this.restTemplate.postForEntity(url, this.location, Location.class);
@@ -58,8 +55,8 @@ class LocationControllerTest {
     }
 
     @Test
-    void read() {
-        String url = baseUrl+"read/" + this.location.getLocationID();
+    void b_read() {
+        String url = baseUrl + "read/" + this.location.getLocationID();
         System.out.println(url);
         ResponseEntity<Location> response = this.restTemplate.getForEntity(url, Location.class);
         assertAll(
@@ -69,7 +66,7 @@ class LocationControllerTest {
     }
 
     @Test
-    void getAll() {
+    void c_getAll() {
         String url = baseUrl + "all";
         System.out.println(url);
         ResponseEntity<Location[]> response = this.restTemplate.getForEntity(url, Location[].class);
@@ -81,9 +78,10 @@ class LocationControllerTest {
     }
 
     @Test
-    void delete() {
+    void d_delete() {
         String url = baseUrl + "delete/" + this.location.getLocationID();
         this.restTemplate.delete(url);
+        System.out.println(url);
     }
 
 

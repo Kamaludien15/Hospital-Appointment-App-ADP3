@@ -5,6 +5,7 @@
 */
 package za.ac.cput.api;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,7 @@ import za.ac.cput.service.IHospitalService;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class HospitalAPITest {
@@ -30,9 +30,16 @@ class HospitalAPITest {
         this.hospital = HospitalFactory.createHospital("Spring View Hospital", 1000, "Private");
     }
 
+    @AfterEach
+    void tearDown(){
+        this.api.delete(this.hospital);
+    }
+
     @Test
     void save() {
         Hospital saved = this.api.save(this.hospital);
+        assertNotNull(saved);
+        assertSame(this.hospital.getHospitalID(), saved.getHospitalID());
     }
 
     @Test
@@ -49,7 +56,7 @@ class HospitalAPITest {
 
     @Test
     void getAll() {
-        Optional<Hospital> saved = this.api.read(this.hospital.getHospitalID());
+        Hospital saved = this.api.save(this.hospital);
         assertEquals(1, this.api.getAll().size());
     }
 }

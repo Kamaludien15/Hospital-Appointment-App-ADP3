@@ -20,9 +20,6 @@ public class PrescriptionAPI {
     }
 
     public Prescription save(Prescription prescription) {
-        this.prescriptionService.read(prescription.getScriptRef()).
-                orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Prescription Not Found"));
-
         return this.prescriptionService.save(prescription);
     }
 

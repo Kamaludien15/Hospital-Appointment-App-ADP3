@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.*;
 import za.ac.cput.factory.*;
+import za.ac.cput.repository.ILocationRepository;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +41,7 @@ class ILocationRepositoryTest {
         Location saved = this.locationRepository.save(this.location);
         System.out.println(saved);
         assertNotNull(saved);
-        assertSame(this.location, saved);
+        assertSame(this.location.getLocationID(), saved.getLocationID());
     }
 
     @Test
@@ -48,7 +50,7 @@ class ILocationRepositoryTest {
         Optional<Location> read = this.locationRepository.findById(this.location.getLocationID());
         assertAll(
                 ()->assertTrue(read.isPresent()),
-                ()->assertSame(saved, read.get())
+                ()->assertSame(saved.getLocationID(), read.get().getLocationID())
         );
     }
 

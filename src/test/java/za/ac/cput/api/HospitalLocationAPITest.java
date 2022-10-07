@@ -5,6 +5,7 @@
 */
 package za.ac.cput.api;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +16,14 @@ import za.ac.cput.factory.*;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class HospitalLocationAPITest {
 
     @Autowired private HospitalLocationAPI api;
+    @Autowired private HospitalAPI hospitalAPI;
+    @Autowired private LocationAPI locationAPI;
     private Hospital hospital;
     private Location location;
     private HospitalLocation hospitalLocation;
@@ -33,9 +35,20 @@ class HospitalLocationAPITest {
         this.hospitalLocation = HospitalLocationFactory.createHospitalLocation(hospital,location);
     }
 
+    @AfterEach
+    void tearDown(){
+        this.api.delete(this.hospitalLocation);
+        this.hospitalAPI.delete(this.hospital);
+        this.locationAPI.delete(this.location);
+    }
+
     @Test
     void save() {
+        Hospital hospital = this.hospitalAPI.save(this.hospital);
+        Location location = this.locationAPI.save(this.location);
         HospitalLocation saved = this.api.save(this.hospitalLocation);
+        assertNotNull(saved);
+        assertSame(this.hospitalLocation.getHospitalLocationId(), saved.getHospitalLocationId());
     }
 
     @Test
@@ -52,7 +65,9 @@ class HospitalLocationAPITest {
 
     @Test
     void getAll() {
-        Optional<HospitalLocation> saved = this.api.read(this.hospitalLocation.getHospitalLocationId());
+        Hospital hospital = this.hospitalAPI.save(this.hospital);
+        Location location = this.locationAPI.save(this.location);
+        HospitalLocation saved = this.api.save(this.hospitalLocation);
         assertEquals(1, this.api.getAll().size());
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.*;
 import za.ac.cput.factory.*;
+import za.ac.cput.repository.*;
 
 
 import java.util.List;
@@ -23,6 +24,12 @@ import java.util.Optional;
 class IAppointmentRepositoryTest {
 
     @Autowired private IAppointmentRepository appointmentRepository;
+    @Autowired private IPatientRepository patientRepository;
+    @Autowired private IHospitalRepository hospitalRepository;
+    @Autowired private IEmployeeRepository employeeRepository;
+    @Autowired private IMedicineRepository medicineRepository;
+    @Autowired private IPrescriptionRepository prescriptionRepository;
+    @Autowired private IProcedureRepository procedureRepository;
     private Patient patient;
     private Hospital hospital;
     private Employee employee;
@@ -33,41 +40,67 @@ class IAppointmentRepositoryTest {
 
     @BeforeEach
     void setUp() {
-       this.patient = PatientFactory.createPatient("Rick", "Rock", "01-Janurary-1999");
-       this.hospital = HospitalFactory.createHospital("Spring View Hospital", 1000, "Private");
-       this.employee = EmployeeFactory.createEmployee("James", "Johnson", "01-Janurary-1997");
-       this.medicine = MedicineFactory.createMedicine("Panado", "500ml", "Twice a day", "R500.00");
-       this.prescription = PrescriptionFactory.createPrescription(medicine, "01-Janurary-2022", "Twice a year");
-       this.procedure = ProcedureFactory.createProcedure("Eye Sight Test", "Test patients eyesight strength", "R1000");
-       this.appointment = AppointmentFactory.createAppointment(patient,hospital,employee,prescription,procedure,"01-January-2022");
+        this.patient = PatientFactory.createPatient("Rick", "Rock", "01-Janurary-1999");
+        this.hospital = HospitalFactory.createHospital("Spring View Hospital", 1000, "Private");
+        this.employee = EmployeeFactory.createEmployee("James", "Johnson", "01-Janurary-1997");
+        this.medicine = MedicineFactory.createMedicine("Panado", "500ml", "Twice a day", "R500.00");
+        this.prescription = PrescriptionFactory.createPrescription(medicine, "01-Janurary-2022", "Twice a year");
+        this.procedure = ProcedureFactory.createProcedure("Eye Sight Test", "Test patients eyesight strength", "R1000");
+        this.appointment = AppointmentFactory.createAppointment(patient,hospital,employee,prescription,procedure,"01-January-2022");
     }
 
     @AfterEach
     void tearDown(){
         this.appointmentRepository.delete(this.appointment);
+        this.patientRepository.delete(this.patient);
+        this.hospitalRepository.delete(this.hospital);
+        this.employeeRepository.delete(this.employee);
+        this.prescriptionRepository.delete(this.prescription);
+        this.medicineRepository.delete(this.medicine);
+        this.procedureRepository.delete(this.procedure);
     }
 
     @Test
     void save() {
+        Patient savedPatient = this.patientRepository.save(this.patient);
+        Hospital savedHospital = this.hospitalRepository.save(this.hospital);
+        Employee savedEmployee = this.employeeRepository.save(this.employee);
+        Medicine savedMedicine = this.medicineRepository.save(this.medicine);
+        Prescription savedPrescription = this.prescriptionRepository.save(this.prescription);
+        Procedure savedProcedure = this.procedureRepository.save(this.procedure);
         Appointment saved = this.appointmentRepository.save(this.appointment);
-        System.out.println(saved);
+
         assertNotNull(saved);
-        assertSame(this.appointment, saved);
+        assertSame(this.appointment.getAppointmentID(), saved.getAppointmentID());
     }
 
     @Test
     void read() {
+        Patient savedPatient = this.patientRepository.save(this.patient);
+        Hospital savedHospital = this.hospitalRepository.save(this.hospital);
+        Employee savedEmployee = this.employeeRepository.save(this.employee);
+        Medicine savedMedicine = this.medicineRepository.save(this.medicine);
+        Prescription savedPrescription = this.prescriptionRepository.save(this.prescription);
+        Procedure savedProcedure = this.procedureRepository.save(this.procedure);
         Appointment saved = this.appointmentRepository.save(this.appointment);
+
         Optional<Appointment> read = this.appointmentRepository.findById(this.appointment.getAppointmentID());
         assertAll(
                 ()->assertTrue(read.isPresent()),
-                ()->assertSame(saved, read.get())
+                ()->assertSame(saved.getAppointmentID(), read.get().getAppointmentID())
         );
     }
 
     @Test
     void delete() {
+        Patient savedPatient = this.patientRepository.save(this.patient);
+        Hospital savedHospital = this.hospitalRepository.save(this.hospital);
+        Employee savedEmployee = this.employeeRepository.save(this.employee);
+        Medicine savedMedicine = this.medicineRepository.save(this.medicine);
+        Prescription savedPrescription = this.prescriptionRepository.save(this.prescription);
+        Procedure savedProcedure = this.procedureRepository.save(this.procedure);
         Appointment saved = this.appointmentRepository.save(this.appointment);
+
         this.appointmentRepository.delete(saved);
         List<Appointment> appointmentListSet = this.appointmentRepository.findAll();
         assertEquals(0,appointmentListSet.size());
@@ -75,7 +108,14 @@ class IAppointmentRepositoryTest {
 
     @Test
     void getAll() {
-        this.appointmentRepository.save(this.appointment);
+        Patient savedPatient = this.patientRepository.save(this.patient);
+        Hospital savedHospital = this.hospitalRepository.save(this.hospital);
+        Employee savedEmployee = this.employeeRepository.save(this.employee);
+        Medicine savedMedicine = this.medicineRepository.save(this.medicine);
+        Prescription savedPrescription = this.prescriptionRepository.save(this.prescription);
+        Procedure savedProcedure = this.procedureRepository.save(this.procedure);
+        Appointment saved = this.appointmentRepository.save(this.appointment);
+
         List<Appointment> appointmentList = this.appointmentRepository.findAll();
         assertEquals(1,appointmentList.size());
     }

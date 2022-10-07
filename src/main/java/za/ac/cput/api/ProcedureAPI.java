@@ -20,9 +20,6 @@ public class ProcedureAPI {
     }
 
     public Procedure save(Procedure procedure) {
-        this.procedureService.read(procedure.getProcedureID()).
-                orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Procedure Not Found"));
-
         return this.procedureService.save(procedure);
     }
 

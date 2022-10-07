@@ -21,8 +21,7 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public Employee save(Employee employee){
-        Employee employeeObj = EmployeeFactory.createEmployee(employee.getEmployeeFirstName(), employee.getEmployeeLastName(), employee.getEmployeeDateOfBirth());
-        return this.employeeRepository.save(employeeObj);
+        return this.employeeRepository.save(employee);
     }
 
     @Override

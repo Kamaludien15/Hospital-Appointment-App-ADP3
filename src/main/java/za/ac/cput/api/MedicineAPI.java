@@ -20,9 +20,6 @@ public class MedicineAPI {
     }
 
     public Medicine save(Medicine medicine) {
-        this.medicineService.read(medicine.getMedicineID()).
-                orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Medicine Not Found"));
-
         return this.medicineService.save(medicine);
     }
 

@@ -5,6 +5,7 @@
 */
 package za.ac.cput.api;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,7 @@ import za.ac.cput.factory.*;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class LocationAPITest {
@@ -28,9 +28,16 @@ class LocationAPITest {
         this.location = LocationFactory.createLocation("Johnson",75,"Deip River",7600);
     }
 
+    @AfterEach
+    void tearDown(){
+        this.api.delete(this.location);
+    }
+
     @Test
     void save() {
         Location saved = this.api.save(this.location);
+        assertNotNull(saved);
+        assertSame(this.location.getLocationID(), saved.getLocationID());
     }
 
     @Test
@@ -47,7 +54,7 @@ class LocationAPITest {
 
     @Test
     void getAll() {
-        Optional<Location> saved = this.api.read(this.location.getLocationID());
+        Location saved = this.api.save(this.location);
         assertEquals(1, this.api.getAll().size());
     }
 }

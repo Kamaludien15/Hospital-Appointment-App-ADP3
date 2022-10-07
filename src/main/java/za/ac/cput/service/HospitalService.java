@@ -26,8 +26,7 @@ public class HospitalService implements IHospitalService{
 
     @Override
     public Hospital save(Hospital hospital) {
-        Hospital obj = HospitalFactory.createHospital(hospital.getHospitalName(), hospital.getHospitalCapacity(), hospital.getHospitalSector());
-        return this.repository.save(obj);
+        return this.repository.save(hospital);
     }
 
     @Override

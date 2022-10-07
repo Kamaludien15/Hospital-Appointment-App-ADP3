@@ -27,30 +27,33 @@ class AppointmentControllerTest {
     @LocalServerPort
     private int port;
 
-    @Autowired private AppointmentController appointmentController;
     @Autowired private TestRestTemplate restTemplate;
 
-    private Patient patient;
-    private Hospital hospital;
-    private Employee employee;
-    private Medicine medicine;
-    private Prescription prescription;
-    private Procedure procedure;
-    private Appointment appointment;
-    private String baseUrl;
+    private static Patient patient= PatientFactory.createPatient("Rick", "Rock", "01-Janurary-1999");
+    private static Hospital hospital = HospitalFactory.createHospital("Spring View Hospital", 1000, "Private");
+    private static Employee employee = EmployeeFactory.createEmployee("James", "Johnson", "01-Janurary-1997");
+    private static Medicine medicine = MedicineFactory.createMedicine("Panado", "500ml", "Twice a day", "R500.00");
+    private static Prescription prescription = PrescriptionFactory.createPrescription(medicine, "01-Janurary-2022", "Twice a year");
+    private static Procedure procedure = ProcedureFactory.createProcedure("Eye Sight Test", "Test patients eyesight strength", "R1000");
+    private static Appointment appointment = AppointmentFactory.createAppointment(patient,hospital,employee,prescription,procedure,"01-January-2022");
+    private static String baseUrl;
 
     @BeforeEach
     void setUp() {
-        assertNotNull(appointmentController);
-        this.patient = PatientFactory.createPatient("Rick", "Rock", "01-Janurary-1999");
-        this.hospital = HospitalFactory.createHospital("Spring View Hospital", 1000, "Private");
-        this.employee = EmployeeFactory.createEmployee("James", "Johnson", "01-Janurary-1997");
-        this.medicine = MedicineFactory.createMedicine("Panado", "500ml", "Twice a day", "R500.00");
-        this.prescription = PrescriptionFactory.createPrescription(medicine, "01-Janurary-2022", "Twice a year");
-        this.procedure = ProcedureFactory.createProcedure("Eye Sight Test", "Test patients eyesight strength", "R1000");
-        this.appointment = AppointmentFactory.createAppointment(patient,hospital,employee,prescription,procedure,"01-January-2022");
+        String urlPatient = "http://localhost:"+ this.port + "/hospital_appointment_management-db/patient/save";
+        ResponseEntity<Patient> responsePatient = this.restTemplate.postForEntity(urlPatient, this.patient, Patient.class);
+        String urlHospital = "http://localhost:"+ this.port + "/hospital_appointment_management-db/hospital/save";
+        ResponseEntity<Hospital> responseHospital = this.restTemplate.postForEntity(urlHospital, this.hospital, Hospital.class);
+        String urlEmployee = "http://localhost:"+ this.port + "/hospital_appointment_management-db/employee/save";
+        ResponseEntity<Employee> responseEmployee = this.restTemplate.postForEntity(urlEmployee, this.employee, Employee.class);
+        String urlMedicine = "http://localhost:"+ this.port + "/hospital_appointment_management-db/medicine/save";
+        ResponseEntity<Medicine> responseMedicine = this.restTemplate.postForEntity(urlMedicine, this.medicine, Medicine.class);
+        String urlPrescription = "http://localhost:"+ this.port + "/hospital_appointment_management-db/prescription/save";
+        ResponseEntity<Prescription> responsePrescription = this.restTemplate.postForEntity(urlPrescription, this.prescription, Prescription.class);
+        String urlProcedure = "http://localhost:"+ this.port + "/hospital_appointment_management-db/procedure/save";
+        ResponseEntity<Procedure> responseProcedure = this.restTemplate.postForEntity(urlProcedure, this.procedure, Procedure.class);
 
-        this.baseUrl = "http://localhost:"+ this.port + "hospital_appointment_management-db/appointment/";
+        this.baseUrl = "http://localhost:"+ this.port + "/hospital_appointment_management-db/appointment/";
     }
 
     @AfterEach
@@ -58,7 +61,7 @@ class AppointmentControllerTest {
     }
 
     @Test
-    void save() {
+    void a_save() {
         String url = baseUrl + "save";
         System.out.println(url);
         ResponseEntity<Appointment> response = this.restTemplate.postForEntity(url, this.appointment, Appointment.class);
@@ -70,7 +73,7 @@ class AppointmentControllerTest {
     }
 
     @Test
-    void read() {
+    void b_read() {
         String url = baseUrl+"read/" + this.appointment.getAppointmentID();
         System.out.println(url);
         ResponseEntity<Appointment> response = this.restTemplate.getForEntity(url, Appointment.class);
@@ -81,7 +84,7 @@ class AppointmentControllerTest {
     }
 
     @Test
-    void getAll() {
+    void c_getAll() {
         String url = baseUrl + "all";
         System.out.println(url);
         ResponseEntity<Appointment[]> response = this.restTemplate.getForEntity(url, Appointment[].class);
@@ -93,7 +96,7 @@ class AppointmentControllerTest {
     }
 
     @Test
-    void delete() {
+    void d_delete() {
         String url = baseUrl + "delete/" + this.appointment.getAppointmentID();
         this.restTemplate.delete(url);
     }

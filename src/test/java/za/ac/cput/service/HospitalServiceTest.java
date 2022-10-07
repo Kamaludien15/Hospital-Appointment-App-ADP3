@@ -40,7 +40,7 @@ class HospitalServiceTest {
         Hospital saved = this.service.save(this.hospital);
         System.out.println(saved);
         assertNotNull(saved);
-        assertSame(this.hospital, saved);
+        assertSame(this.hospital.getHospitalID(), saved.getHospitalID());
     }
 
     @Test
@@ -49,7 +49,7 @@ class HospitalServiceTest {
         Optional<Hospital> read = this.service.read(hospital.getHospitalID());
         assertAll(
                 ()->assertTrue(read.isPresent()),
-                ()->assertSame(saved, read.get())
+                ()->assertSame(saved.getHospitalID(), read.get().getHospitalID())
         );
     }
 

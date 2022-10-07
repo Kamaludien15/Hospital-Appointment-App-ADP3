@@ -27,18 +27,14 @@ class HospitalControllerTest {
     @LocalServerPort
     private int port;
 
-    @Autowired private HospitalController hospitalController;
     @Autowired private TestRestTemplate restTemplate;
 
-    private Hospital hospital;
+    private static Hospital hospital = HospitalFactory.createHospital("Spring View Hospital", 1000, "Private");
     private String baseUrl;
 
     @BeforeEach
     void setUp() {
-        assertNotNull(hospitalController);
-        this.hospital = HospitalFactory.createHospital("Spring View Hospital", 1000, "Private");
-
-        this.baseUrl = "http://localhost:"+ this.port + "hospital_appointment_management-db/hospital/";
+        this.baseUrl = "http://localhost:"+ this.port + "/hospital_appointment_management-db/hospital/";
     }
 
     @AfterEach
@@ -46,7 +42,7 @@ class HospitalControllerTest {
     }
 
     @Test
-    void save() {
+    void a_save() {
         String url = baseUrl + "save";
         System.out.println(url);
         ResponseEntity<Hospital> response = this.restTemplate.postForEntity(url, this.hospital, Hospital.class);
@@ -58,7 +54,7 @@ class HospitalControllerTest {
     }
 
     @Test
-    void read() {
+    void b_read() {
         String url = baseUrl+"read/" + this.hospital.getHospitalID();
         System.out.println(url);
         ResponseEntity<Hospital> response = this.restTemplate.getForEntity(url, Hospital.class);
@@ -69,7 +65,7 @@ class HospitalControllerTest {
     }
 
     @Test
-    void getAll() {
+    void c_getAll() {
         String url = baseUrl + "all";
         System.out.println(url);
         ResponseEntity<Hospital[]> response = this.restTemplate.getForEntity(url, Hospital[].class);
@@ -81,7 +77,7 @@ class HospitalControllerTest {
     }
 
     @Test
-    void delete() {
+    void d_delete() {
         String url = baseUrl + "delete/" + this.hospital.getHospitalID();
         this.restTemplate.delete(url);
     }

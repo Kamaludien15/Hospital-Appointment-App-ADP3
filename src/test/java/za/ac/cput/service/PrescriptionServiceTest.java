@@ -22,8 +22,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class PrescriptionServiceTest {
-    @Autowired
-    private PrescriptionService prescriptionService;
+    @Autowired private PrescriptionService prescriptionService;
+    @Autowired private MedicineService medicineService;
     private static Medicine medicine = MedicineFactory.createMedicine("Ibuprofen", "100ml",
             "5ml", "R150.00");
     private static Prescription prescription = PrescriptionFactory.createPrescription(medicine,
@@ -31,6 +31,7 @@ class PrescriptionServiceTest {
 
     @Test
     void save() {
+        Medicine savedMedicine = medicineService.save(medicine);
         Prescription saved = prescriptionService.save(prescription);
         assertNotNull(saved);
         System.out.println(saved);
@@ -38,6 +39,7 @@ class PrescriptionServiceTest {
 
     @Test
     void read() {
+        Medicine savedMedicine = medicineService.save(medicine);
         Prescription saved = prescriptionService.save(prescription);
         Optional<Prescription> read = prescriptionService.read(saved.getScriptRef());
         assertEquals(read.get().getScriptRef(), saved.getScriptRef());
@@ -46,6 +48,7 @@ class PrescriptionServiceTest {
 
     @Test
     void delete() {
+        Medicine savedMedicine = medicineService.save(medicine);
         Prescription saved = prescriptionService.save(prescription);
         prescriptionService.delete(saved);
         List<Prescription> prescriptions = prescriptionService.getAll();
@@ -54,6 +57,7 @@ class PrescriptionServiceTest {
 
     @Test
     void getAll() {
+        Medicine savedMedicine = medicineService.save(medicine);
         Prescription saved = prescriptionService.save(prescription);
         List<Prescription> prescriptionList = prescriptionService.getAll();
         assertEquals(1, prescriptionList.size());

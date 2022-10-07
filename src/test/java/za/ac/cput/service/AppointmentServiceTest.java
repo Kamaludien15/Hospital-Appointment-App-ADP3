@@ -30,6 +30,12 @@ class AppointmentServiceTest {
     private Procedure procedure;
 
     @Autowired private AppointmentService service;
+    @Autowired private PatientService servicePatient;
+    @Autowired private HospitalService serviceHospital;
+    @Autowired private EmployeeService serviceEmployee;
+    @Autowired private MedicineService serviceMedicine;
+    @Autowired private PrescriptionService servicePrescription;
+    @Autowired private ProcedureService serviceProcedure;
 
     @BeforeEach
     void setUp() {
@@ -45,28 +51,52 @@ class AppointmentServiceTest {
     @AfterEach
     void tearDown() {
         this.service.delete(appointment);
+        this.servicePatient.delete(patient);
+        this.serviceHospital.delete(hospital);
+        this.serviceEmployee.delete(employee);
+        this.servicePrescription.delete(prescription);
+        this.serviceMedicine.delete(medicine);
+        this.serviceProcedure.delete(procedure);
     }
 
     @Test
     void save() {
+        Patient savedPatient = this.servicePatient.save(this.patient);
+        Hospital savedHospital = this.serviceHospital.save(this.hospital);
+        Employee savedEmployee = this.serviceEmployee.save(this.employee);
+        Medicine savedMedicine = this.serviceMedicine.save(this.medicine);
+        Prescription savedPrescription = this.servicePrescription.save(this.prescription);
+        Procedure savedProcedure = this.serviceProcedure.save(this.procedure);
         Appointment saved = this.service.save(this.appointment);
         System.out.println(saved);
         assertNotNull(saved);
-        assertSame(this.appointment, saved);
+        assertSame(this.appointment.getAppointmentID(), saved.getAppointmentID());
     }
 
     @Test
     void read() {
+        Patient savedPatient = this.servicePatient.save(this.patient);
+        Hospital savedHospital = this.serviceHospital.save(this.hospital);
+        Employee savedEmployee = this.serviceEmployee.save(this.employee);
+        Medicine savedMedicine = this.serviceMedicine.save(this.medicine);
+        Prescription savedPrescription = this.servicePrescription.save(this.prescription);
+        Procedure savedProcedure = this.serviceProcedure.save(this.procedure);
         Appointment saved = this.service.save(this.appointment);
         Optional<Appointment> read = this.service.read(appointment.getAppointmentID());
         assertAll(
                 ()->assertTrue(read.isPresent()),
-                ()->assertSame(saved, read.get())
+                ()->assertSame(saved.getAppointmentID(), read.get().getAppointmentID())
         );
     }
 
     @Test
     void delete() {
+        Patient savedPatient = this.servicePatient.save(this.patient);
+        Hospital savedHospital = this.serviceHospital.save(this.hospital);
+        Employee savedEmployee = this.serviceEmployee.save(this.employee);
+        Medicine savedMedicine = this.serviceMedicine.save(this.medicine);
+        Prescription savedPrescription = this.servicePrescription.save(this.prescription);
+        Procedure savedProcedure = this.serviceProcedure.save(this.procedure);
         Appointment saved = this.service.save(this.appointment);
         this.service.delete(saved);
         List<Appointment> addressSet = this.service.getAll();
@@ -75,7 +105,13 @@ class AppointmentServiceTest {
 
     @Test
     void getAll() {
-        this.service.save(this.appointment);
+        Patient savedPatient = this.servicePatient.save(this.patient);
+        Hospital savedHospital = this.serviceHospital.save(this.hospital);
+        Employee savedEmployee = this.serviceEmployee.save(this.employee);
+        Medicine savedMedicine = this.serviceMedicine.save(this.medicine);
+        Prescription savedPrescription = this.servicePrescription.save(this.prescription);
+        Procedure savedProcedure = this.serviceProcedure.save(this.procedure);
+        Appointment saved = this.service.save(this.appointment);
         List<Appointment> addressSet = this.service.getAll();
         assertEquals(1,addressSet.size());
     }

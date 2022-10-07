@@ -22,8 +22,7 @@ public class DepartmentService implements IDepartmentService{
 
     @Override
     public Department save(Department department){
-        Department departmentObj = DepartmentFactory.createDepartment(department.getDepartmentName(), department.getDepartmentSize(), department.getDepartmentFloor());
-        return this.departmentRepository.save(departmentObj);
+        return this.departmentRepository.save(department);
     }
 
     @Override

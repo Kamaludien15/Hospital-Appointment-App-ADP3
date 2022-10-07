@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.*;
 import za.ac.cput.factory.*;
+import za.ac.cput.repository.IHospitalRepository;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +41,7 @@ class IHospitalRepositoryTest {
         Hospital saved = this.hospitalLRepository.save(this.hospital);
         System.out.println(saved);
         assertNotNull(saved);
-        assertSame(this.hospital, saved);
+        assertSame(this.hospital.getHospitalID(), saved.getHospitalID());
     }
 
     @Test
@@ -48,7 +50,7 @@ class IHospitalRepositoryTest {
         Optional<Hospital> read = this.hospitalLRepository.findById(this.hospital.getHospitalID());
         assertAll(
                 ()->assertTrue(read.isPresent()),
-                ()->assertSame(saved, read.get())
+                ()->assertSame(saved.getHospitalID(), read.get().getHospitalID())
         );
     }
 

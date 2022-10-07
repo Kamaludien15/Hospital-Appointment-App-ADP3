@@ -26,8 +26,7 @@ public class LocationService implements ILocationService{
 
     @Override
     public Location save(Location location) {
-        Location obj = LocationFactory.createLocation(location.getStreetName(), location.getStreetNum(), location.getSuburb(), location.getPostalCode());
-        return this.repository.save(obj);
+        return this.repository.save(location);
     }
 
     @Override

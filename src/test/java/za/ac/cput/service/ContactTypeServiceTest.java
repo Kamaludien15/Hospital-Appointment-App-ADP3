@@ -35,7 +35,7 @@ class ContactTypeServiceTest {
     void save() {
         ContactType saved = this.service.save(this.contactType);
         assertNotNull(saved);
-        assertSame(this.contactType, saved);
+        assertSame(this.contactType.getContactTypeId(), saved.getContactTypeId());
     }
 
     @Test
@@ -44,7 +44,7 @@ class ContactTypeServiceTest {
         Optional<ContactType> read = this.service.read(this.contactType.getContactTypeId());
         assertAll(
                 ()->assertTrue(read.isPresent()),
-                ()->assertSame(saved, read.get())
+                ()->assertSame(saved.getContactTypeId(), read.get().getContactTypeId())
         );
     }
 

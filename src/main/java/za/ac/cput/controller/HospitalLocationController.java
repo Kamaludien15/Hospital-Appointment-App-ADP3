@@ -38,9 +38,9 @@ public class HospitalLocationController {
     }
 
     @GetMapping("read/{hospital_location_id}")
-    public ResponseEntity<HospitalLocation> read(@PathVariable String id){
-        log.info("Read request: {}", id);
-        HospitalLocation response = this.api.read(id)
+    public ResponseEntity<HospitalLocation> read(@PathVariable String hospital_location_id){
+        log.info("Read request: {}", hospital_location_id);
+        HospitalLocation response = this.api.read(hospital_location_id)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Hospital Location not found"));
         return ResponseEntity.ok(response);
     }

@@ -26,9 +26,9 @@ public class AppointmentService implements IAppointmentService{
 
     @Override
     public Appointment save(Appointment appointment) {
-        Appointment obj = AppointmentFactory.createAppointment(appointment.getPatient(),appointment.getHospital(),appointment.getEmployee(),appointment.getPrescription(),
-                appointment.getProcedure(),appointment.getAppointmentDate());
-        return this.repository.save(obj);
+//        Appointment obj = AppointmentFactory.createAppointment(appointment.getPatient(),appointment.getHospital(),appointment.getEmployee(),appointment.getPrescription(),
+//                appointment.getProcedure(),appointment.getAppointmentDate());
+        return this.repository.save(appointment);
     }
 
     @Override

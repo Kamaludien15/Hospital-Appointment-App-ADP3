@@ -37,17 +37,17 @@ public class HospitalController {
     }
 
     @GetMapping("read/{hospital_id}")
-    public ResponseEntity<Hospital> read(@PathVariable String id){
-        log.info("Read request: {}", id);
-        Hospital response = this.api.read(id)
+    public ResponseEntity<Hospital> read(@PathVariable String hospital_id){
+        log.info("Read request: {}", hospital_id);
+        Hospital response = this.api.read(hospital_id)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Hospital not found"));
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("delete/{hospital}")
-    public ResponseEntity<Void> delete(@PathVariable Hospital Hospital){
-        log.info("Delete request: {}", Hospital);
-        this.api.delete(Hospital);
+    public ResponseEntity<Void> delete(@PathVariable Hospital hospital){
+        log.info("Delete request: {}", hospital);
+        this.api.delete(hospital);
         return ResponseEntity.noContent().build();
     }
 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.ContactType;
 import za.ac.cput.factory.ContactTypeFactory;
+import za.ac.cput.repository.IContactTypeRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +36,7 @@ class IContactTypeRepositoryTest {
     void save() {
         ContactType saved = this.contactTypeRepository.save(this.contactType);
         assertNotNull(saved);
-        assertSame(this.contactType, saved);
+        assertSame(this.contactType.getContactTypeId(), saved.getContactTypeId());
     }
 
 
@@ -45,7 +46,7 @@ class IContactTypeRepositoryTest {
         Optional<ContactType> read = this.contactTypeRepository.findById(this.contactType.getContactTypeId());
         assertAll(
                 ()->assertTrue(read.isPresent()),
-                ()->assertSame(saved, read.get())
+                ()->assertSame(saved.getContactTypeId(), read.get().getContactTypeId())
         );
     }
 

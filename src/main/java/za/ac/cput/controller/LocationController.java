@@ -37,9 +37,9 @@ public class LocationController {
     }
 
     @GetMapping("read/{location_id}")
-    public ResponseEntity<Location> read(@PathVariable String id){
+    public ResponseEntity<Location> read(@PathVariable String location_id){
         //log.info("Read request: {}", id);
-        Location response = this.api.read(id)
+        Location response = this.api.read(location_id)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Location not found"));
         return ResponseEntity.ok(response);
     }

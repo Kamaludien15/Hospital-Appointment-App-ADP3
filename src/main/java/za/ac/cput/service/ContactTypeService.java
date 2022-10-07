@@ -21,8 +21,7 @@ public class ContactTypeService implements IContactTypeService{
 
     @Override
     public ContactType save(ContactType contactType) {
-        ContactType obj = ContactTypeFactory.createContactType(contactType.getName(), contactType.isUrgent(), contactType.getDescription());
-        return this.repository.save(obj);
+        return this.repository.save(contactType);
     }
 
     @Override
