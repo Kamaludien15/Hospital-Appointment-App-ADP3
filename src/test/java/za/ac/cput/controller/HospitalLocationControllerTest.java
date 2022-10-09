@@ -5,9 +5,7 @@
 */
 package za.ac.cput.controller;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -23,6 +21,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestMethodOrder(MethodOrderer.MethodName.class)
 class HospitalLocationControllerTest {
 
     @LocalServerPort
@@ -81,7 +80,7 @@ class HospitalLocationControllerTest {
         System.out.println(Arrays.asList(response.getBody()));
         assertAll(
                 ()-> assertEquals(HttpStatus.OK, response.getStatusCode()),
-                ()-> assertTrue(response.getBody().length == 0)
+                ()-> assertTrue(response.getBody().length == 1)
         );
     }
 

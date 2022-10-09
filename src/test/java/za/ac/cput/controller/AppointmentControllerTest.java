@@ -5,9 +5,7 @@
 */
 package za.ac.cput.controller;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -22,10 +20,13 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestMethodOrder(MethodOrderer.MethodName.class)
 class AppointmentControllerTest {
 
     @LocalServerPort
     private int port;
+    private String SECURITY_USERNAME = "admin";
+    private String SECURITY_PASSWORD = "passwordAdmin";
 
     @Autowired private TestRestTemplate restTemplate;
 
@@ -41,17 +42,17 @@ class AppointmentControllerTest {
     @BeforeEach
     void setUp() {
         String urlPatient = "http://localhost:"+ this.port + "/hospital_appointment_management-db/patient/save";
-        ResponseEntity<Patient> responsePatient = this.restTemplate.postForEntity(urlPatient, this.patient, Patient.class);
+        ResponseEntity<Patient> responsePatient = this.restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD).postForEntity(urlPatient, this.patient, Patient.class);
         String urlHospital = "http://localhost:"+ this.port + "/hospital_appointment_management-db/hospital/save";
-        ResponseEntity<Hospital> responseHospital = this.restTemplate.postForEntity(urlHospital, this.hospital, Hospital.class);
+        ResponseEntity<Hospital> responseHospital = this.restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD).postForEntity(urlHospital, this.hospital, Hospital.class);
         String urlEmployee = "http://localhost:"+ this.port + "/hospital_appointment_management-db/employee/save";
-        ResponseEntity<Employee> responseEmployee = this.restTemplate.postForEntity(urlEmployee, this.employee, Employee.class);
+        ResponseEntity<Employee> responseEmployee = this.restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD).postForEntity(urlEmployee, this.employee, Employee.class);
         String urlMedicine = "http://localhost:"+ this.port + "/hospital_appointment_management-db/medicine/save";
-        ResponseEntity<Medicine> responseMedicine = this.restTemplate.postForEntity(urlMedicine, this.medicine, Medicine.class);
+        ResponseEntity<Medicine> responseMedicine = this.restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD).postForEntity(urlMedicine, this.medicine, Medicine.class);
         String urlPrescription = "http://localhost:"+ this.port + "/hospital_appointment_management-db/prescription/save";
-        ResponseEntity<Prescription> responsePrescription = this.restTemplate.postForEntity(urlPrescription, this.prescription, Prescription.class);
+        ResponseEntity<Prescription> responsePrescription = this.restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD).postForEntity(urlPrescription, this.prescription, Prescription.class);
         String urlProcedure = "http://localhost:"+ this.port + "/hospital_appointment_management-db/procedure/save";
-        ResponseEntity<Procedure> responseProcedure = this.restTemplate.postForEntity(urlProcedure, this.procedure, Procedure.class);
+        ResponseEntity<Procedure> responseProcedure = this.restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD).postForEntity(urlProcedure, this.procedure, Procedure.class);
 
         this.baseUrl = "http://localhost:"+ this.port + "/hospital_appointment_management-db/appointment/";
     }
@@ -64,7 +65,9 @@ class AppointmentControllerTest {
     void a_save() {
         String url = baseUrl + "save";
         System.out.println(url);
-        ResponseEntity<Appointment> response = this.restTemplate.postForEntity(url, this.appointment, Appointment.class);
+        ResponseEntity<Appointment> response = this.restTemplate
+                .withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD)
+                .postForEntity(url, this.appointment, Appointment.class);
         System.out.println(response);
         assertAll(
                 ()-> assertEquals(HttpStatus.OK, response.getStatusCode()),
@@ -76,7 +79,9 @@ class AppointmentControllerTest {
     void b_read() {
         String url = baseUrl+"read/" + this.appointment.getAppointmentID();
         System.out.println(url);
-        ResponseEntity<Appointment> response = this.restTemplate.getForEntity(url, Appointment.class);
+        ResponseEntity<Appointment> response = this.restTemplate
+                .withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD)
+                .getForEntity(url, Appointment.class);
         assertAll(
                 ()-> assertEquals(HttpStatus.OK, response.getStatusCode()),
                 ()-> assertNotNull(response.getBody())
@@ -87,18 +92,22 @@ class AppointmentControllerTest {
     void c_getAll() {
         String url = baseUrl + "all";
         System.out.println(url);
-        ResponseEntity<Appointment[]> response = this.restTemplate.getForEntity(url, Appointment[].class);
+        ResponseEntity<Appointment[]> response = this.restTemplate
+                .withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD)
+                .getForEntity(url, Appointment[].class);
         System.out.println(Arrays.asList(response.getBody()));
         assertAll(
                 ()-> assertEquals(HttpStatus.OK, response.getStatusCode()),
-                ()-> assertTrue(response.getBody().length == 0)
+                ()-> assertTrue(response.getBody().length == 1)
         );
     }
 
     @Test
     void d_delete() {
         String url = baseUrl + "delete/" + this.appointment.getAppointmentID();
-        this.restTemplate.delete(url);
+        this.restTemplate
+                .withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD)
+                .delete(url);
     }
 
 
