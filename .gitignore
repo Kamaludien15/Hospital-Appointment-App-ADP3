@@ -15,3 +15,5 @@ buildNumber.properties
 *.iws
 *.iml
 *.ipr
+Angular/hospital-appointment-app/.angular/cache
+Angular/hospital-appointment-app/node_modules
