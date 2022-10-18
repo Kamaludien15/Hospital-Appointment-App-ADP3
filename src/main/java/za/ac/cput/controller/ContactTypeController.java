@@ -12,7 +12,7 @@ import za.ac.cput.domain.ContactType;
 import java.util.List;
 
 @RestController
-@RequestMapping("/hospital_appointment_management-db/ContactType")
+@RequestMapping("/hospital_appointment_management-db/contactType")
 @Slf4j
 public class ContactTypeController {
 
