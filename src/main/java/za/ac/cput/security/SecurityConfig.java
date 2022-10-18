@@ -33,6 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //super.configure(http);
         http.httpBasic()
                 .and()
+                .cors()
+                .and()
                 .authorizeHttpRequests()
                 //ADMIN
                 .antMatchers(HttpMethod.POST, "/hospital_appointment_management-db/**/save").hasRole("ADMIN")
@@ -47,6 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().disable();
 
     }
+
+
 
     @Bean
     public PasswordEncoder encoder(){

@@ -22,6 +22,7 @@ public class Employee {
     private String employeeFirstName;
     private String employeeLastName;
     private String employeeDateOfBirth;
+    private String password;
 
     public String getEmployeeId() {
         return employeeId;
@@ -39,6 +40,10 @@ public class Employee {
         return employeeDateOfBirth;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     protected Employee()
     {
     }//end of private constructor
@@ -50,6 +55,7 @@ public class Employee {
         private String firstName;
         private String lastName;
         private String dateOfBirth;
+        private String password;
 
         public String getEmployeeId() {
             return employeeId;
@@ -65,6 +71,10 @@ public class Employee {
 
         public String getDateOfBirth() {
             return dateOfBirth;
+        }
+
+        public String getPassword() {
+            return password;
         }
 
         public EmployeeBuilder buildId(String employeeId)
@@ -91,6 +101,12 @@ public class Employee {
             return this;
         }//end of buildDateOfBirth method
 
+        public EmployeeBuilder buildPassword(String password)
+        {
+            this.password = password;
+            return this;
+        }//end of buildDateOfBirth method
+
         public Employee getEmployee()
         {
             Employee employee            = new Employee();
@@ -98,6 +114,7 @@ public class Employee {
             employee.employeeFirstName   = this.firstName;
             employee.employeeLastName    = this.lastName;
             employee.employeeDateOfBirth = this.dateOfBirth;
+            employee.password = this.password;
             return employee;
         }//end of getEmployee method
 
@@ -110,6 +127,7 @@ public class Employee {
                 ", employeeFirstName='" + employeeFirstName + '\'' +
                 ", employeeLastName='" + employeeLastName + '\'' +
                 ", employeeDateOfBirth='" + employeeDateOfBirth + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 
@@ -118,11 +136,11 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return Objects.equals(employeeId, employee.employeeId) && Objects.equals(employeeFirstName, employee.employeeFirstName) && Objects.equals(employeeLastName, employee.employeeLastName) && Objects.equals(employeeDateOfBirth, employee.employeeDateOfBirth);
+        return Objects.equals(employeeId, employee.employeeId) && Objects.equals(employeeFirstName, employee.employeeFirstName) && Objects.equals(employeeLastName, employee.employeeLastName) && Objects.equals(employeeDateOfBirth, employee.employeeDateOfBirth) && Objects.equals(password, employee.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(employeeId, employeeFirstName, employeeLastName, employeeDateOfBirth);
+        return Objects.hash(employeeId, employeeFirstName, employeeLastName, employeeDateOfBirth, password);
     }
 }//end of Employee class
