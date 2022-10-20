@@ -34,16 +34,16 @@ class PatientGenderServiceTest {
     @BeforeEach
     void setUp() {
         this.gender = GenderFactory.createGender("Rhegan", "Born a male on the 19th of August in the year 2000", "Male");
-        this.patient = PatientFactory.createPatient("Rhegan", "Fortuin", "19 August 2000");
+        this.patient = PatientFactory.createPatient("Rhegan", "Fortuin", "19 August 2000", "password");
         this.patientGender = PatientGenderFactory.createPatientGender(patient, gender);
 
     }
 
     @AfterEach
     void tearDown() {
+        this.patientGenderService.delete(patientGender);
         this.genderService.delete(gender);
         this.patientService.delete(patient);
-        this.patientGenderService.delete(patientGender);
     }
 
     @Test
@@ -83,6 +83,6 @@ class PatientGenderServiceTest {
         Patient savedPatient = this.patientService.save(this.patient);
         PatientGender savedPatientGender = this.patientGenderService.save(this.patientGender);
         List<PatientGender> patientGenderList = this.patientGenderService.getAll();
-        assertEquals(1,patientGenderList.size());
+        assertEquals(4,patientGenderList.size());
     }
 }

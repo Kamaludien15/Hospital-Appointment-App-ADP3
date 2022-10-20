@@ -33,15 +33,15 @@ class IPatientGenderRepositoryTest {
     @BeforeEach
     void setUp() {
         this.gender = GenderFactory.createGender("Rhegan", "Born a male on the 19th of August in the year 2000", "Male");
-        this.patient = PatientFactory.createPatient("Rhegan", "Fortuin", "19 August 2000");
+        this.patient = PatientFactory.createPatient("Rhegan", "Fortuin", "19 August 2000", "password");
         this.patientGender = PatientGenderFactory.createPatientGender(patient, gender);
     }
 
     @AfterEach
     void tearDown() {
+        this.patientGenderRepository.delete(this.patientGender);
         this.genderRepository.delete(this.gender);
         this.patientRepository.delete(this.patient);
-        this.patientGenderRepository.delete(this.patientGender);
     }
 
     @Test
@@ -84,6 +84,6 @@ class IPatientGenderRepositoryTest {
         Patient savedPatient = this.patientRepository.save(this.patient);
         PatientGender savedPatientGender = this.patientGenderRepository.save(this.patientGender);
         List<PatientGender> patientGender = this.patientGenderRepository.findAll();
-        assertEquals(1,patientGender.size());
+        assertEquals(4,patientGender.size());
     }
 }

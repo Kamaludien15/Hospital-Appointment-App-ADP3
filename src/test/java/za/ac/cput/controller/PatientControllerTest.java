@@ -25,8 +25,9 @@ class PatientControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private static Patient patient= PatientFactory.createPatient("Rhegan", "Fortuin", "19 August 2000");
+    private static Patient patient= PatientFactory.createPatient("Rhegan", "Fortuin", "19 August 2000", "password");
     private static Gender gender =  GenderFactory.createGender("Rhegan", "Born a male on the 19th of August in the year 2000", "Male");
+
     private static PatientGender patientGender = PatientGenderFactory.createPatientGender(patient, gender);
 
     private static String baseUrl;

@@ -22,7 +22,7 @@ class IPatientRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        this.patient = PatientFactory.createPatient("Rhegan", "Fortuin", "19 August 2000");
+        this.patient = PatientFactory.createPatient("Rhegan", "Fortuin", "19 August 2000", "password");
 
     }
 

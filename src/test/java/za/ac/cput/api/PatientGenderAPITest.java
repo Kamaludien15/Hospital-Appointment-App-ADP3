@@ -25,7 +25,7 @@ class PatientGenderAPITest {
     @BeforeEach
     void setUp() {
         this.gender = GenderFactory.createGender("Rhegan", "Born a male on the 19th of August in the year 2000", "Male");
-        this.patient = PatientFactory.createPatient("Rhegan", "Fortuin", "19 August 2000");
+        this.patient = PatientFactory.createPatient("Rhegan", "Fortuin", "19 August 2000", "password");
         this.patientGender = PatientGenderFactory.createPatientGender(patient, gender);
     }
 
