@@ -33,7 +33,7 @@ export class ProcedureService {
     return this.http.post<Procedure>(`${this.apiServerUrl}/procedure/save`, procedure)
   }
 
-  public deleteProcedure(procedureId?: string): Observable<void> {
+  public deleteProcedure(procedureId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/procedure/delete/${procedureId}`)
   }
 

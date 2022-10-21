@@ -15,13 +15,11 @@ import { Prescription } from '../Domain/prescription';
 import { Procedure } from '../Domain/procedure';
 import { ProcedureService } from '../Service/procedure.service';
 import {v4 as uuids4} from 'uuid';
-import { Medicine } from '../Domain/medicine';
-import { MedicineService } from '../Service/medicine.service';
 
 @Component({ templateUrl: 'employeeMenu.component.html' })
 export class EmployeeMenuComponent implements OnInit{
 
-    constructor(private procedureService: ProcedureService,private prescriptionService: PrescriptionService,private hospitalService: HospitalService,private appointmentService: AppointmentService, private employeeService: EmployeeService, private patientService: PatientService, private medicineService: MedicineService) { }
+    constructor(private procedureService: ProcedureService,private prescriptionService: PrescriptionService,private hospitalService: HospitalService,private appointmentService: AppointmentService, private employeeService: EmployeeService, private patientService: PatientService) { }
 
     public appointments: Appointment[] = [];
     public employees: Employee[] = [];
@@ -29,14 +27,9 @@ export class EmployeeMenuComponent implements OnInit{
     public hospitals: Hospital[] = [];
     public prescriptions: Prescription[] = [];
     public procedures: Procedure[] = [];
-    public medicines: Medicine[] = [];
     public generatedId: String | undefined;
     public editAppointment: Appointment | undefined;
     public deleteAppointment: Appointment | undefined;
-    public editProcedure: Procedure | undefined;
-    public deleteProcedure: Procedure | undefined;
-    public editMedicine: Medicine | undefined;
-    public deleteMedicine: Medicine | undefined;
 
     ngOnInit(): void {
         //Fetching data to call from later
@@ -90,14 +83,6 @@ export class EmployeeMenuComponent implements OnInit{
                 alert(error.message);
             })
 
-        this.medicineService.getMedicine().subscribe(
-            (response: Medicine[]) => {
-                this.medicines = response;
-            },
-            (error: HttpErrorResponse) => {
-                alert(error.message);
-            })
-
     }
 
     //Generating Id
@@ -111,16 +96,12 @@ export class EmployeeMenuComponent implements OnInit{
     public showAppointment = false;
     public showPatients = false;
     public showEmployees = false;
-    public showMedicines = false;
-    public showProcedures = false;
 
     //Hide All
     public hideAll(): void{
         this.showAppointment = false;
         this.showPatients = false;
         this.showEmployees = false;
-        this.showMedicines = false;
-        this.showProcedures = false;
     }  
 
     //Appointment//////////////////////////////////////////////////
@@ -265,7 +246,7 @@ export class EmployeeMenuComponent implements OnInit{
         }
         container?.appendChild(button);
         button.click();
-    }
+  }
 
     //Employees/////////////////////////////////////////////////////
     public displayEmployees(): void{
@@ -277,214 +258,9 @@ export class EmployeeMenuComponent implements OnInit{
     public displayPatients(): void{
         this.hideAll();
         this.showPatients = true;
-    }
+    }  
     
 
+    
 
-    //Procedure/////////////////////////////////////////////////////
-    public displayProcedures(): void{
-        this.hideAll();
-        this.showProcedures = true;
-    }
-
-    public onAddProcedure(addProcedureForm: NgForm): void{
-        document.getElementById('add-procedure-form')?.click();
-        this.procedureService.addProcedure(addProcedureForm.value).subscribe(
-            (response: Procedure) => {
-
-                //Reloading Procedure cards
-                this.procedureService.getProcedures().subscribe(
-                    (response: Procedure[]) => {
-                      this.procedures = [];
-                      for (let i = 0; i < response.length; i++) {
-                        this.procedures.push(response[i]) 
-                        addProcedureForm.reset();
-                    }
-                    },
-                    (error: HttpErrorResponse) => {
-                      alert(error.message);
-                      addProcedureForm.reset();
-                    })
-            },
-            (error: HttpErrorResponse) => {
-                alert(error.message)
-            }
-        );
-    }
-
-
-    public onEditProcedure(procedure: Procedure): void{
-        
-        this.procedureService.updateProcedure(procedure).subscribe(
-            (response: Procedure) => {
-
-                //Reloading Procedure cards
-                this.procedureService.getProcedures().subscribe(
-                    (response: Procedure[]) => {
-                      this.procedures = [];
-                      for (let i = 0; i < response.length; i++) {
-                        this.procedures.push(response[i]) 
-                    }
-                    },
-                    (error: HttpErrorResponse) => {
-                      alert(error.message);
-                    })
-            },
-            (error: HttpErrorResponse) => {
-                alert(error.message)
-            }
-        );
-    }
-
-    public onDeleteProcedure(procedureID?: string): void{
-
-        this.procedureService.deleteProcedure(procedureID).subscribe(
-            (response: void) => {
-                
-                //Reloading Procedure cards
-                this.procedureService.getProcedures().subscribe(
-                    (response: Procedure[]) => {
-                      this.procedures = [];
-                      for (let i = 0; i < response.length; i++) {
-                        this.procedures.push(response[i]) 
-                    }
-                    },
-                    (error: HttpErrorResponse) => {
-                      alert(error.message);
-                    })
-            },
-            (error: HttpErrorResponse) => {
-                alert(error.message)
-            }
-
-        );
-
-    }
-
-    public onOpenModalProcedure( mode: string, procedure?: Procedure): void {
-        const container = document.getElementById('procedure-Container');
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.style.display = 'none';
-        button.setAttribute('data-toggle', 'modal');
-        if (mode === 'add') {
-        button.setAttribute('data-target', '#addProcedureModal');
-        this.generateId();
-        }
-        if (mode === 'edit') {
-        this.editProcedure = procedure;
-        console.log(this.editProcedure);
-        button.setAttribute('data-target', '#updateProcedureModal');
-        }
-        if (mode === 'delete') {
-        this.deleteProcedure = procedure;
-        button.setAttribute('data-target', '#deleteProcedureModal');
-        }
-        container?.appendChild(button);
-        button.click();
-    }
-
-
-    //Medicine/////////////////////////////////////////////////////
-    public displayMedicines(): void{
-        this.hideAll();
-        this.showMedicines = true;
-    }
-
-    public onAddMedicine(addMedicineForm: NgForm): void{
-        document.getElementById('add-medicine-form')?.click();
-        this.medicineService.addMedicine(addMedicineForm.value).subscribe(
-            (response: Medicine) => {
-
-                //Reloading Medicine cards
-                this.medicineService.getMedicine().subscribe(
-                    (response: Medicine[]) => {
-                      this.medicines = [];
-                      for (let i = 0; i < response.length; i++) {
-                        this.medicines.push(response[i]) 
-                        addMedicineForm.reset();
-                    }
-                    },
-                    (error: HttpErrorResponse) => {
-                      alert(error.message);
-                      addMedicineForm.reset();
-                    })
-            },
-            (error: HttpErrorResponse) => {
-                alert(error.message)
-            }
-        );
-    }
-
-
-    public onEditMedicine(medicine: Medicine): void{
-        
-        this.medicineService.updateMedicine(medicine).subscribe(
-            (response: Medicine) => {
-
-                //Reloading Medicine cards
-                this.medicineService.getMedicine().subscribe(
-                    (response: Medicine[]) => {
-                      this.medicines = [];
-                      for (let i = 0; i < response.length; i++) {
-                        this.medicines.push(response[i]) 
-                    }
-                    },
-                    (error: HttpErrorResponse) => {
-                      alert(error.message);
-                    })
-            },
-            (error: HttpErrorResponse) => {
-                alert(error.message)
-            }
-        );
-    }
-
-    public onDeleteMedicine(medicineID?: string): void{
-
-        this.medicineService.deleteMedicine(medicineID).subscribe(
-            (response: void) => {
-                
-                //Reloading Medicine cards
-                this.medicineService.getMedicine().subscribe(
-                    (response: Medicine[]) => {
-                      this.medicines = [];
-                      for (let i = 0; i < response.length; i++) {
-                        this.medicines.push(response[i]) 
-                    }
-                    },
-                    (error: HttpErrorResponse) => {
-                      alert(error.message);
-                    })
-            },
-            (error: HttpErrorResponse) => {
-                alert(error.message)
-            }
-
-        );
-
-    }
-
-    public onOpenModalMedicine( mode: string, medicine?: Medicine): void {
-        const container = document.getElementById('medicine-Container');
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.style.display = 'none';
-        button.setAttribute('data-toggle', 'modal');
-        if (mode === 'add') {
-        button.setAttribute('data-target', '#addMedicineModal');
-        this.generateId();
-        }
-        if (mode === 'edit') {
-        this.editMedicine = medicine;
-        console.log(this.editMedicine);
-        button.setAttribute('data-target', '#updateMedicineModal');
-        }
-        if (mode === 'delete') {
-        this.deleteMedicine = medicine;
-        button.setAttribute('data-target', '#deleteMedicineModal');
-        }
-        container?.appendChild(button);
-        button.click();
-    }
 }
