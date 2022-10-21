@@ -10,6 +10,8 @@ import { EmployeeService } from '../Service/employee.service';
 import { PatientService } from '../Service/patient.service';
 import { HospitalService } from '../Service/hospital.service';
 import { Hospital } from '../Domain/hospital';
+import { LocationService } from '../Service/location.service';
+import { Location } from '../Domain/location';
 import { PrescriptionService } from '../Service/prescription.service';
 import { Prescription } from '../Domain/prescription';
 import { Procedure } from '../Domain/procedure';
@@ -19,17 +21,22 @@ import {v4 as uuids4} from 'uuid';
 @Component({ templateUrl: 'employeeMenu.component.html' })
 export class EmployeeMenuComponent implements OnInit{
 
-    constructor(private procedureService: ProcedureService,private prescriptionService: PrescriptionService,private hospitalService: HospitalService,private appointmentService: AppointmentService, private employeeService: EmployeeService, private patientService: PatientService) { }
+    constructor(private procedureService: ProcedureService,private prescriptionService: PrescriptionService,private hospitalService: HospitalService,private locationService: LocationService,private appointmentService: AppointmentService, private employeeService: EmployeeService, private patientService: PatientService) { }
 
     public appointments: Appointment[] = [];
     public employees: Employee[] = [];
     public patients: Patient[] = [];
     public hospitals: Hospital[] = [];
+    public locations: Location[] = [];
     public prescriptions: Prescription[] = [];
     public procedures: Procedure[] = [];
     public generatedId: String | undefined;
     public editAppointment: Appointment | undefined;
     public deleteAppointment: Appointment | undefined;
+    public editHospital: Hospital | undefined;
+    public deleteHospital: Hospital | undefined;
+    public editLocation: Location | undefined;
+    public deleteLocation: Location | undefined;
 
     ngOnInit(): void {
         //Fetching data to call from later
@@ -68,6 +75,15 @@ export class EmployeeMenuComponent implements OnInit{
             (error: HttpErrorResponse) => {
                 alert(error.message);
             })
+            
+        this.locationService.getLocations().subscribe(
+            (response: Location[]) => {
+                this.locations = response;
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message);
+            })
+
         this.prescriptionService.getPrescriptions().subscribe(
             (response: Prescription[]) => {
                 this.prescriptions = response;
@@ -96,12 +112,16 @@ export class EmployeeMenuComponent implements OnInit{
     public showAppointment = false;
     public showPatients = false;
     public showEmployees = false;
+    public showHospital = false;
+    public showLocation = false;
 
     //Hide All
     public hideAll(): void{
         this.showAppointment = false;
         this.showPatients = false;
         this.showEmployees = false;
+        this.showHospital = false;
+        this.showLocation = false;
     }  
 
     //Appointment//////////////////////////////////////////////////
@@ -246,7 +266,7 @@ export class EmployeeMenuComponent implements OnInit{
         }
         container?.appendChild(button);
         button.click();
-  }
+    }
 
     //Employees/////////////////////////////////////////////////////
     public displayEmployees(): void{
@@ -260,7 +280,192 @@ export class EmployeeMenuComponent implements OnInit{
         this.showPatients = true;
     }  
     
+    //Hospital//////////////////////////////////////////////////
+    public displayHospital(): void{
+        this.hideAll();
+        this.showHospital = true;
+    }   
+
+    public onAddHospital(addHospitalForm: NgForm): void{
+        document.getElementById('add-hospital-form')?.click();
+        this.hospitalService.addHospital(addHospitalForm.value).subscribe(
+            (response: Hospital) => {
+
+                //Reloading Hospital cards
+                this.hospitalService.getHospitals().subscribe(
+                    (response: Hospital[]) => {
+                      this.hospitals = [];
+                        for (let i = 0; i < response.length; i++) {
+                            this.hospitals.push(response[i]) 
+                            addHospitalForm.reset();
+                        }
+                    },
+                    (error: HttpErrorResponse) => {
+                      alert(error.message);
+                      addHospitalForm.reset();
+                    })
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message)
+            }
+        );
+    }
+
+    public onEditHospital(hospital: Hospital): void{
+        this.hospitalService.updateHospital(hospital).subscribe(
+            (response: Hospital) => {
+
+                //Reloading Hospital cards
+                this.hospitalService.getHospitals().subscribe(
+                    (response: Hospital[]) => {
+                      this.hospitals = [];
+                    },
+                    (error: HttpErrorResponse) => {
+                      alert(error.message);
+                    })
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message)
+            }
+        );
+    }
+
+
+    public onDeleteHospital(hospitalId?: string): void{
+        
+        this.hospitalService.deleteHospital(hospitalId!).subscribe(
+            (response: void) => {
+
+                //Reloading Hospital cards
+                this.hospitalService.getHospitals().subscribe(
+                    (response: Hospital[]) => {
+                      this.hospitals = [];
+                    },
+                    (error: HttpErrorResponse) => {
+                      alert(error.message);
+                    })
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message)
+            }
+        );
+    }
 
     
+    public onOpenModalHospital( mode: string, hospital?: Hospital): void {
+        const container = document.getElementById('hospital-Container');
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.style.display = 'none';
+        button.setAttribute('data-toggle', 'modal');
+        if (mode === 'add') {
+        button.setAttribute('data-target', '#addHospitalModal');
+        this.generateId();
+        }
+        if (mode === 'edit') {
+        this.editHospital = hospital;
+        console.log(this.editHospital);
+        button.setAttribute('data-target', '#updateHospitalModal');
+        }
+        if (mode === 'delete') {
+        this.deleteHospital = hospital;
+        button.setAttribute('data-target', '#deleteHospitalModal');
+        }
+        container?.appendChild(button);
+        button.click();
+    }   
+    //Location//////////////////////////////////////////////////
+    public displayLocation(): void{
+        this.hideAll();
+        this.showLocation = true;
+    }   
 
+    public onAddLocation(addLocationForm: NgForm): void{
+        document.getElementById('add-location-form')?.click();
+        this.locationService.addLocation(addLocationForm.value).subscribe(
+            (response: Location) => {
+
+                //Reloading Location cards
+                this.locationService.getLocations().subscribe(
+                    (response: Location[]) => {
+                      this.locations = [];
+                        for (let i = 0; i < response.length; i++) {
+                            this.locations.push(response[i]) 
+                            addLocationForm.reset();
+                        }
+                    },
+                    (error: HttpErrorResponse) => {
+                      alert(error.message);
+                      addLocationForm.reset();
+                    })
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message)
+            }
+        );
+    }
+
+    public onEditLocation(location: Location): void{
+        this.locationService.updateLocation(location).subscribe(
+            (response: Location) => {
+
+                //Reloading Location cards
+                this.locationService.getLocations().subscribe(
+                    (response: Location[]) => {
+                      this.locations = [];
+                    },
+                    (error: HttpErrorResponse) => {
+                      alert(error.message);
+                    })
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message)
+            }
+        );
+    }
+
+
+    public onDeleteLocation(locationId?: string): void{
+        
+        this.locationService.deleteLocation(locationId!).subscribe(
+            (response: void) => {
+
+                //Reloading Location cards
+                this.locationService.getLocations().subscribe(
+                    (response: Location[]) => {
+                      this.locations = [];
+                    },
+                    (error: HttpErrorResponse) => {
+                      alert(error.message);
+                    })
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message)
+            }
+        );
+    }
+
+    
+    public onOpenModalLocation( mode: string, location?: Location): void {
+        const container = document.getElementById('location-Container');
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.style.display = 'none';
+        button.setAttribute('data-toggle', 'modal');
+        if (mode === 'add') {
+        button.setAttribute('data-target', '#addLocationModal');
+        this.generateId();
+        }
+        if (mode === 'edit') {
+        this.editLocation = location;
+        console.log(this.editLocation);
+        button.setAttribute('data-target', '#updateLocationModal');
+        }
+        if (mode === 'delete') {
+        this.deleteLocation = location;
+        button.setAttribute('data-target', '#deleteLocationModal');
+        }
+        container?.appendChild(button);
+        button.click();
+    }   
 }
