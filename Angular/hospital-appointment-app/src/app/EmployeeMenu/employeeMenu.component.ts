@@ -14,22 +14,27 @@ import { PrescriptionService } from '../Service/prescription.service';
 import { Prescription } from '../Domain/prescription';
 import { Procedure } from '../Domain/procedure';
 import { ProcedureService } from '../Service/procedure.service';
+import { Medicine } from '../Domain/medicine';
+import { MedicineService } from '../Service/medicine.service';
 import {v4 as uuids4} from 'uuid';
 
 @Component({ templateUrl: 'employeeMenu.component.html' })
 export class EmployeeMenuComponent implements OnInit{
 
-    constructor(private procedureService: ProcedureService,private prescriptionService: PrescriptionService,private hospitalService: HospitalService,private appointmentService: AppointmentService, private employeeService: EmployeeService, private patientService: PatientService) { }
+    constructor(private procedureService: ProcedureService,private prescriptionService: PrescriptionService,private hospitalService: HospitalService,private appointmentService: AppointmentService,private medicineService: MedicineService, private employeeService: EmployeeService, private patientService: PatientService) { }
 
     public appointments: Appointment[] = [];
     public employees: Employee[] = [];
     public patients: Patient[] = [];
     public hospitals: Hospital[] = [];
+    public medicines: Medicine[] = [];
     public prescriptions: Prescription[] = [];
     public procedures: Procedure[] = [];
     public generatedId: String | undefined;
     public editAppointment: Appointment | undefined;
     public deleteAppointment: Appointment | undefined;
+    public editPrescription: Prescription | undefined;
+    public deletePrescription: Prescription | undefined;
 
     ngOnInit(): void {
         //Fetching data to call from later
@@ -82,6 +87,13 @@ export class EmployeeMenuComponent implements OnInit{
             (error: HttpErrorResponse) => {
                 alert(error.message);
             })
+        this.medicineService.getMedicine().subscribe(
+            (response: Medicine[]) => {
+                this.medicines = response;
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message);
+            })
 
     }
 
@@ -96,12 +108,14 @@ export class EmployeeMenuComponent implements OnInit{
     public showAppointment = false;
     public showPatients = false;
     public showEmployees = false;
+    public showPrescription = false;
 
     //Hide All
     public hideAll(): void{
         this.showAppointment = false;
         this.showPatients = false;
         this.showEmployees = false;
+        this.showPrescription = false;
     }  
 
     //Appointment//////////////////////////////////////////////////
@@ -243,6 +257,116 @@ export class EmployeeMenuComponent implements OnInit{
         if (mode === 'delete') {
         this.deleteAppointment = appointment;
         button.setAttribute('data-target', '#deleteAppointmentModal');
+        }
+        container?.appendChild(button);
+        button.click();
+  }
+
+    //Prescription//////////////////////////////////////////////////
+    public displayPrescription(): void{
+        this.hideAll();
+        this.showPrescription = true;
+    }   
+
+    public onAddPrescription(addPrescriptionForm: NgForm): void{
+        document.getElementById('add-prescription-form')?.click();
+        this.prescriptionService.addPrescription(addPrescriptionForm.value).subscribe(
+            (response: Prescription) => {
+
+                //Reloading Prescription cards
+                this.prescriptionService.getPrescriptions().subscribe(
+                    (response: Prescription[]) => {
+                      this.prescriptions = [];
+                      for (let i = 0; i < response.length; i++) {
+                        this.prescriptions.push(response[i]) 
+                        addPrescriptionForm.reset();
+                    }
+                    },
+                    (error: HttpErrorResponse) => {
+                      alert(error.message);
+                      addPrescriptionForm.reset();
+                    })
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message)
+            }
+        );
+    }
+
+    public onEditPrescription(prescription: Prescription): void{
+        
+        let medicineId = String(prescription.medicineID);
+        for(let i = 0; i < this.medicines.length; i++){
+            if(medicineId == this.medicines[i].medicineID){
+                prescription.medicineID = this.medicines[i];
+            }
+        }
+        
+
+        this.prescriptionService.updatePrescription(prescription).subscribe(
+            (response: Prescription) => {
+
+                //Reloading Prescription cards
+                this.prescriptionService.getPrescriptions().subscribe(
+                    (response: Prescription[]) => {
+                      this.prescriptions = [];
+                      for (let i = 0; i < response.length; i++) {
+                        this.prescriptions.push(response[i]) 
+                    }
+                    },
+                    (error: HttpErrorResponse) => {
+                      alert(error.message);
+                    })
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message)
+            }
+        );
+    }
+
+
+    public onDeletePrescription(/*prescriptionId?*/scriptRef?: string): void{
+        
+        this.prescriptionService.deletePrescription(scriptRef).subscribe(
+            (response: void) => {
+
+                //Reloading Appointment cards
+                this.prescriptionService.getPrescriptions().subscribe(
+                    (response: Prescription[]) => {
+                      this.prescriptions = [];
+                      for (let i = 0; i < response.length; i++) {
+                        this.prescriptions.push(response[i]) 
+                    }
+                    },
+                    (error: HttpErrorResponse) => {
+                      alert(error.message);
+                    })
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message)
+            }
+        );
+    }
+
+    
+    public onOpenModalPrescription( mode: string, prescription?: Prescription): void {
+        const container = document.getElementById('prescription-Container');
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.style.display = 'none';
+        button.setAttribute('data-toggle', 'modal');
+        if (mode === 'add') {
+        button.setAttribute('data-target', '#addPrescriptionModal');
+        this.generateId();
+        }
+        if (mode === 'edit') {
+        this.editPrescription = prescription;
+        console.log(this.editAppointment);
+        button.setAttribute('data-target', '#updatePrescriptionModal');
+        }
+        if (mode === 'delete') {
+        this.deletePrescription = prescription;
+        button.setAttribute('data-target', '#deleteModal');
         }
         container?.appendChild(button);
         button.click();
