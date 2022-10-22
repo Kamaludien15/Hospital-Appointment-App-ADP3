@@ -8,7 +8,7 @@ import za.ac.cput.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 class PatientGenderFactoryTest {
-    Patient patient = PatientFactory.createPatient("Rheagn", "Fortuin", "19 August 2000", "password");
+    Patient patient = PatientFactory.createPatient("Rheagn", "Fortuin", "19 August 2000", "1234567890");
     Gender gender = GenderFactory.createGender("Rhegan", "Born a male on the 19th of August in the year 2000", "Male");
 
     @Test

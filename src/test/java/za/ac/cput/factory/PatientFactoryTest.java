@@ -13,7 +13,7 @@ class PatientFactoryTest {
                                                       .setPatientFirstName("Rhegan")
                                                       .setPatientLastName("Fortuin")
                                                       .setPatientDateOfBirth("19 August 2000")
-                                                      .setPassword("password")
+                                                      .setPassword("123456790")
                                                       .build();
         assertNotNull(patient);
     }
