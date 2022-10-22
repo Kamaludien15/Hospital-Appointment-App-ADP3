@@ -17,3 +17,4 @@ buildNumber.properties
 *.ipr
 Angular/hospital-appointment-app/.angular/cache
 Angular/hospital-appointment-app/node_modules
+/node_modules/
