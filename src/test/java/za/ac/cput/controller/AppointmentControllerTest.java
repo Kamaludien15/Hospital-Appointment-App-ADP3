@@ -30,9 +30,9 @@ class AppointmentControllerTest {
 
     @Autowired private TestRestTemplate restTemplate;
 
-    private static Patient patient= PatientFactory.createPatient("Rick", "Rock", "01-Janurary-1999");
+    private static Patient patient= PatientFactory.createPatient("Rick", "Rock", "01-Janurary-1999", "123456789");
     private static Hospital hospital = HospitalFactory.createHospital("Spring View Hospital", 1000, "Private");
-    private static Employee employee = EmployeeFactory.createEmployee("James", "Johnson", "01-Janurary-1997");
+    private static Employee employee = EmployeeFactory.createEmployee("James", "Johnson", "01-Janurary-1997", "123456789");
     private static Medicine medicine = MedicineFactory.createMedicine("Panado", "500ml", "Twice a day", "R500.00");
     private static Prescription prescription = PrescriptionFactory.createPrescription(medicine, "01-Janurary-2022", "Twice a year");
     private static Procedure procedure = ProcedureFactory.createProcedure("Eye Sight Test", "Test patients eyesight strength", "R1000");

@@ -22,8 +22,8 @@ class EmployeeFactoryTest {
 
     @BeforeEach
     public void setUp() {
-       employee  = EmployeeFactory.createEmployee("Peter", "Bale", "02-03-88");
-       employee2 = EmployeeFactory.createEmployee("Kate", "Derek", "02-03-88");
+       employee  = EmployeeFactory.createEmployee("Peter", "Bale", "02-03-88", "123456789");
+       employee2 = EmployeeFactory.createEmployee("Kate", "Derek", "02-03-88", "123456789");
     }
 
     @Test

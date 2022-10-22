@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class EmployeeContact implements Serializable {
 
     @Id
-    @Column(name = "employeeContact_id")
+    @Column(name = "employee_contact_id")
     private String employeeContactId;
 
     @OneToOne

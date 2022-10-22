@@ -14,9 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AppointmentFactoryTest {
 
-    Patient patient = PatientFactory.createPatient("Rick", "Rock", "01-Janurary-1999");
+    Patient patient = PatientFactory.createPatient("Rick", "Rock", "01-Janurary-1999", "1234567890");
     Hospital hospital = HospitalFactory.createHospital("Spring View Hospital", 1000, "Private");
-    Employee employee = EmployeeFactory.createEmployee("James", "Johnson", "01-Janurary-1997");
+    Employee employee = EmployeeFactory.createEmployee("James", "Johnson", "01-Janurary-1997", "1234567890");
     Medicine medicine = MedicineFactory.createMedicine("Panado", "500ml", "Twice a day", "R500.00");
     Prescription prescription = PrescriptionFactory.createPrescription(medicine, "01-Janurary-2022", "Twice a year");
     Procedure procedure = ProcedureFactory.createProcedure("Eye Sight Test", "Test patients eyesight strength", "R1000");

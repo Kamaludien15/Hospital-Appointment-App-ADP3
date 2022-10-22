@@ -24,6 +24,7 @@ public class Patient {
     private String patientFirstName;
     private String patientLastName;
     private String patientDateOfBirth;
+    private String password;
 
     //builder constructor
     public Patient(patientBuilder builder){
@@ -31,6 +32,7 @@ public class Patient {
         this.patientFirstName = builder.patientFirstName;
         this.patientLastName = builder.patientLastName;
         this.patientDateOfBirth = builder.patientDateOfBirth;
+        this.password = builder.password;
     }
 
     //constructor
@@ -53,6 +55,10 @@ public class Patient {
         return patientDateOfBirth;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     //toString
     @Override
     public String toString() {
@@ -61,6 +67,7 @@ public class Patient {
                 ", patientFirstName=" + patientFirstName +
                 ", patientLastName=" + patientLastName +
                 ", patientDateOfBirth=" + patientDateOfBirth +
+                ", password=" + password +
                 '}';
     }
 
@@ -70,13 +77,13 @@ public class Patient {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Patient that = (Patient) o;
-        return patientID.equals(that.patientID) && Objects.equals(patientFirstName, that.patientFirstName) && Objects.equals(patientLastName, that.patientLastName) && Objects.equals(patientDateOfBirth, that.patientDateOfBirth);
+        return patientID.equals(that.patientID) && Objects.equals(patientFirstName, that.patientFirstName) && Objects.equals(patientLastName, that.patientLastName) && Objects.equals(patientDateOfBirth, that.patientDateOfBirth) && Objects.equals(password, that.password);
     }
 
     //Hashcode
     @Override
     public int hashCode() {
-        return Objects.hash(patientID, patientFirstName, patientLastName, patientDateOfBirth);
+        return Objects.hash(patientID, patientFirstName, patientLastName, patientDateOfBirth, password);
     }
 
     //builder class
@@ -85,6 +92,7 @@ public class Patient {
         private String patientFirstName;
         private String patientLastName;
         private String patientDateOfBirth;
+        private String password;
 
         public patientBuilder setPatientID(String patientID) {
             this.patientID = patientID;
@@ -105,11 +113,17 @@ public class Patient {
             this.patientDateOfBirth = patientDateOfBirth;
             return this;
         }
+
+        public patientBuilder setPassword(String password) {
+            this.password = password;
+            return this;
+        }
         public patientBuilder copy(Patient patient){
             this.patientID = patient.patientID;
             this.patientFirstName = patient.patientFirstName;
             this.patientLastName = patient.patientLastName;
             this.patientDateOfBirth = patient.patientDateOfBirth;
+            this.password = patient.password;
 
             return this;
         }
