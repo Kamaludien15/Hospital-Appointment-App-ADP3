@@ -33,8 +33,8 @@ export class PrescriptionService {
     return this.http.post<Prescription>(`${this.apiServerUrl}/prescription/save`, prescription)
   }
 
-  public deletePrescription(scriptRef?: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiServerUrl}/prescription/delete/${scriptRef}`)
+  public deletePrescription(prescriptionId: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiServerUrl}/prescription/delete/${prescriptionId}`)
   }
 
 }
