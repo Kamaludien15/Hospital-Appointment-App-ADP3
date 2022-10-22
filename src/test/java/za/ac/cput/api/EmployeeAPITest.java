@@ -46,14 +46,14 @@ public class EmployeeAPITest {
     }
 
     @Test
-    void delete() {
-        this.api.delete(this.employee);
-        assertEquals(0, this.api.getAll().size());
+    void getAll() {
+        Employee saved = this.api.save(this.employee);
+        assertEquals(2, this.api.getAll().size());
     }
 
     @Test
-    void getAll() {
-        Employee saved = this.api.save(this.employee);
+    void delete() {
+        this.api.delete(this.employee);
         assertEquals(1, this.api.getAll().size());
     }
 

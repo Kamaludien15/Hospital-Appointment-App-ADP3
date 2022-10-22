@@ -21,6 +21,8 @@ public class EmployeeControllerTest {
 
     @LocalServerPort
     private int port;
+    private String SECURITY_USERNAME = "Admin";
+    private String SECURITY_PASSWORD = "passwordAdmin";
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -39,9 +41,10 @@ public class EmployeeControllerTest {
 
     @Test
     void a_save() {
-        String url = baseUrl + "save";
+        String url = this.baseUrl + "save";
         System.out.println(url);
-        ResponseEntity<Employee> response = this.restTemplate.postForEntity(url, this.employee, Employee.class);
+        ResponseEntity<Employee> response = this.restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD)
+                .postForEntity(url, this.employee, Employee.class);
         System.out.println(response);
         assertAll(
                 ()-> assertEquals(HttpStatus.OK, response.getStatusCode()),
@@ -53,7 +56,8 @@ public class EmployeeControllerTest {
     void b_read() {
         String url = baseUrl+"read/" + this.employee.getEmployeeId();
         System.out.println(url);
-        ResponseEntity<Employee> response = this.restTemplate.getForEntity(url, Employee.class);
+        ResponseEntity<Employee> response = this.restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD)
+                .getForEntity(url, Employee.class);
         assertAll(
                 ()-> assertEquals(HttpStatus.OK, response.getStatusCode()),
                 ()-> assertNotNull(response.getBody())
@@ -64,7 +68,8 @@ public class EmployeeControllerTest {
     void c_getAll() {
         String url = baseUrl + "all";
         System.out.println(url);
-        ResponseEntity<Employee[]> response = this.restTemplate.getForEntity(url, Employee[].class);
+        ResponseEntity<Employee[]> response = this.restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD)
+                .getForEntity(url, Employee[].class);
         System.out.println(Arrays.asList(response.getBody()));
         assertAll(
                 ()-> assertEquals(HttpStatus.OK, response.getStatusCode()),
@@ -75,7 +80,7 @@ public class EmployeeControllerTest {
     @Test
     void d_delete() {
         String url = baseUrl + "delete/" + this.employee.getEmployeeId();
-        this.restTemplate.delete(url);
+        this.restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD).delete(url);
     }
 
 }

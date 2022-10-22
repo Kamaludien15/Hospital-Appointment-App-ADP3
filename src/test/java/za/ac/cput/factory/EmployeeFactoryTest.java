@@ -37,9 +37,8 @@ class EmployeeFactoryTest {
     }//end of testEquality method
 
     @Test
-    @Disabled
     public void testIdentity(){
-        assertSame(employee,employee2);//failed test, objects are not the same
+        assertNotSame(employee,employee2);//pass test, objects are the same
     }//end of testIdentity method
 
     @Test

@@ -55,14 +55,14 @@ public class EmployeeServiceTest {
         Employee saved = this.service.save(this.employee);
         this.service.delete(saved);
         List<Employee> employees = this.service.getAll();
-        assertEquals(0,employees.size());
+        assertEquals(1,employees.size());
     }
 
     @Test
     void getAll() {
         this.service.save(this.employee);
         List<Employee> employees = this.service.getAll();
-        assertEquals(1,employees.size());
+        assertEquals(2,employees.size());
     }
 
 }

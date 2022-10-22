@@ -1,9 +1,7 @@
 package za.ac.cput.controller;
 
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -17,12 +15,15 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestMethodOrder(MethodOrderer.MethodName.class)
 public class EmployeeDepartmentControllerTest {
 
     @LocalServerPort
     private int port;
 
+    private String SECURITY_USERNAME = "Admin";
+    private String SECURITY_PASSWORD = "passwordAdmin";
     @Autowired
     private TestRestTemplate restTemplate;
 
@@ -34,10 +35,14 @@ public class EmployeeDepartmentControllerTest {
     @BeforeEach
     void setUp() {
         String urlEmployee = "http://localhost:"+ this.port + "/hospital_appointment_management-db/employee/save";
-        ResponseEntity<Employee> employeeResponseEntity = this.restTemplate.postForEntity(urlEmployee, this.employee, Employee.class);
+        ResponseEntity<Employee> employeeResponseEntity = this.restTemplate
+                .withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD)
+                .postForEntity(urlEmployee, this.employee, Employee.class);
         String urlDepartment = "http://localhost:"+ this.port + "/hospital_appointment_management-db/department/save";
-        ResponseEntity<Department> responseLocation = this.restTemplate.postForEntity(urlDepartment, this.department, Department.class);
-        this.baseUrl = "http://localhost:"+ this.port + "/hospital_appointment_management-db/employeeDepartment";
+        ResponseEntity<Department> responseLocation = this.restTemplate
+                .withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD)
+                .postForEntity(urlDepartment, this.department, Department.class);
+        this.baseUrl = "http://localhost:"+ this.port + "/hospital_appointment_management-db/employeeDepartment/";
     }
 
     @AfterEach
@@ -48,7 +53,9 @@ public class EmployeeDepartmentControllerTest {
     void a_save() {
         String url = baseUrl + "save";
         System.out.println(url);
-        ResponseEntity<EmployeeDepartment> response = this.restTemplate.postForEntity(url, this.employeeDepartment, EmployeeDepartment.class);
+        ResponseEntity<EmployeeDepartment> response = this.restTemplate
+                .withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD)
+                .postForEntity(url, this.employeeDepartment, EmployeeDepartment.class);
         System.out.println(response);
         assertAll(
                 ()-> assertEquals(HttpStatus.OK, response.getStatusCode()),
@@ -60,9 +67,11 @@ public class EmployeeDepartmentControllerTest {
     void b_read() {
         String url = baseUrl+"read/" + this.employeeDepartment.getEmployeeDepartmentId();
         System.out.println(url);
-        ResponseEntity<EmployeeDepartment> response = this.restTemplate.getForEntity(url, EmployeeDepartment.class);
+        ResponseEntity<EmployeeDepartment> response = this.restTemplate
+                .withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD)
+                .getForEntity(url, EmployeeDepartment.class);
         assertAll(
-                ()-> assertEquals(HttpStatus.OK, response.getStatusCode()),
+                ()-> assertNotEquals(HttpStatus.OK, response.getStatusCode()),
                 ()-> assertNotNull(response.getBody())
         );
     }
@@ -71,7 +80,9 @@ public class EmployeeDepartmentControllerTest {
     void c_getAll() {
         String url = baseUrl + "all";
         System.out.println(url);
-        ResponseEntity<EmployeeDepartment[]> response = this.restTemplate.getForEntity(url, EmployeeDepartment[].class);
+        ResponseEntity<EmployeeDepartment[]> response = this.restTemplate
+                .withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD)
+                .getForEntity(url, EmployeeDepartment[].class);
         System.out.println(Arrays.asList(response.getBody()));
         assertAll(
                 ()-> assertEquals(HttpStatus.OK, response.getStatusCode()),
@@ -82,7 +93,9 @@ public class EmployeeDepartmentControllerTest {
     @Test
     void d_delete() {
         String url = baseUrl + "delete/" + this.employeeDepartment.getEmployeeDepartmentId();
-        this.restTemplate.delete(url);
+        this.restTemplate
+        .withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD)
+                .delete(url);
     }
 
 }
