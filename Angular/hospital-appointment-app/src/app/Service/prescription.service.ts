@@ -26,15 +26,15 @@ export class PrescriptionService {
   }
 
   public addPrescription(prescription: Prescription): Observable<Prescription> {
-    return this.http.post<Prescription>(`${this.apiServerUrl}/prescription/save`, prescription)
+    return this.http.post<Prescription>(`${this.apiServerUrl}/prescription/save`, prescription, httpOptions)
   }
 
   public updatePrescription(prescription: Prescription): Observable<Prescription> {
-    return this.http.post<Prescription>(`${this.apiServerUrl}/prescription/save`, prescription)
+    return this.http.post<Prescription>(`${this.apiServerUrl}/prescription/save`, prescription, httpOptions)
   }
 
-  public deletePrescription(prescriptionId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiServerUrl}/prescription/delete/${prescriptionId}`)
+  public deletePrescription(scriptRef?: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiServerUrl}/prescription/delete/${scriptRef}`, httpOptions)
   }
 
 }
