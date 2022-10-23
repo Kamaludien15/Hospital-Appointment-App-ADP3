@@ -21,7 +21,7 @@ import {v4 as uuids4} from 'uuid';
 @Component({ templateUrl: 'employeeMenu.component.html' })
 export class EmployeeMenuComponent implements OnInit{
 
-    constructor(private procedureService: ProcedureService,private prescriptionService: PrescriptionService,private hospitalService: HospitalService,private appointmentService: AppointmentService,private medicineService: MedicineService, private employeeService: EmployeeService, private patientService: PatientService) { }
+    constructor(private procedureService: ProcedureService,private prescriptionService: PrescriptionService,private hospitalService: HospitalService,private medicineService: MedicineService,private appointmentService: AppointmentService, private employeeService: EmployeeService, private patientService: PatientService) { }
 
     public appointments: Appointment[] = [];
     public employees: Employee[] = [];
@@ -330,7 +330,7 @@ export class EmployeeMenuComponent implements OnInit{
         this.prescriptionService.deletePrescription(scriptRef).subscribe(
             (response: void) => {
 
-                //Reloading Appointment cards
+                //Reloading Prescription cards
                 this.prescriptionService.getPrescriptions().subscribe(
                     (response: Prescription[]) => {
                       this.prescriptions = [];
@@ -361,12 +361,12 @@ export class EmployeeMenuComponent implements OnInit{
         }
         if (mode === 'edit') {
         this.editPrescription = prescription;
-        console.log(this.editAppointment);
+        console.log(this.editPrescription);
         button.setAttribute('data-target', '#updatePrescriptionModal');
         }
         if (mode === 'delete') {
         this.deletePrescription = prescription;
-        button.setAttribute('data-target', '#deleteModal');
+        button.setAttribute('data-target', '#deletePrescriptionModal');
         }
         container?.appendChild(button);
         button.click();

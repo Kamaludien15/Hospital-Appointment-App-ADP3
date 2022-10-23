@@ -274,6 +274,8 @@
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><i class="fa fa-user-md float-right"></i><h5>Medicine :</h5><a></a>{{prescription.medicineID.medicineName}}</li>
+                            <li class="list-group-item"><i class="fa fa-user-md float-right"></i><h5>Script Issued :</h5><a></a>{{prescription.scriptIssueDate}}</li>
+                            <li class="list-group-item"><i class="fa fa-user-md float-right"></i><h5>Script Recurrence :</h5><a></a>{{prescription.scriptRecurrence}}</li>
                         </ul>
                         <div class="card-body">
                             <div class="float-right btn-group btn-group-sm">
@@ -286,7 +288,7 @@
             </div>
         </div>
 
-        <!-- Add Appointmenty Modal -->
+        <!-- Add Prescription Modal -->
         <div class="modal" id="addPrescriptionModal" tabindex="-1" role="dialog" aria-labelledby="addPrescriptionModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -303,10 +305,10 @@
                     <input type="text" [ngModel]="generatedId" name="scriptRef" class="form-control" id="scriptRef" required>
                 </div>
                 <div class="form-group">
-                <label for="medicine">Medicine ID</label>
-                <select ngModel name="medicine" class="form-control" id="medicine" required>
-                    <option *ngFor="let medicine of medicines" [ngValue]="medicine">
-                            {{medicine.medicineName}} : (ID) {{medicine.medicineID}}
+                <label for="medicineID">Medicine</label>
+                <select ngModel name="medicineID" class="form-control" id="medicineID" required>
+                    <option *ngFor="let medicineID of medicines" [ngValue]="medicineID">
+                            {{medicineID.medicineName}} : (ID) {{medicineID.medicineID}}
                     </option>
                 </select>
                 </div>
@@ -328,7 +330,7 @@
         </div>
         </div>
   
-        <!-- Edit Modal -->
+        <!-- Edit Prescription Modal -->
         <div class="modal" id="updatePrescriptionModal" tabindex="-1" role="dialog" aria-labelledby="updatePrescriptionModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -340,15 +342,15 @@
                 </div>
                 <div class="modal-body">
                     <form #editPrescriptionForm="ngForm">
-                        <div class="form-group" >
-                            <label for="scriptRef">scriptRef</label>
+                        <div class="form-group" hidden>
+                            <label for="scriptRef">Script Reference</label>
                             <input type="text" [ngModel]="editPrescription?.scriptRef" name="scriptRef" class="form-control" id="scriptRef" required>
                         </div>
                         <div class="form-group">
-                        <label for="medicine">Medicine ID</label>
-                        <select [ngModel]="editPrescription?.medicineID" name="medicine" class="form-control" id="medicine" required>
-                            <option *ngFor="let medicine of medicines" [ngValue]="medicine.medicineID">
-                                    {{medicine.medicineName}} : (ID) {{medicine.medicineID}}
+                        <label for="medicineID">Medicine</label>
+                        <select [ngModel]="editPrescription?.medicineID?.medicineID" name="medicineID" class="form-control" id="medicineID" required>
+                            <option *ngFor="let medicineID of medicines" [ngValue]="medicineID.medicineID">
+                                    {{medicineID.medicineName}} : (ID) {{medicineID.medicineID}}
                             </option>
                         </select>
                         </div>
@@ -370,7 +372,7 @@
             </div>
         </div>
   
-        <!-- Delete Modal -->
+        <!-- Delete Prescription Modal -->
         <div class="modal" id="deletePrescriptionModal" tabindex="-1" role="dialog" aria-labelledby="deletePrescriptionLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
             <div class="modal-content">

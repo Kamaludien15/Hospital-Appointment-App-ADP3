@@ -26,15 +26,15 @@ export class MedicineService {
   }
 
   public addMedicine(medicine: Medicine): Observable<Medicine> {
-    return this.http.post<Medicine>(`${this.apiServerUrl}/medicine/save`, medicine)
+    return this.http.post<Medicine>(`${this.apiServerUrl}/medicine/save`, medicine, httpOptions)
   }
 
   public updateMedicine(medicine: Medicine): Observable<Medicine> {
-    return this.http.post<Medicine>(`${this.apiServerUrl}/medicine/save`, medicine)
+    return this.http.post<Medicine>(`${this.apiServerUrl}/medicine/save`, medicine, httpOptions)
   }
 
   public deleteMedicine(medicineID?: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiServerUrl}/medicine/delete/${medicineID}`)
+    return this.http.delete<void>(`${this.apiServerUrl}/medicine/delete/${medicineID}`, httpOptions)
   }
 
 }
