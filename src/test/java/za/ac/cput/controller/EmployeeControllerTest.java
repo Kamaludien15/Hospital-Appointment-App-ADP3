@@ -27,7 +27,7 @@ public class EmployeeControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private static Employee employee = EmployeeFactory.createEmployee("Jackson", "Mayne", "1976-20-04");
+    private static Employee employee = EmployeeFactory.createEmployee("Jackson", "Mayne", "1976-20-04", "MyPass");
     private String baseUrl;
 
     @BeforeEach
@@ -73,7 +73,7 @@ public class EmployeeControllerTest {
         System.out.println(Arrays.asList(response.getBody()));
         assertAll(
                 ()-> assertEquals(HttpStatus.OK, response.getStatusCode()),
-                ()-> assertTrue(response.getBody().length == 1)
+                ()-> assertTrue(response.getBody().length != 0)
         );
     }
 

@@ -51,18 +51,17 @@ public class DepartmentServiceTest {
     }
 
     @Test
-    void delete() {
+    void getAll() {
         Department saved = this.service.save(this.department);
-        this.service.delete(saved);
         List<Department> departments = this.service.getAll();
-        assertEquals(0,departments.size());
+        assertEquals(1,departments.size());
     }
 
     @Test
-    void getAll() {
-        this.service.save(this.department);
+    void delete() {
+        this.service.delete(this.department);
         List<Department> departments = this.service.getAll();
-        assertEquals(1,departments.size());
+        assertEquals(0,departments.size());
     }
 
 }

@@ -45,15 +45,15 @@ public class DepartmentAPITest {
     }
 
     @Test
-    void delete() {
-        this.api.delete(this.department);
-        assertEquals(0, this.api.getAll().size());
-    }
-
-    @Test
     void getAll() {
         Department saved = this.api.save(this.department);
         assertEquals(1, this.api.getAll().size());
+    }
+
+    @Test
+    void delete() {
+        this.api.delete(this.department);
+        assertEquals(0, this.api.getAll().size());
     }
 
 }

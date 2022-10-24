@@ -24,7 +24,7 @@ public class EmployeeServiceTest {
 
     @BeforeEach
     void setUp() {
-        this.employee = EmployeeFactory.createEmployee("Peter", "Splinter", "2020-20-03");
+        this.employee = EmployeeFactory.createEmployee("Peter", "Splinter", "2020-20-03", "myPassword");
     }
 
     @AfterEach
@@ -55,14 +55,14 @@ public class EmployeeServiceTest {
         Employee saved = this.service.save(this.employee);
         this.service.delete(saved);
         List<Employee> employees = this.service.getAll();
-        assertEquals(1,employees.size());
+        assertEquals(0,employees.size());
     }
 
     @Test
     void getAll() {
         this.service.save(this.employee);
         List<Employee> employees = this.service.getAll();
-        assertEquals(2,employees.size());
+        assertEquals(1,employees.size());
     }
 
 }

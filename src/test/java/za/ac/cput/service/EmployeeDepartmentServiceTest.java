@@ -29,20 +29,20 @@ public class EmployeeDepartmentServiceTest {
 
     @BeforeEach
     void setUp() {
-        this.employee = EmployeeFactory.createEmployee("Sara", "Griffin", "1991-02-03");
+        this.employee = EmployeeFactory.createEmployee("Sara", "Griffin", "1991-02-03", "password");
         this.department = DepartmentFactory.createDepartment("IT", "45","10");
         this.employeeDepartment = EmployeeDepartmentFactory.createEmployeeDepartment(this.employee, this.department);
     }
 
     @AfterEach
     void tearDown() {
-
+        this.service.delete(this.employeeDepartment);
     }
 
     @Test
     void save() {
-        Employee savedEmployee = this.employeeService.save(this.employee);
-        Department savedDepartment = this.departmentService.save(this.department);
+        this.employeeService.save(this.employee);
+        this.departmentService.save(this.department);
         EmployeeDepartment saved = this.service.save(this.employeeDepartment);
         System.out.println(saved);
         assertNotNull(saved);
@@ -50,23 +50,21 @@ public class EmployeeDepartmentServiceTest {
     }
 
     @Test
-    @Disabled
     void read() {
-        Employee savedEmployee = this.employeeService.save(this.employee);
-        Department savedDepartment = this.departmentService.save(this.department);
+        this.employeeService.save(this.employee);
+        this.departmentService.save(this.department);
         EmployeeDepartment saved = this.service.save(this.employeeDepartment);
-        Optional<EmployeeDepartment> read = this.service.read(employeeDepartment.getEmployeeDepartmentId());
+        Optional<EmployeeDepartment> read = this.service.read(saved.getEmployeeDepartmentId());
         assertAll(
                 ()->assertTrue(read.isPresent()),
-                ()->assertNotSame(saved.getEmployeeDepartmentId(), read.get().getEmployeeDepartmentId())
+                ()->assertSame(saved.getEmployeeDepartmentId(), read.get().getEmployeeDepartmentId())
         );
     }
 
     @Test
-    @Disabled
     void delete() {
-        Department savedDepartment = this.departmentService.save(this.department);
-        Employee savedEmployee = this.employeeService.save(this.employee);
+        this.employeeService.save(this.employee);
+        this.departmentService.save(this.department);
         EmployeeDepartment saved = this.service.save(this.employeeDepartment);
         this.service.delete(saved);
         List<EmployeeDepartment> employeeDepartmentList = this.service.getAll();
@@ -74,10 +72,9 @@ public class EmployeeDepartmentServiceTest {
     }
 
     @Test
-    @Disabled
     void getAll() {
-        Employee savedEmployee = this.employeeService.save(this.employee);
-        Department savedDepartment = this.departmentService.save(this.department);
+        this.employeeService.save(this.employee);
+        this.departmentService.save(this.department);
         this.service.save(this.employeeDepartment);
         List<EmployeeDepartment> employeeDepartmentList = this.service.getAll();
         assertEquals(1,employeeDepartmentList.size());

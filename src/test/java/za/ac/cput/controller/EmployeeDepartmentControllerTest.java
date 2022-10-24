@@ -27,7 +27,7 @@ public class EmployeeDepartmentControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private static Employee employee = EmployeeFactory.createEmployee("John", "Woods", "1987-20-03");
+    private static Employee employee = EmployeeFactory.createEmployee("John", "Woods", "1987-20-03", "MyPassword");
     private static Department department = DepartmentFactory.createDepartment("IT","25","09");
     private static EmployeeDepartment employeeDepartment = EmployeeDepartmentFactory.createEmployeeDepartment(employee, department);
     private String baseUrl;

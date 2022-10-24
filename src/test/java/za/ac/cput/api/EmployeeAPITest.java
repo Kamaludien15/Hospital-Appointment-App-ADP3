@@ -24,7 +24,7 @@ public class EmployeeAPITest {
 
     @BeforeEach
     void setUp() {
-        this.employee = EmployeeFactory.createEmployee("Jake", "Dane", "2020-04-03");
+        this.employee = EmployeeFactory.createEmployee("Jake", "Dane", "2020-04-03", "MyPassword");
     }
 
     @AfterEach
@@ -48,13 +48,13 @@ public class EmployeeAPITest {
     @Test
     void getAll() {
         Employee saved = this.api.save(this.employee);
-        assertEquals(2, this.api.getAll().size());
+        assertEquals(1, this.api.getAll().size());
     }
 
     @Test
     void delete() {
         this.api.delete(this.employee);
-        assertEquals(1, this.api.getAll().size());
+        assertEquals(0, this.api.getAll().size());
     }
 
 }

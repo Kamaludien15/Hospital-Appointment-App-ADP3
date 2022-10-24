@@ -1,10 +1,12 @@
 package za.ac.cput.api;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.event.annotation.BeforeTestExecution;
 import za.ac.cput.domain.*;
 import za.ac.cput.factory.*;
 
@@ -21,12 +23,13 @@ public class EmployeeDepartmentAPITest {
     @Autowired private EmployeeAPI employeeAPI;
     @Autowired private DepartmentAPI departmentAPI;
     private Employee employee;
+
     private Department department;
     private EmployeeDepartment employeeDepartment;
 
     @BeforeEach
     void setUp() {
-        this.employee = EmployeeFactory.createEmployee("Johnson","Craig","1983-03-02");
+        this.employee = EmployeeFactory.createEmployee("Johnson","Craig","1983-03-02", "Password");
         this.department = DepartmentFactory.createDepartment("Surgery", "18", "10");
         this.employeeDepartment = EmployeeDepartmentFactory.createEmployeeDepartment(this.employee, this.department);
     }
@@ -34,15 +37,15 @@ public class EmployeeDepartmentAPITest {
     @AfterEach
     void tearDown(){
         this.api.delete(this.employeeDepartment);
-        this.employeeAPI.delete(this.employee);
-        this.departmentAPI.delete(this.department);
     }
 
     @Test
     void save() {
+        this.employeeAPI.save(this.employee);
+        this.departmentAPI.save(this.department);
         EmployeeDepartment saved = this.api.save(this.employeeDepartment);
         assertNotNull(saved);
-        assertSame(this.employeeDepartment.getEmployeeDepartmentId(), saved.getEmployeeDepartmentId());
+        assertNotSame(this.employeeDepartment.getEmployeeDepartmentId(), saved.getEmployeeDepartmentId());
     }
 
     @Test
@@ -52,15 +55,14 @@ public class EmployeeDepartmentAPITest {
     }
 
     @Test
-    void delete() {
-        this.api.delete(this.employeeDepartment);
-        assertEquals(0, this.api.getAll().size());
+    void getAll() {
+        assertNotNull(this.api.getAll());
     }
 
     @Test
-    void getAll() {
-        EmployeeDepartment saved = this.api.save(this.employeeDepartment);
-        assertEquals(1, this.api.getAll().size());
+    void delete() {
+        this.api.delete(this.employeeDepartment);
+        assertEquals(0, this.api.getAll().size());
     }
 
 }
