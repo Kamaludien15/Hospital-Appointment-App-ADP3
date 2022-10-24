@@ -96,19 +96,23 @@ export class EmployeeMenuComponent implements OnInit{
     public showAppointment = false;
     public showPatients = false;
     public showEmployees = false;
+    public showDepartments = false;
+    public showGenders = false;
 
     //Hide All
     public hideAll(): void{
         this.showAppointment = false;
         this.showPatients = false;
         this.showEmployees = false;
+        this.showDepartments = false;
+        this.showGenders = false;
     }  
 
     //Appointment//////////////////////////////////////////////////
     public displayAppointment(): void{
         this.hideAll();
         this.showAppointment = true;
-    }   
+    }
 
     public onAddAppointment(addAppointmentForm: NgForm): void{
         document.getElementById('add-appointment-form')?.click();
@@ -258,9 +262,19 @@ export class EmployeeMenuComponent implements OnInit{
     public displayPatients(): void{
         this.hideAll();
         this.showPatients = true;
-    }  
+    }
     
+    /*Departments*/
+    public displayDepartments() : void{
+        this.hideAll();
+        this.showDepartments = true;
+    }
 
+    /*Departments*/
+    public displayGenders() : void{
+        this.hideAll();
+        this.showGenders = true;
+    }
     
 
 }

@@ -1,0 +1,109 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+<div class="container-fluid">
+    <h4 class="text-start">Gender</h4>
+
+<div class="container gender-menu">
+    <div class="row">
+        <div class="col-lg-3">
+            <button class="btn btn-primary waves-effect waves-light btn-lg m-b-5" (click)="createGenders()">Create Gender</button>
+        </div>
+        <div class="col-lg-3">
+            <button class="btn btn-primary waves-effect waves-light btn-lg m-b-5" (click)="viewGender()">View Gender</button>
+        </div>
+        <div class="col-lg-3">
+            <button class="btn btn-primary waves-effect waves-light btn-lg m-b-5" (click)="updateGenders()">Update Gender</button>
+        </div>
+    </div>
+ </div>
+
+<!--Create gender-->
+ <div class="container mt-4 create_gender {{createGender}}" >
+    <div class="row">
+        <div class="col-lg-4 create-gen-form">
+            <h4 class="text-center">Create Gender</h4>
+            <form #createGenderForm="ngForm" ngNativeValidate (ngSubmit)="onCreateGender(createGenderForm)" >
+                <div class="form-group" hidden>
+                    <label for="genderId">GenderId</label>
+                    <input type="text" [ngModel]="generatedId" name="genderID" class="form-control" id="genderId" required>
+                </div>
+                <div class="form-group">
+                  <label for="genderName">Gender Name</label>
+                  <input type="text" class="form-control" id="genderName" ngModel name="name" placeholder="gender name" required>
+                </div>
+                <div class="form-group">
+                  <label for="description">Description</label>
+                  <input type="text" class="form-control" id="description" ngModel name="description" placeholder="description" required>
+                </div>
+                <div class="form-group">
+                    <label for="sex">Sex</label>
+                    <input type="text" class="form-control" id="departmentFloor" ngModel name="sex" placeholder="sex" required>
+                  </div>
+                <button type="submit" class="btn btn-primary">Create Gender</button>
+              </form>
+        </div>
+
+     </div>
+ </div>
+ <!--------------->
+
+<!--View gender-->
+  <div class="container mt-4 view_gender {{viewGenders}}">
+    <div class="col-lg-10 view-department">
+      <table class="table table-warning">
+        <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Gender Name</th>
+          <th scope="col">Gender Description</th>
+          <th scope="col">Sex</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let gender of genders">
+          <th scope="row">{{gender.genderID}}</th>
+          <td>{{gender.name}}</td>
+          <td>{{gender.description}}</td>
+          <td>{{gender.sex}}</td>
+          <td><button type="submit" class="btn btn-danger" (click)="deleteGender(gender.genderID)"><i class="bi bi-trash3"></i></button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!------------------->
+
+<!--Update gender-->
+  <div class="container mt-4 update_gender {{updateGender}}" >
+    <div class="row">
+      <div class="col-lg-4 update-gen-form">
+        <h4 class="text-center">Update Gender</h4>
+        <form #updateGenderForm="ngForm" ngNativeValidate (ngSubmit)="onUpdateGender(updateGenderForm)" >
+          <div class="form-group">
+            <label for="genderId">Update by selecting an id</label>
+            <select type="text" ngModel name="genderID" class="form-control" id="genderId" required>
+              <option *ngFor="let gender of genders" value="{{gender.genderID}}">
+                {{gender.genderID}}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="genderName">Gender Name</label>
+            <input type="text" class="form-control" id="genderName" ngModel name="name" placeholder="gender name" required>
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" id="description" ngModel name="description" placeholder="description" required>
+          </div>
+          <div class="form-group">
+            <label for="sex">Sex</label>
+            <input type="text" class="form-control" id="departmentFloor" ngModel name="sex" placeholder="sex" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Update Gender</button>
+        </form>
+      </div>
+      <!--------------------->
+
+</div>

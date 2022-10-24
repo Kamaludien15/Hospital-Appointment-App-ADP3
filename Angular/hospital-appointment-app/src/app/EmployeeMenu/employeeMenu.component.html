@@ -40,8 +40,31 @@
                 <a (click)="displayPatients()" class="card-box-footer">Enter <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card-box bg-dark">
+                <div class="inner">
+                    <h3> Department </h3>
+                    <p> CRUD Operations </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-building" aria-hidden="true"></i>
+                </div>
+                <a (click)="displayDepartments()" class="card-box-footer">Enter <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card-box bg-warning">
+                <div class="inner">
+                    <h3> Gender </h3>
+                    <p> CRUD Operations </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-venus" aria-hidden="true"></i>
+                </div>
+                <a (click)="displayGenders()" class="card-box-footer">Enter <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
     </div>
-
 
     <!-- Appointments -->
     <div id="appointments" *ngIf="showAppointment">
@@ -146,7 +169,7 @@
         </div>
         </div>
         </div>
-  
+
         <!-- Edit Modal -->
         <div class="modal" id="updateAppointmentModal" tabindex="-1" role="dialog" aria-labelledby="updateAppointmentModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -216,7 +239,7 @@
             </div>
             </div>
         </div>
-  
+
         <!-- Delete Modal -->
         <div class="modal" id="deleteAppointmentModal" tabindex="-1" role="dialog" aria-labelledby="deleteAppointmentModelLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -239,26 +262,30 @@
         </div>
 
     </div>
-    
-    
-    
-    
-    
+
+
+
+
+
     <!-- Employees -->
     <div id="employees" *ngIf="showEmployees">
         <h3>employees</h3>
     </div>
-    
-    
-    
-    
-    
-    
+
     <!-- Patients -->
     <div id="patients" *ngIf="showPatients">
         <h3>patients</h3>
     </div>
 
+        <!-- Show Department -->
+        <div class="container" id="Department" *ngIf="showDepartments">
+            <app-department></app-department>
+        </div>
+
+        <!--show gender -->
+        <div class="container" id="Department" *ngIf="showGenders">
+         <app-gender></app-gender>
+        </div>
 
 
 </div>
