@@ -26,15 +26,15 @@ export class ProcedureService {
   }
 
   public addProcedure(procedure: Procedure): Observable<Procedure> {
-    return this.http.post<Procedure>(`${this.apiServerUrl}/procedure/save`, procedure)
+    return this.http.post<Procedure>(`${this.apiServerUrl}/procedure/save`, procedure, httpOptions)
   }
 
   public updateProcedure(procedure: Procedure): Observable<Procedure> {
-    return this.http.post<Procedure>(`${this.apiServerUrl}/procedure/save`, procedure)
+    return this.http.post<Procedure>(`${this.apiServerUrl}/procedure/save`, procedure, httpOptions)
   }
 
-  public deleteProcedure(procedureId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiServerUrl}/procedure/delete/${procedureId}`)
+  public deleteProcedure(procedureId?: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiServerUrl}/procedure/delete/${procedureId}`, httpOptions)
   }
 
 }
