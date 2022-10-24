@@ -1,0 +1,116 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+<div class="container-fluid">
+    <h4 class="text-start">Department</h4>
+
+  <!--Deparment navigation buttons-->
+<div class="container department-menu">
+    <div class="row">
+        <div class="col-lg-3">
+            <button class="btn btn-primary waves-effect waves-light btn-lg m-b-5" (click)="createDepartment()">Create Department</button>
+        </div>
+        <div class="col-lg-3">
+            <button class="btn btn-primary waves-effect waves-light btn-lg m-b-5" (click)="viewDepartment()">View Departments</button>
+        </div>
+        <div class="col-lg-3">
+            <button class="btn btn-primary waves-effect waves-light btn-lg m-b-5" (click)="updateDepartment()">Update Department</button>
+        </div>
+    </div>
+ </div>
+  <!-------------------------------------------->
+
+  <!--Create a new department-->
+ <div class="container mt-4 create_department {{createDepartments}}" >
+
+    <div class="row">
+        <div class="col-lg-4 create-dep-form">
+            <h4 class="text-center">Create Department</h4>
+            <form #createDepartmentForm="ngForm" ngNativeValidate (ngSubmit)="onCreateDepartment(createDepartmentForm)" >
+                <div class="form-group" hidden>
+                    <label for="departmentId">DepartmentId</label>
+                    <input type="text" [ngModel]="generatedId" name="departmentId" class="form-control" id="departmentId" required>
+                </div>
+                <div class="form-group">
+                  <label for="departmentName">Department Name</label>
+                  <input type="text" class="form-control" id="departmentName" ngModel name="departmentName" placeholder="department name" required>
+                </div>
+                <div class="form-group">
+                  <label for="departmentSize">department Size</label>
+                  <input type="text" class="form-control" id="departmentSize" ngModel name="departmentSize" placeholder="department size" required>
+                </div>
+                <div class="form-group">
+                    <label for="departmentFloor">department Floor</label>
+                    <input type="text" class="form-control" id="departmentFloor" ngModel name="departmentFloor" placeholder="department Floor" required>
+                  </div>
+                <button type="submit" class="btn btn-primary">Create department</button>
+              </form>
+        </div>
+
+     </div>
+ </div>
+  <!-------------------------------------------->
+
+  <!--View departments-->
+  <div class="container mt-4 view_departments {{viewDepartments}}">
+    <div class="col-lg-10 view-department">
+      <table class="table table-dark">
+        <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Department Name</th>
+          <th scope="col">Department floor</th>
+          <th scope="col">Department size</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let department of departments">
+          <th scope="row">{{department.departmentId}}</th>
+          <td>{{department.departmentName}}</td>
+          <td>{{department.departmentFloor}}</td>
+          <td>{{department.departmentSize}}</td>
+          <td><button type="submit" class="btn btn-danger" (click)="deleteDepartment(department.departmentId)"><i class="bi bi-trash3"></i></button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-------------------------------------------->
+
+  <!--Update departments-->
+  <div class="container mt-4 create_department {{updateDepartments}}" >
+
+    <div class="row">
+        <div class="col-lg-4 create-dep-form">
+            <h4 class="text-center">Update Department</h4>
+            <form #updateDepartmentForm="ngForm" ngNativeValidate (ngSubmit)="onUpdateDepartment(updateDepartmentForm)" >
+                <div class="form-group">
+                    <label for="departmentId">Edit by Selecting Id</label>
+                    <select type="text" ngModel name="departmentId" class="form-control" id="departmentId" required="required">
+                      <option *ngFor="let department of departments" value="{{department.departmentId}}">{{department.departmentId}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                  <label for="departmentName">Department Name</label>
+                  <input type="text" class="form-control" id="departmentName" ngModel name="departmentName" placeholder="department name" required>
+                </div>
+                <div class="form-group">
+                  <label for="departmentSize">Department Size</label>
+                  <input type="text" class="form-control" id="departmentSize" ngModel name="departmentSize" placeholder="department size" required>
+                </div>
+                <div class="form-group">
+                    <label for="departmentFloor">Department Floor</label>
+                    <input type="text" class="form-control" id="departmentFloor" ngModel name="departmentFloor" placeholder="department Floor" required>
+                  </div>
+                <button type="submit" class="btn btn-primary">Update department</button>
+              </form>
+        </div>
+
+     </div>
+ </div>
+  <!-------------------------------------------->
+
+  <!--End--->
+</div>
+
