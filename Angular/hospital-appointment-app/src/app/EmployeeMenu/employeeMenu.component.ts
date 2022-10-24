@@ -44,7 +44,7 @@ export class EmployeeMenuComponent implements OnInit{
             (response: Appointment[]) => {
               for (let i = 0; i < response.length; i++) {
                 if(response[i].employee.employeeId == environment.employeeId){
-                    this.appointments.push(response[i]) 
+                    this.appointments.push(response[i])
                 }
             }
             },
@@ -105,7 +105,7 @@ export class EmployeeMenuComponent implements OnInit{
         let id = uuids4();
         this.generatedId = id;
     }
-    
+
 
     //Display variables
     public showAppointment = false;
@@ -113,6 +113,8 @@ export class EmployeeMenuComponent implements OnInit{
     public showEmployees = false;
     public showMedicines = false;
     public showProcedures = false;
+    public showDepartments = false;
+    public showGenders = false;
 
     //Hide All
     public hideAll(): void{
@@ -121,13 +123,15 @@ export class EmployeeMenuComponent implements OnInit{
         this.showEmployees = false;
         this.showMedicines = false;
         this.showProcedures = false;
-    }  
+        this.showDepartments = false;
+        this.showGenders = false;
+    }
 
     //Appointment//////////////////////////////////////////////////
     public displayAppointment(): void{
         this.hideAll();
         this.showAppointment = true;
-    }   
+    }
 
     public onAddAppointment(addAppointmentForm: NgForm): void{
         document.getElementById('add-appointment-form')?.click();
@@ -140,7 +144,7 @@ export class EmployeeMenuComponent implements OnInit{
                       this.appointments = [];
                       for (let i = 0; i < response.length; i++) {
                         if(response[i].employee.employeeId == environment.employeeId){
-                            this.appointments.push(response[i]) 
+                            this.appointments.push(response[i])
                         }
                         addAppointmentForm.reset();
                     }
@@ -157,7 +161,7 @@ export class EmployeeMenuComponent implements OnInit{
     }
 
     public onEditAppointment(appointment: Appointment): void{
-        
+
         let patientId = String(appointment.patient);
         for(let i = 0; i < this.patients.length; i++){
             if(patientId == this.patients[i].patientID){
@@ -192,7 +196,7 @@ export class EmployeeMenuComponent implements OnInit{
                 appointment.procedure = this.procedures[i];
             }
         }
-        
+
 
         this.appointmentService.updateAppointment(appointment).subscribe(
             (response: Appointment) => {
@@ -203,7 +207,7 @@ export class EmployeeMenuComponent implements OnInit{
                       this.appointments = [];
                       for (let i = 0; i < response.length; i++) {
                         if(response[i].employee.employeeId == environment.employeeId){
-                            this.appointments.push(response[i]) 
+                            this.appointments.push(response[i])
                         }
                     }
                     },
@@ -219,7 +223,7 @@ export class EmployeeMenuComponent implements OnInit{
 
 
     public onDeleteAppointment(appointmentID?: string): void{
-        
+
         this.appointmentService.deleteAppointment(appointmentID).subscribe(
             (response: void) => {
 
@@ -229,7 +233,7 @@ export class EmployeeMenuComponent implements OnInit{
                       this.appointments = [];
                       for (let i = 0; i < response.length; i++) {
                         if(response[i].employee.employeeId == environment.employeeId){
-                            this.appointments.push(response[i]) 
+                            this.appointments.push(response[i])
                         }
                     }
                     },
@@ -243,7 +247,7 @@ export class EmployeeMenuComponent implements OnInit{
         );
     }
 
-    
+
     public onOpenModalAppointment( mode: string, appointment?: Appointment): void {
         const container = document.getElementById('appointment-Container');
         const button = document.createElement('button');
@@ -271,14 +275,14 @@ export class EmployeeMenuComponent implements OnInit{
     public displayEmployees(): void{
         this.hideAll();
         this.showEmployees = true;
-    }  
+    }
 
     //Patients/////////////////////////////////////////////////////
     public displayPatients(): void{
         this.hideAll();
         this.showPatients = true;
     }
-    
+
 
 
     //Procedure/////////////////////////////////////////////////////
@@ -297,7 +301,7 @@ export class EmployeeMenuComponent implements OnInit{
                     (response: Procedure[]) => {
                       this.procedures = [];
                       for (let i = 0; i < response.length; i++) {
-                        this.procedures.push(response[i]) 
+                        this.procedures.push(response[i])
                         addProcedureForm.reset();
                     }
                     },
@@ -314,7 +318,7 @@ export class EmployeeMenuComponent implements OnInit{
 
 
     public onEditProcedure(procedure: Procedure): void{
-        
+
         this.procedureService.updateProcedure(procedure).subscribe(
             (response: Procedure) => {
 
@@ -323,7 +327,7 @@ export class EmployeeMenuComponent implements OnInit{
                     (response: Procedure[]) => {
                       this.procedures = [];
                       for (let i = 0; i < response.length; i++) {
-                        this.procedures.push(response[i]) 
+                        this.procedures.push(response[i])
                     }
                     },
                     (error: HttpErrorResponse) => {
@@ -340,13 +344,13 @@ export class EmployeeMenuComponent implements OnInit{
 
         this.procedureService.deleteProcedure(procedureID).subscribe(
             (response: void) => {
-                
+
                 //Reloading Procedure cards
                 this.procedureService.getProcedures().subscribe(
                     (response: Procedure[]) => {
                       this.procedures = [];
                       for (let i = 0; i < response.length; i++) {
-                        this.procedures.push(response[i]) 
+                        this.procedures.push(response[i])
                     }
                     },
                     (error: HttpErrorResponse) => {
@@ -401,7 +405,7 @@ export class EmployeeMenuComponent implements OnInit{
                     (response: Medicine[]) => {
                       this.medicines = [];
                       for (let i = 0; i < response.length; i++) {
-                        this.medicines.push(response[i]) 
+                        this.medicines.push(response[i])
                         addMedicineForm.reset();
                     }
                     },
@@ -418,7 +422,7 @@ export class EmployeeMenuComponent implements OnInit{
 
 
     public onEditMedicine(medicine: Medicine): void{
-        
+
         this.medicineService.updateMedicine(medicine).subscribe(
             (response: Medicine) => {
 
@@ -427,7 +431,7 @@ export class EmployeeMenuComponent implements OnInit{
                     (response: Medicine[]) => {
                       this.medicines = [];
                       for (let i = 0; i < response.length; i++) {
-                        this.medicines.push(response[i]) 
+                        this.medicines.push(response[i])
                     }
                     },
                     (error: HttpErrorResponse) => {
@@ -444,13 +448,13 @@ export class EmployeeMenuComponent implements OnInit{
 
         this.medicineService.deleteMedicine(medicineID).subscribe(
             (response: void) => {
-                
+
                 //Reloading Medicine cards
                 this.medicineService.getMedicine().subscribe(
                     (response: Medicine[]) => {
                       this.medicines = [];
                       for (let i = 0; i < response.length; i++) {
-                        this.medicines.push(response[i]) 
+                        this.medicines.push(response[i])
                     }
                     },
                     (error: HttpErrorResponse) => {
@@ -487,4 +491,19 @@ export class EmployeeMenuComponent implements OnInit{
         container?.appendChild(button);
         button.click();
     }
+
+     /*Departments*/
+     public displayDepartments() : void{
+       this.hideAll();
+       this.showDepartments = true;
+     }
+
+     /*Departments*/
+     public displayGenders() : void{
+       this.hideAll();
+       this.showGenders = true;
+     }
+
+
+
 }
