@@ -26,6 +26,8 @@ class HospitalLocationControllerTest {
 
     @LocalServerPort
     private int port;
+    private String SECURITY_USERNAME = "admin";
+    private String SECURITY_PASSWORD = "passwordAdmin";
 
     @Autowired private TestRestTemplate restTemplate;
 
@@ -39,9 +41,9 @@ class HospitalLocationControllerTest {
     @BeforeEach
     void setUp() {
         String urlHospital = "http://localhost:"+ this.port + "/hospital_appointment_management-db/hospital/save";
-        ResponseEntity<Hospital> responseHospital = this.restTemplate.postForEntity(urlHospital, this.hospital, Hospital.class);
+        ResponseEntity<Hospital> responseHospital = this.restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD).postForEntity(urlHospital, this.hospital, Hospital.class);
         String urlLocation = "http://localhost:"+ this.port + "/hospital_appointment_management-db/location/save";
-        ResponseEntity<Location> responseLocation = this.restTemplate.postForEntity(urlLocation, this.location, Location.class);
+        ResponseEntity<Location> responseLocation = this.restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD).postForEntity(urlLocation, this.location, Location.class);
         this.baseUrl = "http://localhost:"+ this.port + "/hospital_appointment_management-db/hospitalLocation/";
     }
 
@@ -53,7 +55,7 @@ class HospitalLocationControllerTest {
     void a_save() {
         String url = baseUrl + "save";
         System.out.println(url);
-        ResponseEntity<HospitalLocation> response = this.restTemplate.postForEntity(url, this.hospitalLocation, HospitalLocation.class);
+        ResponseEntity<HospitalLocation> response = this.restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD).postForEntity(url, this.hospitalLocation, HospitalLocation.class);
         System.out.println(response);
         assertAll(
                 ()-> assertEquals(HttpStatus.OK, response.getStatusCode()),
@@ -65,7 +67,7 @@ class HospitalLocationControllerTest {
     void b_read() {
         String url = baseUrl+"read/" + this.hospitalLocation.getHospitalLocationId();
         System.out.println(url);
-        ResponseEntity<HospitalLocation> response = this.restTemplate.getForEntity(url, HospitalLocation.class);
+        ResponseEntity<HospitalLocation> response = this.restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD).getForEntity(url, HospitalLocation.class);
         assertAll(
                 ()-> assertEquals(HttpStatus.OK, response.getStatusCode()),
                 ()-> assertNotNull(response.getBody())
@@ -76,7 +78,7 @@ class HospitalLocationControllerTest {
     void c_getAll() {
         String url = baseUrl + "all";
         System.out.println(url);
-        ResponseEntity<HospitalLocation[]> response = this.restTemplate.getForEntity(url, HospitalLocation[].class);
+        ResponseEntity<HospitalLocation[]> response = this.restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD).getForEntity(url, HospitalLocation[].class);
         System.out.println(Arrays.asList(response.getBody()));
         assertAll(
                 ()-> assertEquals(HttpStatus.OK, response.getStatusCode()),
@@ -87,7 +89,7 @@ class HospitalLocationControllerTest {
     @Test
     void d_delete() {
         String url = baseUrl + "delete/" + this.hospitalLocation.getHospitalLocationId();
-        this.restTemplate.delete(url);
+        this.restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD).delete(url);
     }
 
 

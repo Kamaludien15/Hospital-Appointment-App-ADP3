@@ -5,20 +5,20 @@
 */
 package za.ac.cput.api;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.*;
 import za.ac.cput.factory.*;
 
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.MethodName.class)
 class HospitalLocationAPITest {
 
     @Autowired private HospitalLocationAPI api;
@@ -43,7 +43,7 @@ class HospitalLocationAPITest {
     }
 
     @Test
-    void save() {
+    void a_save() {
         Hospital hospital = this.hospitalAPI.save(this.hospital);
         Location location = this.locationAPI.save(this.location);
         HospitalLocation saved = this.api.save(this.hospitalLocation);
@@ -52,22 +52,28 @@ class HospitalLocationAPITest {
     }
 
     @Test
-    void read() {
+    void b_read() {
         Optional<HospitalLocation> saved = this.api.read(this.hospitalLocation.getHospitalLocationId());
         assertNotNull(saved);
     }
 
     @Test
-    void delete() {
-        this.api.delete(this.hospitalLocation);
-        assertEquals(0, this.api.getAll().size());
+    void c_delete() {
+        Hospital savedHospital = this.hospitalAPI.save(this.hospital);
+        Location savedLocation = this.locationAPI.save(this.location);
+        HospitalLocation saved = this.api.save(this.hospitalLocation);
+        int before = this.api.getAll().size();
+        this.api.delete(saved);
+        before = before - 1;
+        List<HospitalLocation> hospitalLocationList = this.api.getAll();
+        assertEquals(before,hospitalLocationList.size());
     }
 
     @Test
-    void getAll() {
+    void d_getAll() {
         Hospital hospital = this.hospitalAPI.save(this.hospital);
         Location location = this.locationAPI.save(this.location);
         HospitalLocation saved = this.api.save(this.hospitalLocation);
-        assertEquals(1, this.api.getAll().size());
+        assertNotNull( this.api.getAll().size());
     }
 }

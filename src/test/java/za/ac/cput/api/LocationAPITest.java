@@ -5,9 +5,7 @@
 */
 package za.ac.cput.api;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.*;
@@ -18,6 +16,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.MethodName.class)
 class LocationAPITest {
 
     @Autowired private LocationAPI api;
@@ -34,27 +33,30 @@ class LocationAPITest {
     }
 
     @Test
-    void save() {
+    void a_save() {
         Location saved = this.api.save(this.location);
         assertNotNull(saved);
         assertSame(this.location.getLocationID(), saved.getLocationID());
     }
 
     @Test
-    void read() {
+    void b_read() {
         Optional<Location> saved = this.api.read(this.location.getLocationID());
         assertNotNull(saved);
     }
 
     @Test
-    void delete() {
+    void c_delete() {
+        this.api.save(this.location);
+        int before = this.api.getAll().size();
         this.api.delete(this.location);
-        assertEquals(0, this.api.getAll().size());
+        before = before - 1;
+        assertEquals(before, this.api.getAll().size());
     }
 
     @Test
-    void getAll() {
+    void d_getAll() {
         Location saved = this.api.save(this.location);
-        assertEquals(1, this.api.getAll().size());
+        assertNotNull( this.api.getAll().size());
     }
 }

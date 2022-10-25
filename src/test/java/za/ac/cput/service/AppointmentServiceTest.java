@@ -97,10 +97,13 @@ class AppointmentServiceTest {
         Medicine savedMedicine = this.serviceMedicine.save(this.medicine);
         Prescription savedPrescription = this.servicePrescription.save(this.prescription);
         Procedure savedProcedure = this.serviceProcedure.save(this.procedure);
+        List<Appointment> addressSetBefore = this.service.getAll();
+        int valueBefore = addressSetBefore.size();
+
         Appointment saved = this.service.save(this.appointment);
         this.service.delete(saved);
         List<Appointment> addressSet = this.service.getAll();
-        assertEquals(0,addressSet.size());
+        assertEquals(valueBefore,addressSet.size());
     }
 
     @Test
@@ -113,6 +116,6 @@ class AppointmentServiceTest {
         Procedure savedProcedure = this.serviceProcedure.save(this.procedure);
         Appointment saved = this.service.save(this.appointment);
         List<Appointment> addressSet = this.service.getAll();
-        assertEquals(1,addressSet.size());
+        assertNotNull(addressSet.size());
     }
 }
