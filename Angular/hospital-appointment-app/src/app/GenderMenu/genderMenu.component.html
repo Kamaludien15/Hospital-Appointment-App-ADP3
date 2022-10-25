@@ -3,27 +3,19 @@
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
 <div class="container-fluid">
-    <h4 class="text-start">Gender</h4>
-
-<div class="container gender-menu">
-    <div class="row">
-        <div class="col-lg-3">
-            <button class="btn btn-primary waves-effect waves-light btn-lg m-b-5" (click)="createGenders()">Create Gender</button>
-        </div>
-        <div class="col-lg-3">
-            <button class="btn btn-primary waves-effect waves-light btn-lg m-b-5" (click)="viewGender()">View Gender</button>
-        </div>
-        <div class="col-lg-3">
-            <button class="btn btn-primary waves-effect waves-light btn-lg m-b-5" (click)="updateGenders()">Update Gender</button>
-        </div>
-    </div>
- </div>
 
 <!--Create gender-->
- <div class="container mt-4 create_gender {{createGender}}" >
-    <div class="row">
-        <div class="col-lg-4 create-gen-form">
+ <div class="modal create_gender {{createGender}}" >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
             <h4 class="text-center">Create Gender</h4>
+            <div class="modal-header">
+              <h5 class="modal-title" id="addDepartmentModal">Add Gender</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hideAll()">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
             <form #createGenderForm="ngForm" ngNativeValidate (ngSubmit)="onCreateGender(createGenderForm)" >
                 <div class="form-group" hidden>
                     <label for="genderId">GenderId</label>
@@ -44,66 +36,73 @@
                 <button type="submit" class="btn btn-primary">Create Gender</button>
               </form>
         </div>
-
+      </div>
      </div>
  </div>
  <!--------------->
 
 <!--View gender-->
-  <div class="container mt-4 view_gender {{viewGenders}}">
-    <div class="col-lg-10 view-department">
-      <table class="table table-warning">
-        <thead>
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Gender Name</th>
-          <th scope="col">Gender Description</th>
-          <th scope="col">Sex</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let gender of genders">
-          <th scope="row">{{gender.genderID}}</th>
-          <td>{{gender.name}}</td>
-          <td>{{gender.description}}</td>
-          <td>{{gender.sex}}</td>
-          <td><button type="submit" class="btn btn-danger" (click)="deleteGender(gender.genderID)"><i class="bi bi-trash3"></i></button></td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+<div class="container">
+  <button class="btn btn-primary waves-effect waves-light btn-lg m-b-5" (click)="createGenders()">Create Gender</button>
+  <div class="container" id="gender-Container">
+      <div class="row">
+          <div *ngFor="let gender of genders" class="col-md-6 col-xl-4">
+              <div class="card m-b-30">
+                  <div class="card-body row">
+                      <div class="col-6 cardImage">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M304 176c0 61.9-50.1 112-112 112s-112-50.1-112-112s50.1-112 112-112s112 50.1 112 112zM224 349.1c81.9-15 144-86.8 144-173.1C368 78.8 289.2 0 192 0S16 78.8 16 176c0 86.3 62.1 158.1 144 173.1V384H128c-17.7 0-32 14.3-32 32s14.3 32 32 32h32v32c0 17.7 14.3 32 32 32s32-14.3 32-32V448h32c17.7 0 32-14.3 32-32s-14.3-32-32-32H224V349.1z"/></svg>                      </div>
+                        <div class="col-6 card-title align-self-center mb-0">
+                          <h5>{{gender.name}}</h5>
+                      </div>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                      <li class="list-group-item"><i class="bi bi-info-circle-fill float-right"></i><h5>Description :</h5><a></a>{{gender.description}}</li>
+                      <li class="list-group-item"><i class="bi bi-gender-ambiguous float-right"></i><h5>Sex :</h5><a></a>{{gender.sex}}</li>
+                  </ul>
+                  <div class="card-body">
+                      <div class="float-right btn-group btn-group-sm">
+                          <a (click)="updateGenderById(gender.genderID)" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                          <a (click)="deleteGender(gender.genderID)" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
   </div>
   <!------------------->
 
 <!--Update gender-->
-  <div class="container mt-4 update_gender {{updateGender}}" >
-    <div class="row">
-      <div class="col-lg-4 update-gen-form">
-        <h4 class="text-center">Update Gender</h4>
+  <div class="modal update_gender {{updateGender}}" >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateGenderModalLabel">Edit Gender</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hideAll()">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
         <form #updateGenderForm="ngForm" ngNativeValidate (ngSubmit)="onUpdateGender(updateGenderForm)" >
-          <div class="form-group">
+          <div class="form-group" hidden>
             <label for="genderId">Update by selecting an id</label>
-            <select type="text" ngModel name="genderID" class="form-control" id="genderId" required>
-              <option *ngFor="let gender of genders" value="{{gender.genderID}}">
-                {{gender.genderID}}
-              </option>
-            </select>
+            <input type="text" name="genderID" [ngModel]="selectedGender?.genderID" class="form-control" id="genderId" required>
           </div>
           <div class="form-group">
             <label for="genderName">Gender Name</label>
-            <input type="text" class="form-control" id="genderName" ngModel name="name" placeholder="gender name" required>
+            <input type="text" class="form-control" id="genderName" [ngModel]="selectedGender?.name" name="name" placeholder="gender name" required>
           </div>
           <div class="form-group">
             <label for="description">Description</label>
-            <input type="text" class="form-control" id="description" ngModel name="description" placeholder="description" required>
+            <input type="text" class="form-control" id="description" [ngModel]="selectedGender?.description" name="description" placeholder="description" required>
           </div>
           <div class="form-group">
             <label for="sex">Sex</label>
-            <input type="text" class="form-control" id="departmentFloor" ngModel name="sex" placeholder="sex" required>
+            <input type="text" class="form-control" id="sex" [ngModel]="selectedGender?.sex" name="sex" placeholder="sex" required>
           </div>
           <button type="submit" class="btn btn-primary">Update Gender</button>
         </form>
       </div>
+    </div>
       <!--------------------->
 
 </div>

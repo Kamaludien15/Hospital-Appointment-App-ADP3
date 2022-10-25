@@ -22,6 +22,8 @@ import {v4 as uuids4} from 'uuid';
     public viewGenders: String = "d-none";
     public createGender: String = "d-none";
     public updateGender: String = "d-none";
+    public editGenderId: String = "";
+    public selectedGender?: Gender;
 
     ngOnInit(): void {
 
@@ -42,6 +44,7 @@ import {v4 as uuids4} from 'uuid';
         return id;
     }
 
+
 /*Gender navigation methods*/
     public createGenders():void{
       this.createGender = "d-block";
@@ -60,7 +63,19 @@ import {v4 as uuids4} from 'uuid';
         this.viewGenders  = "d-none";
         this.updateGender = "d-block";
     }
+
+    public hideAll(): void{
+        this.createGender = "d-none";
+        this.viewGenders  = "d-none";
+        this.updateGender = "d-none";
+    }
 /*------*/
+
+public updateGenderById(id: String):void{
+    this.editGenderId = id;
+    this.selectedGender = this.genders.find(gender => gender.genderID === id);
+    this.updateGenders();
+  } 
 
     public onCreateGender(createGenderForm: NgForm): void{
 

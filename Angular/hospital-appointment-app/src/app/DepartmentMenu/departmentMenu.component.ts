@@ -21,6 +21,8 @@ export class DepartmentMenuComponent implements OnInit {
     public viewDepartments: String = "d-none";
     public createDepartments: String = "d-none";
     public updateDepartments: String = "d-none";
+    public editDepartmentId: String = "";
+    public selectedDepartment?: Department;
 
     ngOnInit(): void {
 
@@ -41,6 +43,12 @@ export class DepartmentMenuComponent implements OnInit {
         return id;
     }
 
+  public hideAll(): void{
+  this.createDepartments = "d-none";
+  this.viewDepartments  = "d-none";
+  this.updateDepartments = "d-none";
+  }  
+
   /*Methods for displaying department menus*/
     public createDepartment():void{
       this.createDepartments = "d-block";
@@ -59,6 +67,12 @@ export class DepartmentMenuComponent implements OnInit {
       this.createDepartments = "d-none";
       this.viewDepartments  = "d-none";
     }
+
+    public updateDepartmentById(id: String):void{
+      this.editDepartmentId = id;
+      this.selectedDepartment = this.departments.find(dep => dep.departmentId === id);
+      this.updateDepartment();
+    } 
 
     public onCreateDepartment(createDepartmentForm: NgForm): void{
 

@@ -3,30 +3,18 @@
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
 <div class="container-fluid">
-    <h4 class="text-start">Department</h4>
-
-  <!--Deparment navigation buttons-->
-<div class="container department-menu">
-    <div class="row">
-        <div class="col-lg-3">
-            <button class="btn btn-primary waves-effect waves-light btn-lg m-b-5" (click)="createDepartment()">Create Department</button>
-        </div>
-        <div class="col-lg-3">
-            <button class="btn btn-primary waves-effect waves-light btn-lg m-b-5" (click)="viewDepartment()">View Departments</button>
-        </div>
-        <div class="col-lg-3">
-            <button class="btn btn-primary waves-effect waves-light btn-lg m-b-5" (click)="updateDepartment()">Update Department</button>
-        </div>
-    </div>
- </div>
-  <!-------------------------------------------->
 
   <!--Create a new department-->
- <div class="container mt-4 create_department {{createDepartments}}" >
-
-    <div class="row">
-        <div class="col-lg-4 create-dep-form">
-            <h4 class="text-center">Create Department</h4>
+ <div class="modal create_department {{createDepartments}}" id="addDepartmentModal" tabindex="-1" role="dialog" aria-labelledby="addMedicineModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addDepartmentModal">Add Department</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hideAll()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
             <form #createDepartmentForm="ngForm" ngNativeValidate (ngSubmit)="onCreateDepartment(createDepartmentForm)" >
                 <div class="form-group" hidden>
                     <label for="departmentId">DepartmentId</label>
@@ -47,66 +35,73 @@
                 <button type="submit" class="btn btn-primary">Create department</button>
               </form>
         </div>
-
+        </div>
      </div>
  </div>
   <!-------------------------------------------->
 
   <!--View departments-->
-  <div class="container mt-4 view_departments {{viewDepartments}}">
-    <div class="col-lg-10 view-department">
-      <table class="table table-dark">
-        <thead>
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Department Name</th>
-          <th scope="col">Department floor</th>
-          <th scope="col">Department size</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let department of departments">
-          <th scope="row">{{department.departmentId}}</th>
-          <td>{{department.departmentName}}</td>
-          <td>{{department.departmentFloor}}</td>
-          <td>{{department.departmentSize}}</td>
-          <td><button type="submit" class="btn btn-danger" (click)="deleteDepartment(department.departmentId)"><i class="bi bi-trash3"></i></button></td>
-        </tr>
-        </tbody>
-      </table>
+  <div class="container">
+    <button class="btn btn-primary waves-effect waves-light btn-lg m-b-5" (click)="createDepartment()">Create Department</button>
+    <div class="container" id="department-Container">
+        <div class="row">
+            <div *ngFor="let department of departments" class="col-md-6 col-xl-4">
+                <div class="card m-b-30">
+                    <div class="card-body row">
+                        <div class="col-6 cardImage">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M48 0C21.5 0 0 21.5 0 48V464c0 26.5 21.5 48 48 48h96V432c0-26.5 21.5-48 48-48s48 21.5 48 48v80h89.9c-6.3-10.2-9.9-22.2-9.9-35.1c0-46.9 25.8-87.8 64-109.2V271.8 48c0-26.5-21.5-48-48-48H48zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V240zM80 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V112zM272 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zM576 272c0-44.2-35.8-80-80-80s-80 35.8-80 80s35.8 80 80 80s80-35.8 80-80zM352 477.1c0 19.3 15.6 34.9 34.9 34.9H605.1c19.3 0 34.9-15.6 34.9-34.9c0-51.4-41.7-93.1-93.1-93.1H445.1c-51.4 0-93.1 41.7-93.1 93.1z"/></svg></div>                        <div class="col-6 card-title align-self-center mb-0">
+                            <h5>{{department.departmentName}}</h5>
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="bi bi-building float-right"></i><h5>Department Floor :</h5><a></a>{{department.departmentFloor}}</li>
+                        <li class="list-group-item"><i class="bi bi-person-plus-fill float-right"></i><h5>Department Size :</h5><a></a>{{department.departmentSize}}</li>
+                    </ul>
+                    <div class="card-body">
+                        <div class="float-right btn-group btn-group-sm">
+                            <a (click)="updateDepartmentById(department.departmentId)" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                            <a (click)="deleteDepartment(department.departmentId)" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
   <!-------------------------------------------->
 
   <!--Update departments-->
-  <div class="container mt-4 create_department {{updateDepartments}}" >
+  <div class="modal create_department {{updateDepartments}}" >
 
-    <div class="row">
-        <div class="col-lg-4 create-dep-form">
-            <h4 class="text-center">Update Department</h4>
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateDepartmentModalLabel">Edit Department</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hideAll()">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
             <form #updateDepartmentForm="ngForm" ngNativeValidate (ngSubmit)="onUpdateDepartment(updateDepartmentForm)" >
-                <div class="form-group">
+                <div class="form-group" hidden>
                     <label for="departmentId">Edit by Selecting Id</label>
-                    <select type="text" ngModel name="departmentId" class="form-control" id="departmentId" required="required">
-                      <option *ngFor="let department of departments" value="{{department.departmentId}}">{{department.departmentId}}</option>
-                    </select>
+                    <input type="text" class="form-control" id="departmentId" [ngModel]="selectedDepartment?.departmentId" name="departmentId" required="required">
                 </div>
                 <div class="form-group">
                   <label for="departmentName">Department Name</label>
-                  <input type="text" class="form-control" id="departmentName" ngModel name="departmentName" placeholder="department name" required>
+                  <input type="text" class="form-control" id="departmentName" [ngModel]="selectedDepartment?.departmentName" name="departmentName" placeholder="department name" required>
                 </div>
                 <div class="form-group">
                   <label for="departmentSize">Department Size</label>
-                  <input type="text" class="form-control" id="departmentSize" ngModel name="departmentSize" placeholder="department size" required>
+                  <input type="text" class="form-control" id="departmentSize" [ngModel]="selectedDepartment?.departmentSize" name="departmentSize" placeholder="department size" required>
                 </div>
                 <div class="form-group">
                     <label for="departmentFloor">Department Floor</label>
-                    <input type="text" class="form-control" id="departmentFloor" ngModel name="departmentFloor" placeholder="department Floor" required>
+                    <input type="text" class="form-control" id="departmentFloor" [ngModel]="selectedDepartment?.departmentFloor" name="departmentFloor" placeholder="department Floor" required>
                   </div>
                 <button type="submit" class="btn btn-primary">Update department</button>
               </form>
         </div>
-
+      </div>
      </div>
  </div>
   <!-------------------------------------------->
