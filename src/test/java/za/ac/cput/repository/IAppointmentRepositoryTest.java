@@ -99,11 +99,14 @@ class IAppointmentRepositoryTest {
         Medicine savedMedicine = this.medicineRepository.save(this.medicine);
         Prescription savedPrescription = this.prescriptionRepository.save(this.prescription);
         Procedure savedProcedure = this.procedureRepository.save(this.procedure);
-        Appointment saved = this.appointmentRepository.save(this.appointment);
 
+        List<Appointment> appointmentListSetBefore = this.appointmentRepository.findAll();
+        int valueBefore = appointmentListSetBefore.size();
+
+        Appointment saved = this.appointmentRepository.save(this.appointment);
         this.appointmentRepository.delete(saved);
         List<Appointment> appointmentListSet = this.appointmentRepository.findAll();
-        assertEquals(0,appointmentListSet.size());
+        assertEquals(valueBefore,appointmentListSet.size());
     }
 
     @Test
@@ -117,6 +120,6 @@ class IAppointmentRepositoryTest {
         Appointment saved = this.appointmentRepository.save(this.appointment);
 
         List<Appointment> appointmentList = this.appointmentRepository.findAll();
-        assertEquals(1,appointmentList.size());
+        assertNotNull(appointmentList);
     }
 }

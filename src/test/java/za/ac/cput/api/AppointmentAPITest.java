@@ -5,9 +5,7 @@
 */
 package za.ac.cput.api;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.*;
@@ -20,6 +18,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.MethodName.class)
 class AppointmentAPITest {
 
     @Autowired private AppointmentAPI api;
@@ -60,7 +59,7 @@ class AppointmentAPITest {
     }
 
     @Test
-    void save() {
+    void a_save() {
         Patient savedPatient = this.patientAPI.save(this.patient);
         Hospital savedHospital = this.hospitalAPI.save(this.hospital);
         Employee savedEmployee = this.employeeAPI.save(this.employee);
@@ -74,7 +73,7 @@ class AppointmentAPITest {
     }
 
     @Test
-    void read() {
+    void b_read() {
         Patient savedPatient = this.patientAPI.save(this.patient);
         Hospital savedHospital = this.hospitalAPI.save(this.hospital);
         Employee savedEmployee = this.employeeAPI.save(this.employee);
@@ -91,7 +90,7 @@ class AppointmentAPITest {
     }
 
     @Test
-    void delete() {
+    void c_delete() {
         Patient savedPatient = this.patientAPI.save(this.patient);
         Hospital savedHospital = this.hospitalAPI.save(this.hospital);
         Employee savedEmployee = this.employeeAPI.save(this.employee);
@@ -99,14 +98,15 @@ class AppointmentAPITest {
         Prescription savedPrescription = this.prescriptionAPI.save(this.prescription);
         Procedure savedProcedure = this.procedureAPI.save(this.procedure);
         Appointment saved = this.api.save(this.appointment);
-
+        int before = this.api.getAll().size();
         this.api.delete(saved);
+        before = before - 1;
         List<Appointment> appointmentListSet = this.api.getAll();
-        assertEquals(0,appointmentListSet.size());
+        assertEquals(before,appointmentListSet.size());
     }
 
     @Test
-    void getAll() {
+    void d_getAll() {
         Patient savedPatient = this.patientAPI.save(this.patient);
         Hospital savedHospital = this.hospitalAPI.save(this.hospital);
         Employee savedEmployee = this.employeeAPI.save(this.employee);
@@ -116,6 +116,6 @@ class AppointmentAPITest {
         Appointment saved = this.api.save(this.appointment);
 
         List<Appointment> appointmentList = this.api.getAll();
-        assertEquals(1,appointmentList.size());
+        assertNotNull(appointmentList.size());
     }
 }

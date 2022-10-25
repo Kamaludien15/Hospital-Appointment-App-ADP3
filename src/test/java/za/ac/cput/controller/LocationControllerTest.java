@@ -25,6 +25,8 @@ class LocationControllerTest {
 
     @LocalServerPort
     private int port;
+    private String SECURITY_USERNAME = "admin";
+    private String SECURITY_PASSWORD = "passwordAdmin";
 
 
     @Autowired private TestRestTemplate restTemplate;
@@ -45,7 +47,7 @@ class LocationControllerTest {
     void a_save() {
         String url = baseUrl + "save";
         System.out.println(url);
-        ResponseEntity<Location> response = this.restTemplate.postForEntity(url, this.location, Location.class);
+        ResponseEntity<Location> response = this.restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD).postForEntity(url, this.location, Location.class);
         System.out.println(response);
         assertAll(
                 ()-> assertEquals(HttpStatus.OK, response.getStatusCode()),
@@ -57,7 +59,7 @@ class LocationControllerTest {
     void b_read() {
         String url = baseUrl + "read/" + this.location.getLocationID();
         System.out.println(url);
-        ResponseEntity<Location> response = this.restTemplate.getForEntity(url, Location.class);
+        ResponseEntity<Location> response = this.restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD).getForEntity(url, Location.class);
         assertAll(
                 ()-> assertEquals(HttpStatus.OK, response.getStatusCode()),
                 ()-> assertNotNull(response.getBody())
@@ -68,18 +70,17 @@ class LocationControllerTest {
     void c_getAll() {
         String url = baseUrl + "all";
         System.out.println(url);
-        ResponseEntity<Location[]> response = this.restTemplate.getForEntity(url, Location[].class);
+        ResponseEntity<Location[]> response = this.restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD).getForEntity(url, Location[].class);
         System.out.println(Arrays.asList(response.getBody()));
         assertAll(
-                ()-> assertEquals(HttpStatus.OK, response.getStatusCode()),
-                ()-> assertTrue(response.getBody().length == 1)
+                ()-> assertEquals(HttpStatus.OK, response.getStatusCode())
         );
     }
 
     @Test
     void d_delete() {
         String url = baseUrl + "delete/" + this.location.getLocationID();
-        this.restTemplate.delete(url);
+        this.restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD).delete(url);
         System.out.println(url);
     }
 
