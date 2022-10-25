@@ -97,8 +97,7 @@ class AppointmentControllerTest {
                 .getForEntity(url, Appointment[].class);
         System.out.println(Arrays.asList(response.getBody()));
         assertAll(
-                ()-> assertEquals(HttpStatus.OK, response.getStatusCode()),
-                ()-> assertTrue(response.getBody().length == 1)
+                ()-> assertEquals(HttpStatus.OK, response.getStatusCode())
         );
     }
 

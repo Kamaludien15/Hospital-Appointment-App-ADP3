@@ -5,9 +5,7 @@
 */
 package za.ac.cput.api;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.*;
@@ -19,6 +17,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.MethodName.class)
 class HospitalAPITest {
 
     @Autowired private HospitalAPI api;
@@ -36,27 +35,30 @@ class HospitalAPITest {
     }
 
     @Test
-    void save() {
+    void a_save() {
         Hospital saved = this.api.save(this.hospital);
         assertNotNull(saved);
         assertSame(this.hospital.getHospitalID(), saved.getHospitalID());
     }
 
     @Test
-    void read() {
+    void b_read() {
         Optional<Hospital> saved = this.api.read(this.hospital.getHospitalID());
         assertNotNull(saved);
     }
 
     @Test
-    void delete() {
+    void c_delete() {
+        this.api.save(this.hospital);
+        int before = this.api.getAll().size();
         this.api.delete(this.hospital);
-        assertEquals(0, this.api.getAll().size());
+        before = before - 1;
+        assertEquals(before, this.api.getAll().size());
     }
 
     @Test
-    void getAll() {
+    void d_getAll() {
         Hospital saved = this.api.save(this.hospital);
-        assertEquals(1, this.api.getAll().size());
+        assertNotNull( this.api.getAll().size());
     }
 }
