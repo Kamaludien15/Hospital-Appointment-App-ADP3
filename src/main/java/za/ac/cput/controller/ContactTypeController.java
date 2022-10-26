@@ -9,6 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 import za.ac.cput.api.ContactTypeAPI;
 import za.ac.cput.domain.ContactType;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,13 +22,13 @@ public class ContactTypeController {
     @Autowired public ContactTypeController(ContactTypeAPI api){this.api = api;}
 
     @PostMapping("save")
-    public ResponseEntity<ContactType> save(@RequestBody ContactType contactType){
+    public ResponseEntity<ContactType> save(@Valid @RequestBody ContactType contactType){
         log.info("Save request: {}", contactType);
         ContactType response = this.api.save(contactType);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("read/{contact_type_id}")
+    @GetMapping("read/{id}")
     public ResponseEntity<ContactType> read(@PathVariable String id){
         log.info("Read request: {}", id);
         ContactType response = this.api.read(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "ContactType not found"));
@@ -46,6 +47,5 @@ public class ContactTypeController {
         List<ContactType> response = this.api.getAll();
         return ResponseEntity.ok(response);
     }
-
 
 }
