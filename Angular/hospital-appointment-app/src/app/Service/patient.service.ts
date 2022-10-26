@@ -26,15 +26,15 @@ export class PatientService {
   }
 
   public addPatient(patient: Patient): Observable<Patient> {
-    return this.http.post<Patient>(`${this.apiServerUrl}/patient/save`, patient)
+    return this.http.post<Patient>(`${this.apiServerUrl}/patient/save`, patient, httpOptions)
   }
 
   public updatePatient(patient: Patient): Observable<Patient> {
-    return this.http.post<Patient>(`${this.apiServerUrl}/patient/save`, patient)
+    return this.http.post<Patient>(`${this.apiServerUrl}/patient/save`, patient, httpOptions)
   }
 
-  public deletePatient(patientId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiServerUrl}/patient/delete/${patientId}`)
+  public deletePatient(patientId?: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiServerUrl}/patient/delete/${patientId}`, httpOptions)
   }
 
 }

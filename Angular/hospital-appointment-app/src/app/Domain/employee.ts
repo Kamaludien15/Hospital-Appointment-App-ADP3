@@ -1,7 +1,7 @@
 export interface Employee {
     employeeId: string;
     employeeFirstName: string;
-    employeeLastName: number;
+    employeeLastName: string;
     employeeDateOfBirth: string;
     password: string;
 }

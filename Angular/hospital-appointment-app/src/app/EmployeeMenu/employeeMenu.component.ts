@@ -39,6 +39,11 @@ export class EmployeeMenuComponent implements OnInit{
     public deleteMedicine: Medicine | undefined;
     public editPrescription: Prescription | undefined;
     public deletePrescription: Prescription | undefined;
+    public editEmployee: Employee | undefined;
+    public deleteEmployee: Employee | undefined;
+    public editPatient: Patient | undefined;
+    public deletePatient: Patient | undefined;
+
 
     ngOnInit(): void {
         //Fetching data to call from later
@@ -277,10 +282,185 @@ export class EmployeeMenuComponent implements OnInit{
         this.showEmployees = true;
     }  
 
+    public onAddEmployee(addEmployeeForm: NgForm): void{
+        document.getElementById('add-employee-form')?.click();
+        this.employeeService.addEmployee(addEmployeeForm.value).subscribe(
+            (response: Employee) => {
+
+                //Reloading Employee cards
+                this.employeeService.getEmployees().subscribe(
+                    (response: Employee[]) => {
+                      this.employees = response;
+                      addEmployeeForm.reset();
+                    },
+                    (error: HttpErrorResponse) => {
+                      alert(error.message);
+                      addEmployeeForm.reset();
+                    })
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message)
+            }
+        );
+    }
+
+    public onEditEmployee(employee: Employee): void{
+        
+        this.employeeService.updateEmployee(employee).subscribe(
+            (response: Employee) => {
+
+                //Reloading Employee cards
+                this.employeeService.getEmployees().subscribe(
+                    (response: Employee[]) => {
+                      this.employees = response;    
+                    },
+                    (error: HttpErrorResponse) => {
+                      alert(error.message);
+                    })
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message)
+            }
+        );
+    }
+
+
+    public onDeleteEmployee(employeeID?: string): void{
+        
+        this.employeeService.deleteEmployee(employeeID).subscribe(
+            (response: void) => {
+
+                //Reloading Employee cards
+                this.employeeService.getEmployees().subscribe(
+                    (response: Employee[]) => {
+                      this.employees = response;
+                    },
+                    (error: HttpErrorResponse) => {
+                      alert(error.message);
+                    })
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message)
+            }
+        );
+    }
+
+    
+    public onOpenModalEmployee( mode: string, employee?: Employee): void {
+        const container = document.getElementById('employee-Container');
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.style.display = 'none';
+        button.setAttribute('data-toggle', 'modal');
+        if (mode === 'add') {
+        button.setAttribute('data-target', '#addEmployeeModal');
+        this.generateId();
+        }
+        if (mode === 'edit') {
+        this.editEmployee = employee;
+        console.log(this.editEmployee);
+        button.setAttribute('data-target', '#updateEmployeeModal');
+        }
+        if (mode === 'delete') {
+        this.deleteEmployee = employee;
+        button.setAttribute('data-target', '#deleteEmployeeModal');
+        }
+        container?.appendChild(button);
+        button.click();
+    }
+
+
     //Patients/////////////////////////////////////////////////////
     public displayPatients(): void{
         this.hideAll();
         this.showPatients = true;
+    }
+
+    public onAddPatient(addPatientForm: NgForm): void{
+        document.getElementById('add-patient-form')?.click();
+        this.patientService.addPatient(addPatientForm.value).subscribe(
+            (response: Patient) => {
+
+                //Reloading Patient cards
+                this.patientService.getPatients().subscribe(
+                    (response: Patient[]) => {
+                      this.patients = response;
+                      addPatientForm.reset();
+                    },
+                    (error: HttpErrorResponse) => {
+                      alert(error.message);
+                      addPatientForm.reset();
+                    })
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message)
+            }
+        );
+    }
+
+    public onEditPatient(patient: Patient): void{
+        
+        this.patientService.updatePatient(patient).subscribe(
+            (response: Patient) => {
+
+                //Reloading Patient cards
+                this.patientService.getPatients().subscribe(
+                    (response: Patient[]) => {
+                      this.patients = response;    
+                    },
+                    (error: HttpErrorResponse) => {
+                      alert(error.message);
+                    })
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message)
+            }
+        );
+    }
+
+
+    public onDeletePatient(patientID?: string): void{
+        
+        this.patientService.deletePatient(patientID).subscribe(
+            (response: void) => {
+
+                //Reloading Patient cards
+                this.patientService.getPatients().subscribe(
+                    (response: Patient[]) => {
+                      this.patients = response;
+                    },
+                    (error: HttpErrorResponse) => {
+                      alert(error.message);
+                    })
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message)
+            }
+        );
+    }
+
+    
+    public onOpenModalPatient( mode: string, patient?: Patient): void {
+        const container = document.getElementById('patient-Container');
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.style.display = 'none';
+        button.setAttribute('data-toggle', 'modal');
+        if (mode === 'add') {
+        button.setAttribute('data-target', '#addPatientModal');
+        this.generateId();
+        }
+        if (mode === 'edit') {
+        this.editPatient = patient;
+        console.log(this.editPatient);
+        button.setAttribute('data-target', '#updatePatientModal');
+        }
+        if (mode === 'delete') {
+        this.deletePatient = patient;
+        button.setAttribute('data-target', '#deletePatientModal');
+        }
+        container?.appendChild(button);
+        button.click();
     }
     
 
