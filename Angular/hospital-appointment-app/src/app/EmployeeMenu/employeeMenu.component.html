@@ -2,6 +2,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <div class="container">
     <div class="row" id="cardsRow">
         <div class="col-lg-3 col-sm-6">
@@ -348,6 +349,7 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><i class="fa fa-calendar float-right"></i><h5>DOB :</h5><a></a>{{employee.employeeDateOfBirth}}</li>
                             <li class="list-group-item"><i class="fa fa-unlock-alt float-right"></i><h5>Password :</h5><a></a>{{employee.password}}</li>
+                            <li class="list-group-item"><i class="fa fa-unlock-alt float-right"></i><h5>Username :</h5><a></a>{{employee.username}}</li>
 
                         </ul>
                         <div class="card-body">
@@ -398,6 +400,11 @@
                     <label for="password">Password</label>
                     <input type="text" ngModel name="password" class="form-control" id="password" placeholder="Employee Password" required>
                 </div>
+
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" ngModel name="username" class="form-control" id="username" placeholder="Employee Username" required>
+                </div>
             
                 <div class="modal-footer">
                 <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -445,6 +452,11 @@
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="text" [ngModel]="editEmployee?.password" name="password" class="form-control" id="password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" [ngModel]="editEmployee?.username" name="username" class="form-control" id="username" required readonly>
                         </div>
 
                         <div class="modal-footer">
@@ -502,6 +514,7 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><i class="fa fa-calendar float-right"></i><h5>DOB :</h5><a></a>{{patient.patientDateOfBirth}}</li>
                             <li class="list-group-item"><i class="fa fa-unlock-alt float-right"></i><h5>Password :</h5><a></a>{{patient.password}}</li>
+                            <li class="list-group-item"><i class="fa fa-unlock-alt float-right"></i><h5>Username :</h5><a></a>{{patient.username}}</li>
 
                         </ul>
                         <div class="card-body">
@@ -552,6 +565,11 @@
                     <label for="password">Password</label>
                     <input type="text" ngModel name="password" class="form-control" id="password" placeholder="Patient Password" required>
                 </div>
+
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" ngModel name="username" class="form-control" id="username" placeholder="Patient username" required>
+                </div>
             
                 <div class="modal-footer">
                 <button type="button" id="add-patient-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -599,6 +617,11 @@
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="text" [ngModel]="editPatient?.password" name="password" class="form-control" id="password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" [ngModel]="editPatient?.username" name="username" class="form-control" id="username" required readonly>
                         </div>
 
                         <div class="modal-footer">

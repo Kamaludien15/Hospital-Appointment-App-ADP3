@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Gender } from '../Domain/gender';
 import { GenderService } from '../Service/gender.service';
 import {v4 as uuids4} from 'uuid';
+import Swal from 'sweetalert2'
 
 @Component({
     selector: 'app-gender',
@@ -108,6 +109,13 @@ public updateGenderById(id: String):void{
                       alert(error.message);
                       createGenderForm.reset();
                     })
+                    Swal.fire({
+                      position: 'top-end',
+                      icon: 'success',
+                      title: 'Gender has been saved',
+                      showConfirmButton: false,
+                      timer: 1500
+                    })
             },
             (error: HttpErrorResponse) => {
                 alert(error.message)
@@ -130,6 +138,13 @@ public updateGenderById(id: String):void{
                         (error: HttpErrorResponse) => {
                           alert(error.message);
                         })
+                        Swal.fire({
+                          position: 'top-end',
+                          icon: 'success',
+                          title: 'Gender has been deleted',
+                          showConfirmButton: false,
+                          timer: 1500
+                        })   
                 },
                 (error: HttpErrorResponse) => {
                     alert(error.message)
@@ -153,6 +168,13 @@ public updateGenderById(id: String):void{
                         (error: HttpErrorResponse) => {
                           alert(error.message);
                           updateGenderForm.reset();
+                        })
+                        Swal.fire({
+                          position: 'top-end',
+                          icon: 'success',
+                          title: 'Gender has been edited',
+                          showConfirmButton: false,
+                          timer: 1500
                         })
                 },
                 (error: HttpErrorResponse) => {

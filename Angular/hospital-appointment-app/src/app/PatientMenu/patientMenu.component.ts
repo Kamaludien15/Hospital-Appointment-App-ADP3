@@ -16,11 +16,14 @@ import { ProcedureService } from '../ServicePatient/procedure.service';
 import {v4 as uuids4} from 'uuid';
 import { Medicine } from '../Domain/medicine';
 import { MedicineService } from '../ServicePatient/medicine.service';
+import { LocationService } from '../Service/location.service';
+import { Location } from '../Domain/location';
+import Swal from 'sweetalert2'
 
 @Component({ templateUrl: 'patientMenu.component.html' })
 export class PatientMenuComponent implements OnInit{
 
-    constructor(private procedureService: ProcedureService,private prescriptionService: PrescriptionService,private hospitalService: HospitalService,private appointmentService: AppointmentService, private patientService: PatientService, private medicineService: MedicineService) { }
+    constructor(private locationService: LocationService,private procedureService: ProcedureService,private prescriptionService: PrescriptionService,private hospitalService: HospitalService,private appointmentService: AppointmentService, private patientService: PatientService, private medicineService: MedicineService) { }
 
     public appointments: Appointment[] = [];
     public patients: Patient[] = [];
@@ -28,6 +31,7 @@ export class PatientMenuComponent implements OnInit{
     public prescriptions: Prescription[] = [];
     public procedures: Procedure[] = [];
     public medicines: Medicine[] = [];
+    public locations: Location[] = [];
     public generatedId: String | undefined;
     public editAppointment: Appointment | undefined;
     public deleteAppointment: Appointment | undefined;
@@ -35,8 +39,17 @@ export class PatientMenuComponent implements OnInit{
     public deleteProcedure: Procedure | undefined;
     public editMedicine: Medicine | undefined;
     public deleteMedicine: Medicine | undefined;
+    public editPrescription: Prescription | undefined;
+    public deletePrescription: Prescription | undefined;
+    public editEmployee: Employee | undefined;
+    public deleteEmployee: Employee | undefined;
     public editPatient: Patient | undefined;
     public deletePatient: Patient | undefined;
+    public editHospital: Hospital | undefined;
+    public deleteHospital: Hospital | undefined;
+    public editLocation: Location | undefined;
+    public deleteLocation: Location | undefined;
+
 
     ngOnInit(): void {
         //Fetching data to call from later
@@ -63,36 +76,45 @@ export class PatientMenuComponent implements OnInit{
             (error: HttpErrorResponse) => {
                 alert(error.message);
             })
-
-        this.hospitalService.getHospitals().subscribe(
-            (response: Hospital[]) => {
-                this.hospitals = response;
-            },
-            (error: HttpErrorResponse) => {
-                alert(error.message);
-            })
-        this.prescriptionService.getPrescriptions().subscribe(
-            (response: Prescription[]) => {
-                this.prescriptions = response;
-            },
-            (error: HttpErrorResponse) => {
-                alert(error.message);
-            })
-        this.procedureService.getProcedures().subscribe(
-            (response: Procedure[]) => {
-                this.procedures = response;
-            },
-            (error: HttpErrorResponse) => {
-                alert(error.message);
-            })
-
-        this.medicineService.getMedicine().subscribe(
-            (response: Medicine[]) => {
-                this.medicines = response;
-            },
-            (error: HttpErrorResponse) => {
-                alert(error.message);
-            })
+    
+            this.hospitalService.getHospitals().subscribe(
+                (response: Hospital[]) => {
+                    this.hospitals = response;
+                },
+                (error: HttpErrorResponse) => {
+                    alert(error.message);
+                })
+    
+            this.locationService.getLocations().subscribe(
+                (response: Location[]) => {
+                    this.locations = response;
+                },
+                (error: HttpErrorResponse) => {
+                    alert(error.message);
+                })
+    
+            this.prescriptionService.getPrescriptions().subscribe(
+                (response: Prescription[]) => {
+                    this.prescriptions = response;
+                },
+                (error: HttpErrorResponse) => {
+                    alert(error.message);
+                })
+            this.procedureService.getProcedures().subscribe(
+                (response: Procedure[]) => {
+                    this.procedures = response;
+                },
+                (error: HttpErrorResponse) => {
+                    alert(error.message);
+                })
+    
+            this.medicineService.getMedicine().subscribe(
+                (response: Medicine[]) => {
+                    this.medicines = response;
+                },
+                (error: HttpErrorResponse) => {
+                    alert(error.message);
+                })
 
     }
 
@@ -109,6 +131,9 @@ export class PatientMenuComponent implements OnInit{
     public showEmployees = false;
     public showMedicines = false;
     public showProcedures = false;
+    public showPrescriptions = false;
+    public showLocation = false;  
+    public showHospital = false;
 
     //Hide All
     public hideAll(): void{
@@ -117,6 +142,9 @@ export class PatientMenuComponent implements OnInit{
         this.showEmployees = false;
         this.showMedicines = false;
         this.showProcedures = false;
+        this.showPrescriptions  = false;
+        this.showLocation = false;
+        this.showHospital = false;
     }  
 
     //Appointment//////////////////////////////////////////////////
@@ -131,19 +159,7 @@ export class PatientMenuComponent implements OnInit{
         button.type = 'button';
         button.style.display = 'none';
         button.setAttribute('data-toggle', 'modal');
-        if (mode === 'add') {
-        button.setAttribute('data-target', '#addAppointmentModal');
-        this.generateId();
-        }
-        if (mode === 'edit') {
-        this.editAppointment = appointment;
-        console.log(this.editAppointment);
-        button.setAttribute('data-target', '#updateAppointmentModal');
-        }
-        if (mode === 'delete') {
-        this.deleteAppointment = appointment;
-        button.setAttribute('data-target', '#deleteAppointmentModal');
-        }
+        
         container?.appendChild(button);
         button.click();
     }
@@ -169,6 +185,13 @@ export class PatientMenuComponent implements OnInit{
                                 this.patients.push(response[i]) 
                             }
                         }  
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Patient has been edited',
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
                     },
                     (error: HttpErrorResponse) => {
                       alert(error.message);
@@ -254,6 +277,64 @@ export class PatientMenuComponent implements OnInit{
         this.deleteMedicine = medicine;
         button.setAttribute('data-target', '#deleteMedicineModal');
         }
+        container?.appendChild(button);
+        button.click();
+    }
+
+    //Hospital//////////////////////////////////////////////////
+    public displayHospital(): void{
+        this.hideAll();
+        this.showHospital = true; 
+    }   
+
+ 
+    
+    public onOpenModalHospital( mode: string, hospital?: Hospital): void {
+        const container = document.getElementById('hospital-Container');
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.style.display = 'none';
+        button.setAttribute('data-toggle', 'modal');
+        
+        container?.appendChild(button);
+        button.click();
+    }  
+
+    //Location//////////////////////////////////////////////////
+    public displayLocation(): void{
+        this.hideAll();
+        this.showLocation = true;
+    }   
+
+    
+
+    
+
+    public onOpenModalLocation( mode: string, location?: Location): void {
+        const container = document.getElementById('location-Container');
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.style.display = 'none';
+        button.setAttribute('data-toggle', 'modal');
+        
+        container?.appendChild(button);
+        button.click();
+    }
+
+    //Prescription//////////////////////////////////////////////////
+    public displayPrescription(): void{
+        this.hideAll();
+        this.showPrescriptions = true;
+    }   
+
+
+    public onOpenModalPrescription( mode: string, prescription?: Prescription): void {
+        const container = document.getElementById('prescription-Container');
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.style.display = 'none';
+        button.setAttribute('data-toggle', 'modal');
+       
         container?.appendChild(button);
         button.click();
     }

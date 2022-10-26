@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Department } from '../Domain/department';
 import { DepartmentService } from '../Service/department.service';
 import {v4 as uuids4} from 'uuid';
+import Swal from 'sweetalert2'
 
 @Component({
     selector: 'app-department',
@@ -106,6 +107,13 @@ export class DepartmentMenuComponent implements OnInit {
                       alert(error.message);
                       createDepartmentForm.reset();
                     })
+                    Swal.fire({
+                      position: 'top-end',
+                      icon: 'success',
+                      title: 'Department has been saved',
+                      showConfirmButton: false,
+                      timer: 1500
+                    })
             },
             (error: HttpErrorResponse) => {
                 alert(error.message)
@@ -131,6 +139,13 @@ export class DepartmentMenuComponent implements OnInit {
                     alert(error.message);
                     updateDepartmentForm.reset();
                   })
+                  Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Department has been edited',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
           },
           (error: HttpErrorResponse) => {
               alert(error.message)
@@ -151,6 +166,13 @@ export class DepartmentMenuComponent implements OnInit {
                         },
                         (error: HttpErrorResponse) => {
                           alert(error.message);
+                        })
+                        Swal.fire({
+                          position: 'top-end',
+                          icon: 'success',
+                          title: 'Department has been delete',
+                          showConfirmButton: false,
+                          timer: 1500
                         })
                 },
                 (error: HttpErrorResponse) => {
