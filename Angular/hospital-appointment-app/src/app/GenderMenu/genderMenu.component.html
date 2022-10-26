@@ -33,7 +33,11 @@
                     <label for="sex">Sex</label>
                     <input type="text" class="form-control" id="departmentFloor" ngModel name="sex" placeholder="sex" required>
                   </div>
-                <button type="submit" class="btn btn-primary">Create Gender</button>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Create Gender</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hideAll()">Close</button>
+                  </div>
+                
               </form>
         </div>
       </div>
@@ -62,7 +66,7 @@
                   <div class="card-body">
                       <div class="float-right btn-group btn-group-sm">
                           <a (click)="updateGenderById(gender.genderID)" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
-                          <a (click)="deleteGender(gender.genderID)" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                          <a (click)="deleteGenders(gender.genderID)" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times"></i></a>
                       </div>
                   </div>
               </div>
@@ -72,14 +76,14 @@
   <!------------------->
 
 <!--Update gender-->
-  <div class="modal update_gender {{updateGender}}" >
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="updateGenderModalLabel">Edit Gender</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hideAll()">
+<div class="modal {{updateGender}}" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Gender</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-          </button>
+        </button>
       </div>
       <div class="modal-body">
         <form #updateGenderForm="ngForm" ngNativeValidate (ngSubmit)="onUpdateGender(updateGenderForm)" >
@@ -99,10 +103,37 @@
             <label for="sex">Sex</label>
             <input type="text" class="form-control" id="sex" [ngModel]="selectedGender?.sex" name="sex" placeholder="sex" required>
           </div>
-          <button type="submit" class="btn btn-primary">Update Gender</button>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hideAll()">Close</button>
+          </div>
         </form>
       </div>
     </div>
+  </div>
+</div>
       <!--------------------->
+
+              <!-- Delete Modal -->
+              <div class="modal {{removeGender}}" id="deleteGenderModal" tabindex="-1" role="dialog" aria-labelledby="deleteProcedureModelLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteGenderModalLabel">Delete Gender</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hideAll()">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete this gender?</p>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hideAll()">No</button>
+                            <button (click)="deleteGender(deletedGenderId)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
 
 </div>

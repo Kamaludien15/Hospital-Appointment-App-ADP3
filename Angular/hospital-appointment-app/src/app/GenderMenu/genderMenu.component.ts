@@ -22,8 +22,10 @@ import {v4 as uuids4} from 'uuid';
     public viewGenders: String = "d-none";
     public createGender: String = "d-none";
     public updateGender: String = "d-none";
+    public removeGender: String = "d-none";
     public editGenderId: String = "";
     public selectedGender?: Gender;
+    public deletedGenderId?:String;
 
     ngOnInit(): void {
 
@@ -50,24 +52,36 @@ import {v4 as uuids4} from 'uuid';
       this.createGender = "d-block";
       this.viewGenders  = "d-none";
       this.updateGender = "d-none";
+      this.removeGender = "d-none";
     }
 
     public viewGender():void{
         this.createGender = "d-none";
         this.viewGenders  = "d-block";
         this.updateGender = "d-none";
+        this.removeGender = "d-none";
     }
 
     public updateGenders():void{
         this.createGender = "d-none";
         this.viewGenders  = "d-none";
         this.updateGender = "d-block";
+        this.removeGender = "d-none";
     }
 
     public hideAll(): void{
         this.createGender = "d-none";
         this.viewGenders  = "d-none";
         this.updateGender = "d-none";
+        this.removeGender = "d-none";
+    }
+
+    public deleteGenders(id:String):void{
+      this.createGender = "d-none";
+      this.viewGenders  = "d-none";
+      this.updateGender = "d-none";
+      this.removeGender = "d-block";
+      this.deletedGenderId = id;
     }
 /*------*/
 
@@ -102,12 +116,14 @@ public updateGenderById(id: String):void{
         );
     }
 
-    public deleteGender(genderId?: string): void{
+    public deleteGender(genderId?: String): void{
 
             this.genderService.deleteGender(genderId).subscribe(
 
                 (response: void) => {
 
+                  alert("Gender succesfully deleted");
+                  this.hideAll();
                   //Reloading genders
                   this.genderService.getGenders().subscribe(
                         (response: Gender[]) => {
