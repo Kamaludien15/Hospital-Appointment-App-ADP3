@@ -24,7 +24,7 @@ public class EmployeeAPITest {
 
     @BeforeEach
     void setUp() {
-        this.employee = EmployeeFactory.createEmployee("Jake", "Dane", "2020-04-03", "MyPassword");
+        this.employee = EmployeeFactory.createEmployee("Jake", "Dane", "2020-04-03", "MyPassword", "22");
     }
 
     @AfterEach

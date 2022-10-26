@@ -28,7 +28,7 @@ public class IEmployeeDepartmentRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        this.employee = EmployeeFactory.createEmployee("Michael", "Cole", "1978-03-20", "MyPassword");
+        this.employee = EmployeeFactory.createEmployee("Michael", "Cole", "1978-03-20", "MyPassword", "gg");
         this.department = DepartmentFactory.createDepartment("Finance", "20","09");
         this.employeeDepartment = EmployeeDepartmentFactory.createEmployeeDepartment(employee,department);
     }
