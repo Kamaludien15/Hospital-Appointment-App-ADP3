@@ -102,6 +102,30 @@
                 <a (click)="displayPrescription()" class="card-box-footer">Enter <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card-box bg-dark">
+            <div class="inner">
+                <h3> Department </h3>
+                <p> CRUD Operations </p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-building" aria-hidden="true"></i>
+            </div>
+            <a (click)="displayDepartments()" class="card-box-footer">Enter <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+            <div class="card-box bg-warning">
+            <div class="inner">
+                <h3> Gender </h3>
+                <p> CRUD Operations </p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-venus" aria-hidden="true"></i>
+            </div>
+            <a (click)="displayGenders()" class="card-box-footer">Enter <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+            </div>
     </div>
 
 
@@ -1356,6 +1380,15 @@
 
     </div>
 
+            <!-- Show Department. please dont remove component -->
+            <div class="container" id="Department" *ngIf="showDepartments">
+                <app-department></app-department>
+            </div>
+    
+            <!--show gender please dont remove component-->
+            <div class="container" id="Department" *ngIf="showGenders">
+             <app-gender></app-gender>
+            </div>
 
 </div>
 

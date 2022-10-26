@@ -140,6 +140,8 @@ export class EmployeeMenuComponent implements OnInit{
     public showPrescriptions = false;
     public showHospital = false;
     public showLocation = false;
+    public showDepartments = false;
+    public showGenders = false;
 
     //Hide All
     public hideAll(): void{
@@ -151,6 +153,8 @@ export class EmployeeMenuComponent implements OnInit{
         this.showPrescriptions = false;
         this.showHospital = false;
         this.showLocation = false;
+        this.showDepartments = false;
+        this.showGenders = false;
     }  
 
     //Appointment//////////////////////////////////////////////////
@@ -999,4 +1003,17 @@ public onDeletePrescription(scriptRef?: string): void{
         container?.appendChild(button);
         button.click();
     }
+
+    /*Departments*/
+     public displayDepartments() : void{
+        this.hideAll();
+        this.showDepartments = true;
+    }
+  
+    /*Departments*/
+        public displayGenders() : void{
+        this.hideAll();
+        this.showGenders = true;
+  }
+
 }
