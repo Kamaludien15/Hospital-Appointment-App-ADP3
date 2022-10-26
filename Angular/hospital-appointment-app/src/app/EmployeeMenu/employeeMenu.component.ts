@@ -58,7 +58,7 @@ export class EmployeeMenuComponent implements OnInit{
             (response: Appointment[]) => {
               for (let i = 0; i < response.length; i++) {
                 if(response[i].employee.employeeId == environment.employeeId){
-                    this.appointments.push(response[i])
+                    this.appointments.push(response[i]) 
                 }
             }
             },
@@ -128,7 +128,7 @@ export class EmployeeMenuComponent implements OnInit{
         let id = uuids4();
         this.generatedId = id;
     }
-
+    
 
     //Display variables
     public showAppointment = false;
@@ -150,13 +150,13 @@ export class EmployeeMenuComponent implements OnInit{
         this.showPrescriptions = false;
         this.showHospital = false;
         this.showLocation = false;
-    }
+    }  
 
     //Appointment//////////////////////////////////////////////////
     public displayAppointment(): void{
         this.hideAll();
         this.showAppointment = true;
-    }
+    }   
 
     public onAddAppointment(addAppointmentForm: NgForm): void{
         document.getElementById('add-appointment-form')?.click();
@@ -169,7 +169,7 @@ export class EmployeeMenuComponent implements OnInit{
                       this.appointments = [];
                       for (let i = 0; i < response.length; i++) {
                         if(response[i].employee.employeeId == environment.employeeId){
-                            this.appointments.push(response[i])
+                            this.appointments.push(response[i]) 
                         }
                         addAppointmentForm.reset();
                     }
@@ -186,7 +186,7 @@ export class EmployeeMenuComponent implements OnInit{
     }
 
     public onEditAppointment(appointment: Appointment): void{
-
+        
         let patientId = String(appointment.patient);
         for(let i = 0; i < this.patients.length; i++){
             if(patientId == this.patients[i].patientID){
@@ -221,7 +221,7 @@ export class EmployeeMenuComponent implements OnInit{
                 appointment.procedure = this.procedures[i];
             }
         }
-
+        
 
         this.appointmentService.updateAppointment(appointment).subscribe(
             (response: Appointment) => {
@@ -232,7 +232,7 @@ export class EmployeeMenuComponent implements OnInit{
                       this.appointments = [];
                       for (let i = 0; i < response.length; i++) {
                         if(response[i].employee.employeeId == environment.employeeId){
-                            this.appointments.push(response[i])
+                            this.appointments.push(response[i]) 
                         }
                     }
                     },
@@ -248,7 +248,7 @@ export class EmployeeMenuComponent implements OnInit{
 
 
     public onDeleteAppointment(appointmentID?: string): void{
-
+        
         this.appointmentService.deleteAppointment(appointmentID).subscribe(
             (response: void) => {
 
@@ -258,7 +258,7 @@ export class EmployeeMenuComponent implements OnInit{
                       this.appointments = [];
                       for (let i = 0; i < response.length; i++) {
                         if(response[i].employee.employeeId == environment.employeeId){
-                            this.appointments.push(response[i])
+                            this.appointments.push(response[i]) 
                         }
                     }
                     },
@@ -272,7 +272,7 @@ export class EmployeeMenuComponent implements OnInit{
         );
     }
 
-
+    
     public onOpenModalAppointment( mode: string, appointment?: Appointment): void {
         const container = document.getElementById('appointment-Container');
         const button = document.createElement('button');
@@ -300,7 +300,7 @@ export class EmployeeMenuComponent implements OnInit{
     public displayEmployees(): void{
         this.hideAll();
         this.showEmployees = true;
-    }
+    }  
 
     public onAddEmployee(addEmployeeForm: NgForm): void{
         document.getElementById('add-employee-form')?.click();
@@ -325,14 +325,14 @@ export class EmployeeMenuComponent implements OnInit{
     }
 
     public onEditEmployee(employee: Employee): void{
-
+        
         this.employeeService.updateEmployee(employee).subscribe(
             (response: Employee) => {
 
                 //Reloading Employee cards
                 this.employeeService.getEmployees().subscribe(
                     (response: Employee[]) => {
-                      this.employees = response;
+                      this.employees = response;    
                     },
                     (error: HttpErrorResponse) => {
                       alert(error.message);
@@ -346,7 +346,7 @@ export class EmployeeMenuComponent implements OnInit{
 
 
     public onDeleteEmployee(employeeID?: string): void{
-
+        
         this.employeeService.deleteEmployee(employeeID).subscribe(
             (response: void) => {
 
@@ -365,7 +365,7 @@ export class EmployeeMenuComponent implements OnInit{
         );
     }
 
-
+    
     public onOpenModalEmployee( mode: string, employee?: Employee): void {
         const container = document.getElementById('employee-Container');
         const button = document.createElement('button');
@@ -419,14 +419,14 @@ export class EmployeeMenuComponent implements OnInit{
     }
 
     public onEditPatient(patient: Patient): void{
-
+        
         this.patientService.updatePatient(patient).subscribe(
             (response: Patient) => {
 
                 //Reloading Patient cards
                 this.patientService.getPatients().subscribe(
                     (response: Patient[]) => {
-                      this.patients = response;
+                      this.patients = response;    
                     },
                     (error: HttpErrorResponse) => {
                       alert(error.message);
@@ -440,7 +440,7 @@ export class EmployeeMenuComponent implements OnInit{
 
 
     public onDeletePatient(patientID?: string): void{
-
+        
         this.patientService.deletePatient(patientID).subscribe(
             (response: void) => {
 
@@ -459,7 +459,7 @@ export class EmployeeMenuComponent implements OnInit{
         );
     }
 
-
+    
     public onOpenModalPatient( mode: string, patient?: Patient): void {
         const container = document.getElementById('patient-Container');
         const button = document.createElement('button');
@@ -482,7 +482,7 @@ export class EmployeeMenuComponent implements OnInit{
         container?.appendChild(button);
         button.click();
     }
-
+    
 
 
     //Procedure/////////////////////////////////////////////////////
@@ -501,7 +501,7 @@ export class EmployeeMenuComponent implements OnInit{
                     (response: Procedure[]) => {
                       this.procedures = [];
                       for (let i = 0; i < response.length; i++) {
-                        this.procedures.push(response[i])
+                        this.procedures.push(response[i]) 
                         addProcedureForm.reset();
                     }
                     },
@@ -518,7 +518,7 @@ export class EmployeeMenuComponent implements OnInit{
 
 
     public onEditProcedure(procedure: Procedure): void{
-
+        
         this.procedureService.updateProcedure(procedure).subscribe(
             (response: Procedure) => {
 
@@ -527,7 +527,7 @@ export class EmployeeMenuComponent implements OnInit{
                     (response: Procedure[]) => {
                       this.procedures = [];
                       for (let i = 0; i < response.length; i++) {
-                        this.procedures.push(response[i])
+                        this.procedures.push(response[i]) 
                     }
                     },
                     (error: HttpErrorResponse) => {
@@ -544,13 +544,13 @@ export class EmployeeMenuComponent implements OnInit{
 
         this.procedureService.deleteProcedure(procedureID).subscribe(
             (response: void) => {
-
+                
                 //Reloading Procedure cards
                 this.procedureService.getProcedures().subscribe(
                     (response: Procedure[]) => {
                       this.procedures = [];
                       for (let i = 0; i < response.length; i++) {
-                        this.procedures.push(response[i])
+                        this.procedures.push(response[i]) 
                     }
                     },
                     (error: HttpErrorResponse) => {
@@ -605,7 +605,7 @@ export class EmployeeMenuComponent implements OnInit{
                     (response: Medicine[]) => {
                       this.medicines = [];
                       for (let i = 0; i < response.length; i++) {
-                        this.medicines.push(response[i])
+                        this.medicines.push(response[i]) 
                         addMedicineForm.reset();
                     }
                     },
@@ -622,7 +622,7 @@ export class EmployeeMenuComponent implements OnInit{
 
 
     public onEditMedicine(medicine: Medicine): void{
-
+        
         this.medicineService.updateMedicine(medicine).subscribe(
             (response: Medicine) => {
 
@@ -631,7 +631,7 @@ export class EmployeeMenuComponent implements OnInit{
                     (response: Medicine[]) => {
                       this.medicines = [];
                       for (let i = 0; i < response.length; i++) {
-                        this.medicines.push(response[i])
+                        this.medicines.push(response[i]) 
                     }
                     },
                     (error: HttpErrorResponse) => {
@@ -648,13 +648,13 @@ export class EmployeeMenuComponent implements OnInit{
 
         this.medicineService.deleteMedicine(medicineID).subscribe(
             (response: void) => {
-
+                
                 //Reloading Medicine cards
                 this.medicineService.getMedicine().subscribe(
                     (response: Medicine[]) => {
                       this.medicines = [];
                       for (let i = 0; i < response.length; i++) {
-                        this.medicines.push(response[i])
+                        this.medicines.push(response[i]) 
                     }
                     },
                     (error: HttpErrorResponse) => {
@@ -696,7 +696,7 @@ export class EmployeeMenuComponent implements OnInit{
     public displayHospital(): void{
         this.hideAll();
         this.showHospital = true;
-    }
+    }   
 
     public onAddHospital(addHospitalForm: NgForm): void{
         document.getElementById('add-hospital-form')?.click();
@@ -708,7 +708,7 @@ export class EmployeeMenuComponent implements OnInit{
                     (response: Hospital[]) => {
                       this.hospitals = [];
                         for (let i = 0; i < response.length; i++) {
-                            this.hospitals.push(response[i])
+                            this.hospitals.push(response[i]) 
                             addHospitalForm.reset();
                         }
                     },
@@ -732,7 +732,7 @@ export class EmployeeMenuComponent implements OnInit{
                     (response: Hospital[]) => {
                         this.hospitals = [];
                         for (let i = 0; i < response.length; i++) {
-                          this.hospitals.push(response[i])
+                          this.hospitals.push(response[i]) 
                       }
                       },
                     (error: HttpErrorResponse) => {
@@ -747,7 +747,7 @@ export class EmployeeMenuComponent implements OnInit{
 
 
     public onDeleteHospital(hospitalID?: string): void{
-
+        
         this.hospitalService.deleteHospital(hospitalID).subscribe(
             (response: void) => {
 
@@ -756,7 +756,7 @@ export class EmployeeMenuComponent implements OnInit{
                     (response: Hospital[]) => {
                         this.hospitals = [];
                         for (let i = 0; i < response.length; i++) {
-                          this.hospitals.push(response[i])
+                          this.hospitals.push(response[i]) 
                       }
                       },
                       (error: HttpErrorResponse) => {
@@ -769,7 +769,7 @@ export class EmployeeMenuComponent implements OnInit{
         );
     }
 
-
+    
     public onOpenModalHospital( mode: string, hospital?: Hospital): void {
         const container = document.getElementById('hospital-Container');
         const button = document.createElement('button');
@@ -791,12 +791,12 @@ export class EmployeeMenuComponent implements OnInit{
         }
         container?.appendChild(button);
         button.click();
-    }
+    }   
     //Location//////////////////////////////////////////////////
     public displayLocation(): void{
         this.hideAll();
         this.showLocation = true;
-    }
+    }   
 
     public onAddLocation(addLocationForm: NgForm): void{
         document.getElementById('add-location-form')?.click();
@@ -808,7 +808,7 @@ export class EmployeeMenuComponent implements OnInit{
                     (response: Location[]) => {
                       this.locations = [];
                         for (let i = 0; i < response.length; i++) {
-                            this.locations.push(response[i])
+                            this.locations.push(response[i]) 
                             addLocationForm.reset();
                         }
                     },
@@ -832,7 +832,7 @@ export class EmployeeMenuComponent implements OnInit{
                     (response: Location[]) => {
                         this.locations = [];
                         for (let i = 0; i < response.length; i++) {
-                          this.locations.push(response[i])
+                          this.locations.push(response[i]) 
                       }
                       },
                     (error: HttpErrorResponse) => {
@@ -847,7 +847,7 @@ export class EmployeeMenuComponent implements OnInit{
 
 
     public onDeleteLocation(locationId?: string): void{
-
+        
         this.locationService.deleteLocation(locationId).subscribe(
             (response: void) => {
 
@@ -856,7 +856,7 @@ export class EmployeeMenuComponent implements OnInit{
                     (response: Location[]) => {
                       this.locations = [];
                       for (let i = 0; i < response.length; i++) {
-                        this.locations.push(response[i])
+                        this.locations.push(response[i]) 
                     }
                     },
                     (error: HttpErrorResponse) => {
@@ -896,7 +896,7 @@ export class EmployeeMenuComponent implements OnInit{
 public displayPrescription(): void{
     this.hideAll();
     this.showPrescriptions = true;
-}
+}   
 
 public onAddPrescription(addPrescriptionForm: NgForm): void{
     document.getElementById('add-prescription-form')?.click();
@@ -908,7 +908,7 @@ public onAddPrescription(addPrescriptionForm: NgForm): void{
                 (response: Prescription[]) => {
                   this.prescriptions = [];
                   for (let i = 0; i < response.length; i++) {
-                    this.prescriptions.push(response[i]);
+                    this.prescriptions.push(response[i]); 
                     addPrescriptionForm.reset();
                 }
                 },
@@ -924,14 +924,14 @@ public onAddPrescription(addPrescriptionForm: NgForm): void{
 }
 
 public onEditPrescription(prescription: Prescription): void{
-
+    
     let medicineId = String(prescription.medicineID);
     for(let i = 0; i < this.medicines.length; i++){
         if(medicineId == this.medicines[i].medicineID){
             prescription.medicineID = this.medicines[i];
         }
     }
-
+    
 
     this.prescriptionService.updatePrescription(prescription).subscribe(
         (response: Prescription) => {
@@ -941,7 +941,7 @@ public onEditPrescription(prescription: Prescription): void{
                 (response: Prescription[]) => {
                   this.prescriptions = [];
                   for (let i = 0; i < response.length; i++) {
-                    this.prescriptions.push(response[i])
+                    this.prescriptions.push(response[i]) 
                 }
                 },
                 (error: HttpErrorResponse) => {
@@ -956,7 +956,7 @@ public onEditPrescription(prescription: Prescription): void{
 
 
 public onDeletePrescription(scriptRef?: string): void{
-
+    
     this.prescriptionService.deletePrescription(scriptRef).subscribe(
         (response: void) => {
 
@@ -965,7 +965,7 @@ public onDeletePrescription(scriptRef?: string): void{
                 (response: Prescription[]) => {
                   this.prescriptions = [];
                   for (let i = 0; i < response.length; i++) {
-                    this.prescriptions.push(response[i])
+                    this.prescriptions.push(response[i]) 
                 }
                 },
                 (error: HttpErrorResponse) => {
