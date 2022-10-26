@@ -97,7 +97,6 @@ export class DepartmentMenuComponent implements OnInit {
                 this.departmentService.getDepartments().subscribe(
                     (response: Department[]) => {
 
-                      alert("Department created, click view department to confirm");
                       this.departments = response;
                       createDepartmentForm.reset();
                       this.generatedId = this.generateId();
@@ -124,7 +123,6 @@ export class DepartmentMenuComponent implements OnInit {
               this.departmentService.getDepartments().subscribe(
                   (response: Department[]) => {
 
-                    alert("Department updated, click view department to confirm");
                     this.departments = response;
                     updateDepartmentForm.reset();
 
@@ -147,7 +145,6 @@ export class DepartmentMenuComponent implements OnInit {
                 (response: void) => {
 
                   //Reloading Departments
-                  alert("Department succesfully deleted");
                   this.departmentService.getDepartments().subscribe(
                         (response: Department[]) => {
                           this.departments = response;

@@ -89,7 +89,7 @@ public updateGenderById(id: String):void{
     this.editGenderId = id;
     this.selectedGender = this.genders.find(gender => gender.genderID === id);
     this.updateGenders();
-  } 
+  }
 
     public onCreateGender(createGenderForm: NgForm): void{
 
@@ -100,7 +100,6 @@ public updateGenderById(id: String):void{
                 this.genderService.getGenders().subscribe(
                     (response: Gender[]) => {
 
-                      alert("Gender created, click view genders to confirm");
                       this.genders = response;
                       createGenderForm.reset();
                       this.generatedId = this.generateId();
@@ -122,7 +121,6 @@ public updateGenderById(id: String):void{
 
                 (response: void) => {
 
-                  alert("Gender succesfully deleted");
                   this.hideAll();
                   //Reloading genders
                   this.genderService.getGenders().subscribe(
@@ -148,7 +146,6 @@ public updateGenderById(id: String):void{
                     this.genderService.getGenders().subscribe(
                         (response: Gender[]) => {
 
-                          alert("Gender updated, click view genders to confirm");
                           this.genders = response;
                           updateGenderForm.reset();
 

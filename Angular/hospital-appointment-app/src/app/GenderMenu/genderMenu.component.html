@@ -34,8 +34,8 @@
                     <input type="text" class="form-control" id="departmentFloor" ngModel name="sex" placeholder="sex" required>
                   </div>
                   <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Create Gender</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hideAll()">Close</button>
+                    <button type="submit" class="btn btn-primary" (click)="hideAll()">Save</button>
                   </div>
 
               </form>
@@ -104,7 +104,7 @@
             <input type="text" class="form-control" id="sex" [ngModel]="selectedGender?.sex" name="sex" placeholder="sex" required>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="submit" class="btn btn-primary" (click)="hideAll()">Save changes</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hideAll()">Close</button>
           </div>
         </form>
