@@ -34,7 +34,7 @@ export class GenderService {
     return this.http.post<Gender>(`${this.apiServerUrl}/gender/save`, gender, httpOptions)
   }
 
-  public deleteGender(genderId?: string): Observable<void> {
+  public deleteGender(genderId?: String): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/gender/delete/${genderId}`, httpOptions)
   }
 

@@ -21,8 +21,10 @@ export class DepartmentMenuComponent implements OnInit {
     public viewDepartments: String = "d-none";
     public createDepartments: String = "d-none";
     public updateDepartments: String = "d-none";
+    public deleteDepartments: String = "d-none";
     public editDepartmentId: String = "";
     public selectedDepartment?: Department;
+    public deleteDepartmentId?: String;
 
     ngOnInit(): void {
 
@@ -47,32 +49,44 @@ export class DepartmentMenuComponent implements OnInit {
   this.createDepartments = "d-none";
   this.viewDepartments  = "d-none";
   this.updateDepartments = "d-none";
-  }  
+  this.deleteDepartments  = "d-none";
+  }
 
   /*Methods for displaying department menus*/
     public createDepartment():void{
       this.createDepartments = "d-block";
       this.viewDepartments  = "d-none";
       this.updateDepartments = "d-none";
+      this.deleteDepartments  = "d-none";
     }
 
     public viewDepartment():void{
       this.viewDepartments  = "d-block";
       this.createDepartments = "d-none";
       this.updateDepartments = "d-none";
+      this.deleteDepartments  = "d-none";
     }
 
     public updateDepartment():void{
       this.updateDepartments = "d-block";
       this.createDepartments = "d-none";
       this.viewDepartments  = "d-none";
+      this.deleteDepartments  = "d-none";
+    }
+
+    public deleteDepartmentModal(id: String):void{
+      this.updateDepartments = "d-none";
+      this.createDepartments = "d-none";
+      this.viewDepartments  = "d-none";
+      this.deleteDepartments  = "d-block";
+      this.deleteDepartmentId = id;
     }
 
     public updateDepartmentById(id: String):void{
       this.editDepartmentId = id;
       this.selectedDepartment = this.departments.find(dep => dep.departmentId === id);
       this.updateDepartment();
-    } 
+    }
 
     public onCreateDepartment(createDepartmentForm: NgForm): void{
 
@@ -126,13 +140,14 @@ export class DepartmentMenuComponent implements OnInit {
       );
   }
 
-    public deleteDepartment(departmentId?: string): void{
+    public deleteDepartment(departmentId?: String): void{
 
             this.departmentService.deleteDepartment(departmentId).subscribe(
 
                 (response: void) => {
 
                   //Reloading Departments
+                  alert("Department succesfully deleted");
                   this.departmentService.getDepartments().subscribe(
                         (response: Department[]) => {
                           this.departments = response;

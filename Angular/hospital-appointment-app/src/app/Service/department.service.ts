@@ -34,7 +34,7 @@ export class DepartmentService {
     return this.http.post<Department>(`${this.apiServerUrl}/department/save`, department, httpOptions)
   }
 
-  public deleteDepartment(departmentId?: string): Observable<void> {
+  public deleteDepartment(departmentId?: String): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/department/delete/${departmentId}`, httpOptions)
   }
 
