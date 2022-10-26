@@ -24,7 +24,7 @@ public class EmployeeServiceTest {
 
     @BeforeEach
     void setUp() {
-        this.employee = EmployeeFactory.createEmployee("Peter", "Splinter", "2020-20-03", "myPassword");
+        this.employee = EmployeeFactory.createEmployee("Peter", "Splinter", "2020-20-03", "myPassword", "gg");
     }
 
     @AfterEach

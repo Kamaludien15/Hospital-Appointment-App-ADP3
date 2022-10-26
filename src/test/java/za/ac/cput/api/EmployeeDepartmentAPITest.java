@@ -29,7 +29,7 @@ public class EmployeeDepartmentAPITest {
 
     @BeforeEach
     void setUp() {
-        this.employee = EmployeeFactory.createEmployee("Johnson","Craig","1983-03-02", "Password");
+        this.employee = EmployeeFactory.createEmployee("Johnson","Craig","1983-03-02", "Password", "dd");
         this.department = DepartmentFactory.createDepartment("Surgery", "18", "10");
         this.employeeDepartment = EmployeeDepartmentFactory.createEmployeeDepartment(this.employee, this.department);
     }

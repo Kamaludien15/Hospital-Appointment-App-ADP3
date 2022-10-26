@@ -22,7 +22,7 @@ public class IEmployeeRepositoryTest {
 
     @BeforeEach
     void setUp(){
-        this.employee = EmployeeFactory.createEmployee(employee.getEmployeeFirstName(), employee.getEmployeeLastName(), employee.getEmployeeDateOfBirth(), "MyPassword");
+        this.employee = EmployeeFactory.createEmployee(employee.getEmployeeFirstName(), employee.getEmployeeLastName(), employee.getEmployeeDateOfBirth(), "MyPassword", "gg");
     }
 
     @AfterEach
