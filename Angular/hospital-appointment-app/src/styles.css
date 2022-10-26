@@ -2,7 +2,7 @@
 @import 'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css';
 
 body{
-    background:#ddd;
+    background-color: #d1d1d1 !important;
     
 }	
 
@@ -55,11 +55,13 @@ body{
     -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
 }
 
 /* EmployeeMenu */
 
 .card-box {
+    border-radius: 20px;
     position: relative;
     width: 250px;
     color: #fff;
@@ -99,6 +101,7 @@ body{
     color: rgba(0, 0, 0, 0.15);
 }
 .card-box .card-box-footer {
+    border-radius: 25px;
     position: absolute;
     left: 0px;
     bottom: 0px;
@@ -130,9 +133,18 @@ body{
 .bg-pink {
     background-color: #c94fd9e3 !important;
 }
+.bg-red {
+    background-color: #c56a15e3 !important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255,255,255,1);
+}
+
 
 /* Appointment */
 .card {
+    border-radius: 20px;
     border: none;
     -webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
     box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
@@ -164,3 +176,108 @@ a {
 .cardImage{
     padding-left: 40px;
 }
+
+.jumbotron {
+    margin-left: -300px!important;
+    background-color: #d1d1d1;
+}
+
+.btn{
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+}
+
+.account-wall{
+margin-left: 220px;
+}
+
+
+.loginTitle{
+    margin-left: 125px;
+}
+
+
+.waves {
+    margin-bottom: -10px;
+    position:relative;
+    width: 100%;
+    height:15vh;
+    margin-bottom:-7px; /*Fix for safari gap*/
+    min-height:100px;
+    max-height:150px;
+  }
+  
+  .content {
+    position:relative;
+    height:20vh;
+    text-align:center;
+    background-color: white;
+  }
+  
+  /* Animation */
+  
+  .parallax > use {
+    animation: move-forever 25s cubic-bezier(.55,.5,.45,.5)     infinite;
+  }
+  .parallax > use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+  }
+  .parallax > use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+  }
+  .parallax > use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+  }
+  .parallax > use:nth-child(4) {
+    animation-delay: -5s;
+    animation-duration: 20s;
+  }
+  @keyframes move-forever {
+    0% {
+     transform: translate3d(-90px,0,0);
+    }
+    100% { 
+      transform: translate3d(85px,0,0);
+    }
+  }
+  /*Shrinking for mobile*/
+  @media (max-width: 768px) {
+    .waves {
+      height:40px;
+      min-height:40px;
+    }
+    .content {
+      height:30vh;
+    }
+    h1 {
+      font-size:24px;
+    }
+  }
+
+
+.cover .heading {
+    margin-left: 300px;
+    font-family: 'Telefon Black';
+    font-size: 100px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: rgb(255, 255, 255);
+
+  }
+
+  .modal-body {
+    max-height: 800px !important;
+  }
+
+
+    .modal {
+    padding-left: 17px !important;
+    height: auto !important;
+
+    }

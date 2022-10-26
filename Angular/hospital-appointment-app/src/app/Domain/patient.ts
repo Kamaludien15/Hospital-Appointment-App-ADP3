@@ -4,4 +4,5 @@ export interface Patient {
     patientLastName: string;
     patientDateOfBirth: string;
     password: string;
+    username: string;
 }

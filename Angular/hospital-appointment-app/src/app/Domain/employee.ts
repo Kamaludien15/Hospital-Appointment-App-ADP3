@@ -4,4 +4,5 @@ export interface Employee {
     employeeLastName: string;
     employeeDateOfBirth: string;
     password: string;
+    username: string;
 }

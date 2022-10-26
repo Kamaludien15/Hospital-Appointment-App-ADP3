@@ -3,7 +3,7 @@
 <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 <div class="container">
-    <div class="row">
+    <div class="row" id="cardsRow">
         <div class="col-lg-3 col-sm-6">
             <div class="card-box bg-blue">
                 <div class="inner">
@@ -11,7 +11,7 @@
                     <p> CRUD Operations</p>
                 </div>
                 <div class="icon">
-                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                    <i class="fa fa-check-circle" aria-hidden="true"></i>
                 </div>
                 <a (click)="displayAppointment()" class="card-box-footer">Enter <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -23,7 +23,7 @@
                     <p> CRUD Operations </p>
                 </div>
                 <div class="icon">
-                    <i class="fa fa-money" aria-hidden="true"></i>
+                    <i class="fa fa-briefcase" aria-hidden="true"></i>
                 </div>
                 <a (click)="displayEmployees()" class="card-box-footer">Enter<i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -53,7 +53,7 @@
             </div>
         </div>
         <div class="col-lg-3 col-sm-6">
-            <div class="card-box bg-blue">
+            <div class="card-box bg-red">
                 <div class="inner">
                     <h3> Procedure </h3>
                     <p> CRUD Operations </p>
@@ -139,7 +139,7 @@
         </div>
 
 
-        <!-- Add Appointmenty Modal -->
+        <!-- Add Appointment Modal -->
         <div class="modal" id="addAppointmentModal" tabindex="-1" role="dialog" aria-labelledby="addAppointmentModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -267,7 +267,7 @@
                         </div>
                         <div class="form-group">
                         <label for="appointmentDate">Appointment Date and Time</label>
-                        <input type="text" [ngModel]="editAppointment?.appointmentDate" name="appointmentDate" class="form-control" id="appointmentDate" placeholder="Appointment Date and Time" required>
+                        <input type="text" [ngModel]="editAppointment?.appointmentDate" name="appointmentDate" class="form-control" id="appointmentDate" placeholder="Appointment Date and Time" required pattern="[A-Za-z0-9]{1,20}">
                          </div>
                         <div class="modal-footer">
                         <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
@@ -315,15 +315,15 @@
                     <div class="card m-b-30">
                         <div class="card-body row">
                             <div class="col-6 cardImage">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M216.1 408.1C207.6 418.3 192.4 418.3 183 408.1L119 344.1C109.7 335.6 109.7 320.4 119 311C128.4 301.7 143.6 301.7 152.1 311L200 358.1L295 263C304.4 253.7 319.6 253.7 328.1 263C338.3 272.4 338.3 287.6 328.1 296.1L216.1 408.1zM128 0C141.3 0 152 10.75 152 24V64H296V24C296 10.75 306.7 0 320 0C333.3 0 344 10.75 344 24V64H384C419.3 64 448 92.65 448 128V448C448 483.3 419.3 512 384 512H64C28.65 512 0 483.3 0 448V128C0 92.65 28.65 64 64 64H104V24C104 10.75 114.7 0 128 0zM400 192H48V448C48 456.8 55.16 464 64 464H384C392.8 464 400 456.8 400 448V192z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M96 128V70.2c0-13.3 8.3-25.3 20.8-30l96-36c7.2-2.7 15.2-2.7 22.5 0l96 36c12.5 4.7 20.8 16.6 20.8 30V128h-.3c.2 2.6 .3 5.3 .3 8v40c0 70.7-57.3 128-128 128s-128-57.3-128-128V136c0-2.7 .1-5.4 .3-8H96zm48 48c0 44.2 35.8 80 80 80s80-35.8 80-80V160H144v16zM129.1 323.2l83.2 88.4c6.3 6.7 17 6.7 23.3 0l83.2-88.4c73.7 14.9 129.1 80 129.1 158.1c0 17-13.8 30.7-30.7 30.7H30.7C13.8 512 0 498.2 0 481.3c0-78.1 55.5-143.2 129.1-158.1zM208 48V64H192c-4.4 0-8 3.6-8 8V88c0 4.4 3.6 8 8 8h16v16c0 4.4 3.6 8 8 8h16c4.4 0 8-3.6 8-8V96h16c4.4 0 8-3.6 8-8V72c0-4.4-3.6-8-8-8H240V48c0-4.4-3.6-8-8-8H216c-4.4 0-8 3.6-8 8z"/></svg>
                             </div>
                             <div class="col-6 card-title align-self-center mb-0">
                                 <h5>{{employee.employeeFirstName}} {{employee.employeeLastName}}</h5>
                             </div>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><i class="fa fa-user-md float-right"></i><h5>DOB :</h5><a></a>{{employee.employeeDateOfBirth}}</li>
-                            <li class="list-group-item"><i class="fa fa-male float-right"></i><h5>Password :</h5><a></a>{{employee.password}}</li>
+                            <li class="list-group-item"><i class="fa fa-calendar float-right"></i><h5>DOB :</h5><a></a>{{employee.employeeDateOfBirth}}</li>
+                            <li class="list-group-item"><i class="fa fa-unlock-alt float-right"></i><h5>Password :</h5><a></a>{{employee.password}}</li>
 
                         </ul>
                         <div class="card-body">
@@ -469,15 +469,15 @@
                     <div class="card m-b-30">
                         <div class="card-body row">
                             <div class="col-6 cardImage">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M216.1 408.1C207.6 418.3 192.4 418.3 183 408.1L119 344.1C109.7 335.6 109.7 320.4 119 311C128.4 301.7 143.6 301.7 152.1 311L200 358.1L295 263C304.4 253.7 319.6 253.7 328.1 263C338.3 272.4 338.3 287.6 328.1 296.1L216.1 408.1zM128 0C141.3 0 152 10.75 152 24V64H296V24C296 10.75 306.7 0 320 0C333.3 0 344 10.75 344 24V64H384C419.3 64 448 92.65 448 128V448C448 483.3 419.3 512 384 512H64C28.65 512 0 483.3 0 448V128C0 92.65 28.65 64 64 64H104V24C104 10.75 114.7 0 128 0zM400 192H48V448C48 456.8 55.16 464 64 464H384C392.8 464 400 456.8 400 448V192z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M48 0C21.5 0 0 21.5 0 48V256H144c8.8 0 16 7.2 16 16s-7.2 16-16 16H0v64H144c8.8 0 16 7.2 16 16s-7.2 16-16 16H0v80c0 26.5 21.5 48 48 48H265.9c-6.3-10.2-9.9-22.2-9.9-35.1c0-46.9 25.8-87.8 64-109.2V271.8 48c0-26.5-21.5-48-48-48H48zM152 64h16c8.8 0 16 7.2 16 16v24h24c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H184v24c0 8.8-7.2 16-16 16H152c-8.8 0-16-7.2-16-16V152H112c-8.8 0-16-7.2-16-16V120c0-8.8 7.2-16 16-16h24V80c0-8.8 7.2-16 16-16zM512 272c0-44.2-35.8-80-80-80s-80 35.8-80 80s35.8 80 80 80s80-35.8 80-80zM288 477.1c0 19.3 15.6 34.9 34.9 34.9H541.1c19.3 0 34.9-15.6 34.9-34.9c0-51.4-41.7-93.1-93.1-93.1H381.1c-51.4 0-93.1 41.7-93.1 93.1z"/></svg>
                             </div>
                             <div class="col-6 card-title align-self-center mb-0">
                                 <h5>{{patient.patientFirstName}} {{patient.patientLastName}}</h5>
                             </div>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><i class="fa fa-user-md float-right"></i><h5>DOB :</h5><a></a>{{patient.patientDateOfBirth}}</li>
-                            <li class="list-group-item"><i class="fa fa-male float-right"></i><h5>Password :</h5><a></a>{{patient.password}}</li>
+                            <li class="list-group-item"><i class="fa fa-calendar float-right"></i><h5>DOB :</h5><a></a>{{patient.patientDateOfBirth}}</li>
+                            <li class="list-group-item"><i class="fa fa-unlock-alt float-right"></i><h5>Password :</h5><a></a>{{patient.password}}</li>
 
                         </ul>
                         <div class="card-body">

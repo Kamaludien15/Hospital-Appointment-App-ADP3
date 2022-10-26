@@ -20,6 +20,7 @@ import { MedicineService } from '../Service/medicine.service';
 import { Location } from '../Domain/location';
 import { LocationService } from '../Service/location.service';
 
+
 @Component({ templateUrl: 'employeeMenu.component.html' })
 export class EmployeeMenuComponent implements OnInit{
 

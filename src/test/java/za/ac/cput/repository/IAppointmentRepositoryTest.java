@@ -40,9 +40,9 @@ class IAppointmentRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        this.patient = PatientFactory.createPatient("Rick", "Rock", "01-Janurary-1999", "1234567890");
+        this.patient = PatientFactory.createPatient("Rick", "Rock", "01-Janurary-1999", "1234567890", "gg");
         this.hospital = HospitalFactory.createHospital("Spring View Hospital", 1000, "Private");
-        this.employee = EmployeeFactory.createEmployee("James", "Johnson", "01-Janurary-1997", "1234567890");
+        this.employee = EmployeeFactory.createEmployee("James", "Johnson", "01-Janurary-1997", "1234567890", "gg");
         this.medicine = MedicineFactory.createMedicine("Panado", "500ml", "Twice a day", "R500.00");
         this.prescription = PrescriptionFactory.createPrescription(medicine, "01-Janurary-2022", "Twice a year");
         this.procedure = ProcedureFactory.createProcedure("Eye Sight Test", "Test patients eyesight strength", "R1000");
