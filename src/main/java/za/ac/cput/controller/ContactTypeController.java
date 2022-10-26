@@ -48,5 +48,4 @@ public class ContactTypeController {
         return ResponseEntity.ok(response);
     }
 
-
 }

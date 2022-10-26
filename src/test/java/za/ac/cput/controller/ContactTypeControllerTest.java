@@ -20,7 +20,6 @@ class ContactTypeControllerTest {
 
     @LocalServerPort
     private int port;
-
     private String SECURITY_USERNAME = "admin";
     private String SECURITY_PASSWORD = "passwordAdmin";
 
