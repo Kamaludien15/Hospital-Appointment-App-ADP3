@@ -17,11 +17,13 @@ import { ProcedureService } from '../Service/procedure.service';
 import {v4 as uuids4} from 'uuid';
 import { Medicine } from '../Domain/medicine';
 import { MedicineService } from '../Service/medicine.service';
+import { Location } from '../Domain/location';
+import { LocationService } from '../Service/location.service';
 
 @Component({ templateUrl: 'employeeMenu.component.html' })
 export class EmployeeMenuComponent implements OnInit{
 
-    constructor(private procedureService: ProcedureService,private prescriptionService: PrescriptionService,private hospitalService: HospitalService,private appointmentService: AppointmentService, private employeeService: EmployeeService, private patientService: PatientService, private medicineService: MedicineService) { }
+    constructor(private procedureService: ProcedureService,private prescriptionService: PrescriptionService,private hospitalService: HospitalService,private appointmentService: AppointmentService, private employeeService: EmployeeService, private patientService: PatientService, private medicineService: MedicineService,private locationService: LocationService) { }
 
     public appointments: Appointment[] = [];
     public employees: Employee[] = [];
@@ -30,6 +32,7 @@ export class EmployeeMenuComponent implements OnInit{
     public prescriptions: Prescription[] = [];
     public procedures: Procedure[] = [];
     public medicines: Medicine[] = [];
+    public locations: Location[] = [];
     public generatedId: String | undefined;
     public editAppointment: Appointment | undefined;
     public deleteAppointment: Appointment | undefined;
@@ -37,10 +40,17 @@ export class EmployeeMenuComponent implements OnInit{
     public deleteProcedure: Procedure | undefined;
     public editMedicine: Medicine | undefined;
     public deleteMedicine: Medicine | undefined;
+    public editPrescription: Prescription | undefined;
+    public deletePrescription: Prescription | undefined;
     public editEmployee: Employee | undefined;
     public deleteEmployee: Employee | undefined;
     public editPatient: Patient | undefined;
     public deletePatient: Patient | undefined;
+    public editHospital: Hospital | undefined;
+    public deleteHospital: Hospital | undefined;
+    public editLocation: Location | undefined;
+    public deleteLocation: Location | undefined;
+
 
     ngOnInit(): void {
         //Fetching data to call from later
@@ -79,6 +89,15 @@ export class EmployeeMenuComponent implements OnInit{
             (error: HttpErrorResponse) => {
                 alert(error.message);
             })
+
+        this.locationService.getLocations().subscribe(
+            (response: Location[]) => {
+                this.locations = response;
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message);
+            })
+
         this.prescriptionService.getPrescriptions().subscribe(
             (response: Prescription[]) => {
                 this.prescriptions = response;
@@ -117,6 +136,9 @@ export class EmployeeMenuComponent implements OnInit{
     public showEmployees = false;
     public showMedicines = false;
     public showProcedures = false;
+    public showPrescriptions = false;
+    public showHospital = false;
+    public showLocation = false;
 
     //Hide All
     public hideAll(): void{
@@ -125,6 +147,9 @@ export class EmployeeMenuComponent implements OnInit{
         this.showEmployees = false;
         this.showMedicines = false;
         this.showProcedures = false;
+        this.showPrescriptions = false;
+        this.showHospital = false;
+        this.showLocation = false;
     }  
 
     //Appointment//////////////////////////////////////////////////
@@ -662,6 +687,313 @@ export class EmployeeMenuComponent implements OnInit{
         if (mode === 'delete') {
         this.deleteMedicine = medicine;
         button.setAttribute('data-target', '#deleteMedicineModal');
+        }
+        container?.appendChild(button);
+        button.click();
+    }
+
+    //Hospital//////////////////////////////////////////////////
+    public displayHospital(): void{
+        this.hideAll();
+        this.showHospital = true;
+    }   
+
+    public onAddHospital(addHospitalForm: NgForm): void{
+        document.getElementById('add-hospital-form')?.click();
+        this.hospitalService.addHospital(addHospitalForm.value).subscribe(
+            (response: Hospital) => {
+
+                //Reloading Hospital cards
+                this.hospitalService.getHospitals().subscribe(
+                    (response: Hospital[]) => {
+                      this.hospitals = [];
+                        for (let i = 0; i < response.length; i++) {
+                            this.hospitals.push(response[i]) 
+                            addHospitalForm.reset();
+                        }
+                    },
+                    (error: HttpErrorResponse) => {
+                      alert(error.message);
+                      addHospitalForm.reset();
+                    })
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message)
+            }
+        );
+    }
+
+    public onEditHospital(hospital: Hospital): void{
+        this.hospitalService.updateHospital(hospital).subscribe(
+            (response: Hospital) => {
+
+                //Reloading Hospital cards
+                this.hospitalService.getHospitals().subscribe(
+                    (response: Hospital[]) => {
+                        this.hospitals = [];
+                        for (let i = 0; i < response.length; i++) {
+                          this.hospitals.push(response[i]) 
+                      }
+                      },
+                    (error: HttpErrorResponse) => {
+                      alert(error.message);
+                    })
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message)
+            }
+        );
+    }
+
+
+    public onDeleteHospital(hospitalID?: string): void{
+        
+        this.hospitalService.deleteHospital(hospitalID).subscribe(
+            (response: void) => {
+
+                //Reloading Hospital cards
+                this.hospitalService.getHospitals().subscribe(
+                    (response: Hospital[]) => {
+                        this.hospitals = [];
+                        for (let i = 0; i < response.length; i++) {
+                          this.hospitals.push(response[i]) 
+                      }
+                      },
+                      (error: HttpErrorResponse) => {
+                        alert(error.message);
+                      })
+              },
+            (error: HttpErrorResponse) => {
+                alert(error.message)
+            }
+        );
+    }
+
+    
+    public onOpenModalHospital( mode: string, hospital?: Hospital): void {
+        const container = document.getElementById('hospital-Container');
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.style.display = 'none';
+        button.setAttribute('data-toggle', 'modal');
+        if (mode === 'add') {
+        button.setAttribute('data-target', '#addHospitalModal');
+        this.generateId();
+        }
+        if (mode === 'edit') {
+        this.editHospital = hospital;
+        console.log(this.editHospital);
+        button.setAttribute('data-target', '#updateHospitalModal');
+        }
+        if (mode === 'delete') {
+        this.deleteHospital = hospital;
+        button.setAttribute('data-target', '#deleteHospitalModal');
+        }
+        container?.appendChild(button);
+        button.click();
+    }   
+    //Location//////////////////////////////////////////////////
+    public displayLocation(): void{
+        this.hideAll();
+        this.showLocation = true;
+    }   
+
+    public onAddLocation(addLocationForm: NgForm): void{
+        document.getElementById('add-location-form')?.click();
+        this.locationService.addLocation(addLocationForm.value).subscribe(
+            (response: Location) => {
+
+                //Reloading Location cards
+                this.locationService.getLocations().subscribe(
+                    (response: Location[]) => {
+                      this.locations = [];
+                        for (let i = 0; i < response.length; i++) {
+                            this.locations.push(response[i]) 
+                            addLocationForm.reset();
+                        }
+                    },
+                    (error: HttpErrorResponse) => {
+                      alert(error.message);
+                      addLocationForm.reset();
+                    })
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message)
+            }
+        );
+    }
+
+    public onEditLocation(location: Location): void{
+        this.locationService.updateLocation(location).subscribe(
+            (response: Location) => {
+
+                //Reloading Location cards
+                this.locationService.getLocations().subscribe(
+                    (response: Location[]) => {
+                        this.locations = [];
+                        for (let i = 0; i < response.length; i++) {
+                          this.locations.push(response[i]) 
+                      }
+                      },
+                    (error: HttpErrorResponse) => {
+                      alert(error.message);
+                    })
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message)
+            }
+        );
+    }
+
+
+    public onDeleteLocation(locationId?: string): void{
+        
+        this.locationService.deleteLocation(locationId).subscribe(
+            (response: void) => {
+
+                //Reloading Location cards
+                this.locationService.getLocations().subscribe(
+                    (response: Location[]) => {
+                      this.locations = [];
+                      for (let i = 0; i < response.length; i++) {
+                        this.locations.push(response[i]) 
+                    }
+                    },
+                    (error: HttpErrorResponse) => {
+                      alert(error.message);
+                    })
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message)
+            }
+        );
+    }
+
+    public onOpenModalLocation( mode: string, location?: Location): void {
+        const container = document.getElementById('location-Container');
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.style.display = 'none';
+        button.setAttribute('data-toggle', 'modal');
+        if (mode === 'add') {
+        button.setAttribute('data-target', '#addLocationModal');
+        this.generateId();
+        }
+        if (mode === 'edit') {
+        this.editLocation = location;
+        console.log(this.editLocation);
+        button.setAttribute('data-target', '#updateLocationModal');
+        }
+        if (mode === 'delete') {
+        this.deleteLocation = location;
+        button.setAttribute('data-target', '#deleteLocationModal');
+        }
+        container?.appendChild(button);
+        button.click();
+    }
+
+//Prescription//////////////////////////////////////////////////
+public displayPrescription(): void{
+    this.hideAll();
+    this.showPrescriptions = true;
+}   
+
+public onAddPrescription(addPrescriptionForm: NgForm): void{
+    document.getElementById('add-prescription-form')?.click();
+    this.prescriptionService.addPrescription(addPrescriptionForm.value).subscribe(
+        (response: Prescription) => {
+
+            //Reloading Prescription cards
+            this.prescriptionService.getPrescriptions().subscribe(
+                (response: Prescription[]) => {
+                  this.prescriptions = [];
+                  for (let i = 0; i < response.length; i++) {
+                    this.prescriptions.push(response[i]); 
+                    addPrescriptionForm.reset();
+                }
+                },
+                (error: HttpErrorResponse) => {
+                  alert(error.message);
+                  addPrescriptionForm.reset();
+                })
+        },
+        (error: HttpErrorResponse) => {
+            alert(error.message)
+        }
+    );
+}
+
+public onEditPrescription(prescription: Prescription): void{
+    
+    let medicineId = String(prescription.medicineID);
+    for(let i = 0; i < this.medicines.length; i++){
+        if(medicineId == this.medicines[i].medicineID){
+            prescription.medicineID = this.medicines[i];
+        }
+    }
+    
+
+    this.prescriptionService.updatePrescription(prescription).subscribe(
+        (response: Prescription) => {
+
+            //Reloading Prescription cards
+            this.prescriptionService.getPrescriptions().subscribe(
+                (response: Prescription[]) => {
+                  this.prescriptions = [];
+                  for (let i = 0; i < response.length; i++) {
+                    this.prescriptions.push(response[i]) 
+                }
+                },
+                (error: HttpErrorResponse) => {
+                  alert(error.message);
+                })
+        },
+        (error: HttpErrorResponse) => {
+            alert(error.message)
+        }
+    );
+}
+
+
+public onDeletePrescription(scriptRef?: string): void{
+    
+    this.prescriptionService.deletePrescription(scriptRef).subscribe(
+        (response: void) => {
+
+            //Reloading Prescription cards
+            this.prescriptionService.getPrescriptions().subscribe(
+                (response: Prescription[]) => {
+                  this.prescriptions = [];
+                  for (let i = 0; i < response.length; i++) {
+                    this.prescriptions.push(response[i]) 
+                }
+                },
+                (error: HttpErrorResponse) => {
+                  alert(error.message);
+                })
+        },
+        (error: HttpErrorResponse) => {
+            alert(error.message)
+        }
+    );
+}
+    public onOpenModalPrescription( mode: string, prescription?: Prescription): void {
+        const container = document.getElementById('prescription-Container');
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.style.display = 'none';
+        button.setAttribute('data-toggle', 'modal');
+        if (mode === 'add') {button.setAttribute('data-target', '#addPrescriptionModal');
+        this.generateId();
+        }
+        if (mode === 'edit') {
+        this.editPrescription = prescription;
+        console.log(this.editPrescription);
+        button.setAttribute('data-target', '#updatePrescriptionModal');
+        }
+        if (mode === 'delete') {
+        this.deletePrescription = prescription;
+        button.setAttribute('data-target', '#deletePrescriptionModal');
         }
         container?.appendChild(button);
         button.click();
