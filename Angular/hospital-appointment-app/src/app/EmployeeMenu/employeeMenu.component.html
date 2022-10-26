@@ -64,6 +64,18 @@
                 <a (click)="displayProcedures()" class="card-box-footer">Enter <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card-box bg-warning">
+                <div class="inner">
+                    <h3> Prescription </h3>
+                    <p> CRUD Operations </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                </div>
+                <a (click)="displayPrescription()" class="card-box-footer">Enter <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
     </div>
 
 
@@ -904,6 +916,145 @@
         </div>
     </div>
 
+
+
+    <!-- Prescriptions -->
+    <div id="prescriptions" *ngIf="showPrescriptions">
+        <button class="btn btn-primary waves-effect waves-light btn-lg m-b-5" (click)="onOpenModalPrescription('add', null!)">Create Prescription</button>
+        <div class="container" id="prescription-Container">
+            <div class="row">
+                <div *ngFor="let prescription of prescriptions" class="col-md-6 col-xl-4">
+                    <div class="card m-b-30">
+                        <div class="card-body row">
+                            <div class="col-6 cardImage">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M216.1 408.1C207.6 418.3 192.4 418.3 183 408.1L119 344.1C109.7 335.6 109.7 320.4 119 311C128.4 301.7 143.6 301.7 152.1 311L200 358.1L295 263C304.4 253.7 319.6 253.7 328.1 263C338.3 272.4 338.3 287.6 328.1 296.1L216.1 408.1zM128 0C141.3 0 152 10.75 152 24V64H296V24C296 10.75 306.7 0 320 0C333.3 0 344 10.75 344 24V64H384C419.3 64 448 92.65 448 128V448C448 483.3 419.3 512 384 512H64C28.65 512 0 483.3 0 448V128C0 92.65 28.65 64 64 64H104V24C104 10.75 114.7 0 128 0zM400 192H48V448C48 456.8 55.16 464 64 464H384C392.8 464 400 456.8 400 448V192z"/></svg>
+                            </div>
+                            <div class="col-6 card-title align-self-center mb-0">
+                                <h5>{{prescription.scriptRef}}</h5>
+                            </div>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fa fa-user-md float-right"></i><h5>Medicine :</h5><a></a>{{prescription.medicineID.medicineName}}</li>
+                            <li class="list-group-item"><i class="fa fa-user-md float-right"></i><h5>Script Issued On :</h5><a></a>{{prescription.scriptIssueDate}}</li>
+                            <li class="list-group-item"><i class="fa fa-user-md float-right"></i><h5>Script Recurrence :</h5><a></a>{{prescription.scriptRecurrence}}</li>
+                        </ul>
+                        <div class="card-body">
+                            <div class="float-right btn-group btn-group-sm">
+                                <a (click)="onOpenModalPrescription('edit', prescription)" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                                <a (click)="onOpenModalPrescription('delete', prescription)" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Prescription Modal -->
+        <div class="modal" id="addPrescriptionModal" tabindex="-1" role="dialog" aria-labelledby="addPrescriptionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addPrescriptionModalLabel">Add Prescription</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #addPrescriptionForm="ngForm" (ngSubmit)="onAddPrescription(addPrescriptionForm)">
+                <div class="form-group" hidden>
+                    <label for="scriptRef">scriptRef</label>
+                    <input type="text" [ngModel]="generatedId" name="scriptRef" class="form-control" id="scriptRef" required>
+                </div>
+                <div class="form-group">
+                <label for="medicineID">Medicine</label>
+                <select ngModel name="medicineID" class="form-control" id="medicineID" required>
+                    <option *ngFor="let medicineID of medicines" [ngValue]="medicineID">
+                            {{medicineID.medicineName}} : (ID) {{medicineID.medicineID}}
+                    </option>
+                </select>
+                </div>
+                <div class="form-group">
+                    <label for="scriptIssueDate">Script Issued</label>
+                    <input type="text" ngModel name="scriptIssueDate" class="form-control" id="scriptIssueDate" placeholder="Script Issued" required>
+                </div>
+                <div class="form-group">
+                    <label for="scriptRecurrence">Script Recurrence</label>
+                    <input type="text" ngModel name="scriptRecurrence" class="form-control" id="scriptRecurrence" placeholder="Script Recurrence" required>
+                </div>
+                <div class="modal-footer">
+                <button type="button" id="add-prescription-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button  [disabled]="addPrescriptionForm.invalid" type="submit" class="btn btn-primary">Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+        </div>
+        </div>
+  
+        <!-- Edit Prescription Modal -->
+        <div class="modal" id="updatePrescriptionModal" tabindex="-1" role="dialog" aria-labelledby="updatePrescriptionModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updatePrescriptionModalLabel">Edit Prescription</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form #editPrescriptionForm="ngForm">
+                        <div class="form-group" hidden>
+                            <label for="scriptRef">Script Reference</label>
+                            <input type="text" [ngModel]="editPrescription?.scriptRef" name="scriptRef" class="form-control" id="scriptRef" required>
+                        </div>
+                        <div class="form-group">
+                        <label for="medicineID">Medicine</label>
+                        <select [ngModel]="editPrescription?.medicineID?.medicineID" name="medicineID" class="form-control" id="medicineID" required>
+                            <option *ngFor="let medicineID of medicines" [ngValue]="medicineID.medicineID">
+                                    {{medicineID.medicineName}} : (ID) {{medicineID.medicineID}}
+                            </option>
+                        </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="scriptIssueDate">Script Issued</label>
+                            <input type="text" [ngModel]="editPrescription?.scriptIssueDate" name="scriptIssueDate" class="form-control" id="scriptIssueDate" placeholder="Script Issued" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="scriptRecurrence">Script Recurrence</label>
+                            <input type="text" [ngModel]="editPrescription?.scriptRecurrence" name="scriptRecurrence" class="form-control" id="scriptRecurrence" placeholder="Script Recurrence" required>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                        <button (click)="onEditPrescription(editPrescriptionForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+  
+        <!-- Delete Prescription Modal -->
+        <div class="modal" id="deletePrescriptionModal" tabindex="-1" role="dialog" aria-labelledby="deletePrescriptionModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deletePrescriptionModalLabel">Delete Prescription</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this Prescription?</p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <button (click)="onDeletePrescription(deletePrescription?.scriptRef)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+    </div>
 
 
 </div>
