@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit{
         var valid:boolean = false;
 
         for (let i = 0; i < this.employees.length; i++) {
-                if(this.employees[i].password == password && this.employees[i].employeeId == username){
+                if(this.employees[i].password == password && this.employees[i].username == username){
                     this.router.navigateByUrl('/EmployeeMenu');
                     environment.employeeId = this.employees[i].employeeId;
                     valid = true;
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit{
             }
              
         for (let i = 0; i < this.patients.length; i++) {
-                if(this.patients[i].password == password && this.patients[i].patientID == username){
+                if(this.patients[i].password == password && this.patients[i].username == username){
                     this.router.navigateByUrl('/PatientMenu');
                     environment.patientId = this.patients[i].patientID;
                     valid = true;

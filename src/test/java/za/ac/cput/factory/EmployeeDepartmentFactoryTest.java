@@ -29,10 +29,10 @@ class EmployeeDepartmentFactoryTest {
 
     @BeforeEach
     public void setUp() {
-        employee = EmployeeFactory.createEmployee("Kholani", "Benelzane", "20 March", "1234567890");
+        employee = EmployeeFactory.createEmployee("Kholani", "Benelzane", "20 March", "1234567890", "gg");
         department = DepartmentFactory.createDepartment("Surgeon", "45", "9");
 
-        employee1 = EmployeeFactory.createEmployee("Ernest", "Benzema", "22 April", "1234567890");
+        employee1 = EmployeeFactory.createEmployee("Ernest", "Benzema", "22 April", "1234567890", "gg");
         department1 = DepartmentFactory.createDepartment("Bio Engineer", "77", "13");
 
         employeeDepartment1  = EmployeeDepartmentFactory.createEmployeeDepartment(employee,department);
