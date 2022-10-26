@@ -40,6 +40,8 @@ export class EmployeeMenuComponent implements OnInit{
     public deleteProcedure: Procedure | undefined;
     public editMedicine: Medicine | undefined;
     public deleteMedicine: Medicine | undefined;
+    public editPrescription: Prescription | undefined;
+    public deletePrescription: Prescription | undefined;
     public editEmployee: Employee | undefined;
     public deleteEmployee: Employee | undefined;
     public editPatient: Patient | undefined;
@@ -48,6 +50,7 @@ export class EmployeeMenuComponent implements OnInit{
     public deleteHospital: Hospital | undefined;
     public editLocation: Location | undefined;
     public deleteLocation: Location | undefined;
+
 
     ngOnInit(): void {
         //Fetching data to call from later
@@ -126,6 +129,7 @@ export class EmployeeMenuComponent implements OnInit{
     public showProcedures = false;
     public showHospital = false;
     public showLocation = false;
+    public showPrescriptions = false;
 
     //Hide All
     public hideAll(): void{
@@ -136,6 +140,7 @@ export class EmployeeMenuComponent implements OnInit{
         this.showProcedures = false;
         this.showHospital = false;
         this.showLocation = false;
+        this.showPrescriptions = false;
     }  
 
     //Appointment//////////////////////////////////////////////////
@@ -855,7 +860,6 @@ export class EmployeeMenuComponent implements OnInit{
         );
     }
 
-    
     public onOpenModalLocation( mode: string, location?: Location): void {
         const container = document.getElementById('location-Container');
         const button = document.createElement('button');
@@ -877,5 +881,112 @@ export class EmployeeMenuComponent implements OnInit{
         }
         container?.appendChild(button);
         button.click();
-    }   
+    }
+
+//Prescription//////////////////////////////////////////////////
+public displayPrescription(): void{
+    this.hideAll();
+    this.showPrescriptions = true;
+}   
+
+public onAddPrescription(addPrescriptionForm: NgForm): void{
+    document.getElementById('add-prescription-form')?.click();
+    this.prescriptionService.addPrescription(addPrescriptionForm.value).subscribe(
+        (response: Prescription) => {
+
+            //Reloading Prescription cards
+            this.prescriptionService.getPrescriptions().subscribe(
+                (response: Prescription[]) => {
+                  this.prescriptions = [];
+                  for (let i = 0; i < response.length; i++) {
+                    this.prescriptions.push(response[i]); 
+                    addPrescriptionForm.reset();
+                }
+                },
+                (error: HttpErrorResponse) => {
+                  alert(error.message);
+                  addPrescriptionForm.reset();
+                })
+        },
+        (error: HttpErrorResponse) => {
+            alert(error.message)
+        }
+    );
+}
+
+public onEditPrescription(prescription: Prescription): void{
+    
+    let medicineId = String(prescription.medicineID);
+    for(let i = 0; i < this.medicines.length; i++){
+        if(medicineId == this.medicines[i].medicineID){
+            prescription.medicineID = this.medicines[i];
+        }
+    }
+    
+
+    this.prescriptionService.updatePrescription(prescription).subscribe(
+        (response: Prescription) => {
+
+            //Reloading Prescription cards
+            this.prescriptionService.getPrescriptions().subscribe(
+                (response: Prescription[]) => {
+                  this.prescriptions = [];
+                  for (let i = 0; i < response.length; i++) {
+                    this.prescriptions.push(response[i]) 
+                }
+                },
+                (error: HttpErrorResponse) => {
+                  alert(error.message);
+                })
+        },
+        (error: HttpErrorResponse) => {
+            alert(error.message)
+        }
+    );
+}
+
+
+public onDeletePrescription(scriptRef?: string): void{
+    
+    this.prescriptionService.deletePrescription(scriptRef).subscribe(
+        (response: void) => {
+
+            //Reloading Prescription cards
+            this.prescriptionService.getPrescriptions().subscribe(
+                (response: Prescription[]) => {
+                  this.prescriptions = [];
+                  for (let i = 0; i < response.length; i++) {
+                    this.prescriptions.push(response[i]) 
+                }
+                },
+                (error: HttpErrorResponse) => {
+                  alert(error.message);
+                })
+        },
+        (error: HttpErrorResponse) => {
+            alert(error.message)
+        }
+    );
+}
+    public onOpenModalPrescription( mode: string, prescription?: Prescription): void {
+        const container = document.getElementById('prescription-Container');
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.style.display = 'none';
+        button.setAttribute('data-toggle', 'modal');
+        if (mode === 'add') {button.setAttribute('data-target', '#addPrescriptionModal');
+        this.generateId();
+        }
+        if (mode === 'edit') {
+        this.editPrescription = prescription;
+        console.log(this.editPrescription);
+        button.setAttribute('data-target', '#updatePrescriptionModal');
+        }
+        if (mode === 'delete') {
+        this.deletePrescription = prescription;
+        button.setAttribute('data-target', '#deletePrescriptionModal');
+        }
+        container?.appendChild(button);
+        button.click();
+    }
 }
