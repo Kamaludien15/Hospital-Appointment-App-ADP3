@@ -26,15 +26,15 @@ export class HospitalService {
   }
 
   public addHospital(hospital: Hospital): Observable<Hospital> {
-    return this.http.post<Hospital>(`${this.apiServerUrl}/hospital/save`, hospital)
+    return this.http.post<Hospital>(`${this.apiServerUrl}/hospital/save`, hospital, httpOptions)
   }
 
   public updateHospital(hospital: Hospital): Observable<Hospital> {
-    return this.http.post<Hospital>(`${this.apiServerUrl}/hospital/save`, hospital)
+    return this.http.post<Hospital>(`${this.apiServerUrl}/hospital/save`, hospital, httpOptions)
   }
 
-  public deleteHospital(hospitalId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiServerUrl}/hospital/delete/${hospitalId}`)
+  public deleteHospital(hospitalId?: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiServerUrl}/hospital/delete/${hospitalId}`, httpOptions)
   }
 
 }
