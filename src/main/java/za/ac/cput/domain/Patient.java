@@ -25,6 +25,7 @@ public class Patient {
     private String patientLastName;
     private String patientDateOfBirth;
     private String password;
+    private String username;
 
     //builder constructor
     public Patient(patientBuilder builder){
@@ -33,6 +34,7 @@ public class Patient {
         this.patientLastName = builder.patientLastName;
         this.patientDateOfBirth = builder.patientDateOfBirth;
         this.password = builder.password;
+        this.username = builder.username;
     }
 
     //constructor
@@ -59,6 +61,10 @@ public class Patient {
         return password;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
     //toString
     @Override
     public String toString() {
@@ -68,6 +74,7 @@ public class Patient {
                 ", patientLastName=" + patientLastName +
                 ", patientDateOfBirth=" + patientDateOfBirth +
                 ", password=" + password +
+                ", username=" + username +
                 '}';
     }
 
@@ -77,13 +84,13 @@ public class Patient {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Patient that = (Patient) o;
-        return patientID.equals(that.patientID) && Objects.equals(patientFirstName, that.patientFirstName) && Objects.equals(patientLastName, that.patientLastName) && Objects.equals(patientDateOfBirth, that.patientDateOfBirth) && Objects.equals(password, that.password);
+        return patientID.equals(that.patientID) && Objects.equals(patientFirstName, that.patientFirstName) && Objects.equals(patientLastName, that.patientLastName) && Objects.equals(patientDateOfBirth, that.patientDateOfBirth) && Objects.equals(password, that.password)&& Objects.equals(username, that.username);
     }
 
     //Hashcode
     @Override
     public int hashCode() {
-        return Objects.hash(patientID, patientFirstName, patientLastName, patientDateOfBirth, password);
+        return Objects.hash(patientID, patientFirstName, patientLastName, patientDateOfBirth, password, username);
     }
 
     //builder class
@@ -93,6 +100,7 @@ public class Patient {
         private String patientLastName;
         private String patientDateOfBirth;
         private String password;
+        private String username;
 
         public patientBuilder setPatientID(String patientID) {
             this.patientID = patientID;
@@ -118,12 +126,18 @@ public class Patient {
             this.password = password;
             return this;
         }
+
+        public patientBuilder setUsername(String username) {
+            this.username = username;
+            return this;
+        }
         public patientBuilder copy(Patient patient){
             this.patientID = patient.patientID;
             this.patientFirstName = patient.patientFirstName;
             this.patientLastName = patient.patientLastName;
             this.patientDateOfBirth = patient.patientDateOfBirth;
             this.password = patient.password;
+            this.username = patient.username;
 
             return this;
         }

@@ -1,1 +1,449 @@
-<h1>Patient</h1>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-sm-6">
+            <div class="card-box bg-blue">
+                <div class="inner">
+                    <h3> Appointment</h3>
+                    <p> CRUD Operations</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                </div>
+                <a (click)="displayAppointment()" class="card-box-footer">Enter <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card-box bg-orange">
+                <div class="inner">
+                    <h3> Patient </h3>
+                    <p> CRUD Operations </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                </div>
+                <a (click)="displayPatients()" class="card-box-footer">Enter <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card-box bg-red">
+                <div class="inner">
+                    <h3> Medicine </h3>
+                    <p> CRUD Operations </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-medkit" aria-hidden="true"></i>
+                </div>
+                <a (click)="displayMedicines()" class="card-box-footer">Enter <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card-box bg-blue">
+                <div class="inner">
+                    <h3> Procedure </h3>
+                    <p> CRUD Operations </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-user-md" aria-hidden="true"></i>
+                </div>
+                <a (click)="displayProcedures()" class="card-box-footer">Enter <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- hospital -->
+        <div class = "col-lg-3 col-sm-6">
+            <div class = "card-box bg-pink">
+                <div class = "inner">
+                    <h3> Hospital </h3>
+                    <p> CRUD Operations </p>
+                </div>
+                <div class = "icon">
+                    <i class = "fa fa-hospital-o" aria-hidden = "true"> </i>
+                </div>
+                <a (click)="displayHospital()" class = "card-box-footer"> Enter <i class = "fa fa-arrow-circle-right"> </i> </a>
+            </div>
+        </div>
+        <!-- location -->
+        <div class = "col-lg-3 col-sm-6">
+            <div class = "card-box bg-yellow">
+                <div class = "inner">
+                    <h3> Location </h3>
+                    <p> CRUD Operations </p>
+                </div>
+                <div class = "icon">
+                    <i class = "fa fa-location-arrow" aria-hidden = "true"> </i>
+                </div>
+                <a (click)="displayLocation()" class = "card-box-footer"> Enter <i class = "fa fa-arrow-circle-right"> </i> </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card-box bg-warning">
+                <div class="inner">
+                    <h3> Prescription </h3>
+                    <p> CRUD Operations </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                </div>
+                <a (click)="displayPrescription()" class="card-box-footer">Enter <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Appointments -->
+    <div id="appointments" *ngIf="showAppointment">
+        <div class="container" id="appointment-Container">
+            <div class="row">
+                <div *ngFor="let appointment of appointments" class="col-md-6 col-xl-4">
+                    <div class="card m-b-30">
+                        <div class="card-body row">
+                            <div class="col-6 cardImage">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M216.1 408.1C207.6 418.3 192.4 418.3 183 408.1L119 344.1C109.7 335.6 109.7 320.4 119 311C128.4 301.7 143.6 301.7 152.1 311L200 358.1L295 263C304.4 253.7 319.6 253.7 328.1 263C338.3 272.4 338.3 287.6 328.1 296.1L216.1 408.1zM128 0C141.3 0 152 10.75 152 24V64H296V24C296 10.75 306.7 0 320 0C333.3 0 344 10.75 344 24V64H384C419.3 64 448 92.65 448 128V448C448 483.3 419.3 512 384 512H64C28.65 512 0 483.3 0 448V128C0 92.65 28.65 64 64 64H104V24C104 10.75 114.7 0 128 0zM400 192H48V448C48 456.8 55.16 464 64 464H384C392.8 464 400 456.8 400 448V192z"/></svg>
+                            </div>
+                            <div class="col-6 card-title align-self-center mb-0">
+                                <h5>{{appointment.appointmentDate}}</h5>
+                            </div>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fa fa-user-md float-right"></i><h5>Employee :</h5><a></a>{{appointment.employee.employeeFirstName}} {{appointment.employee.employeeLastName}}</li>
+                            <li class="list-group-item"><i class="fa fa-male float-right"></i><h5>Patient :</h5><a></a>{{appointment.patient.patientFirstName}} {{appointment.patient.patientLastName}}</li>
+                            <li class="list-group-item"><i class="fa fa-hospital-o float-right"></i><h5>Hospital :</h5><a></a>{{appointment.hospital.hospitalName}}</li>
+                            <li class="list-group-item"><i class="fa fa-medkit float-right"></i><h5>Prescription Ref :</h5><a></a>{{appointment.prescription.scriptRef}}</li>
+                            <li class="list-group-item"><i class="fa fa-briefcase float-right"></i><h5>Procedure :</h5><a></a>{{appointment.procedure.procedureName}}</li>
+                        </ul>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+       
+
+    </div>
+    
+    
+    <!-- Patients -->
+    <div id="patients" *ngIf="showPatients">
+        <div class="container" id="patient-Container">
+            <div class="row">
+                <div *ngFor="let patient of patients" class="col-md-6 col-xl-4">
+                    <div class="card m-b-30">
+                        <div class="card-body row">
+                            <div class="col-6 cardImage">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M48 0C21.5 0 0 21.5 0 48V256H144c8.8 0 16 7.2 16 16s-7.2 16-16 16H0v64H144c8.8 0 16 7.2 16 16s-7.2 16-16 16H0v80c0 26.5 21.5 48 48 48H265.9c-6.3-10.2-9.9-22.2-9.9-35.1c0-46.9 25.8-87.8 64-109.2V271.8 48c0-26.5-21.5-48-48-48H48zM152 64h16c8.8 0 16 7.2 16 16v24h24c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H184v24c0 8.8-7.2 16-16 16H152c-8.8 0-16-7.2-16-16V152H112c-8.8 0-16-7.2-16-16V120c0-8.8 7.2-16 16-16h24V80c0-8.8 7.2-16 16-16zM512 272c0-44.2-35.8-80-80-80s-80 35.8-80 80s35.8 80 80 80s80-35.8 80-80zM288 477.1c0 19.3 15.6 34.9 34.9 34.9H541.1c19.3 0 34.9-15.6 34.9-34.9c0-51.4-41.7-93.1-93.1-93.1H381.1c-51.4 0-93.1 41.7-93.1 93.1z"/></svg>
+                            </div>
+                            <div class="col-6 card-title align-self-center mb-0">
+                                <h5>{{patient.patientFirstName}} {{patient.patientLastName}}</h5>
+                            </div>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fa fa-calendar float-right"></i><h5>DOB :</h5><a></a>{{patient.patientDateOfBirth}}</li>
+                            <li class="list-group-item"><i class="fa fa-unlock-alt float-right"></i><h5>Password :</h5><a></a>{{patient.password}}</li>
+                            <li class="list-group-item"><i class="fa fa-unlock-alt float-right"></i><h5>Username :</h5><a></a>{{patient.username}}</li>
+
+                        </ul>
+                        <div class="card-body">
+                            <div class="float-right btn-group btn-group-sm">
+                                <a (click)="onOpenModalPatient('edit', patient)" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        
+  
+        <!-- Edit Modal -->
+        <div class="modal" id="updatePatientModal" tabindex="-1" role="dialog" aria-labelledby="updatePatientModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updatePatientModalLabel">Edit Patient</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form #editPatientForm="ngForm">
+
+                        <div class="form-group" hidden>
+                            <label for="patientID">patientID</label>
+                            <input type="text" [ngModel]="editPatient?.patientID" name="patientID" class="form-control" id="patientID" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="patientFirstName">First Name</label>
+                            <input type="text" [ngModel]="editPatient?.patientFirstName" name="patientFirstName" class="form-control" id="patientFirstName" required>
+                        </div>
+        
+                        <div class="form-group">
+                            <label for="patientLastName">Last Name</label>
+                            <input type="text" [ngModel]="editPatient?.patientLastName" name="patientLastName" class="form-control" id="patientLastName" required>
+                        </div>
+        
+                        <div class="form-group">
+                            <label for="patientDateOfBirth">Date of Birth</label>
+                            <input type="text" [ngModel]="editPatient?.patientDateOfBirth" name="patientDateOfBirth" class="form-control" id="patientDateOfBirth" required>
+                        </div>
+        
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="text" [ngModel]="editPatient?.password" name="password" class="form-control" id="password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" [ngModel]="editPatient?.username" name="username" class="form-control" id="username" required readonly>
+                        </div>
+
+                        <div class="modal-footer">
+                        <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                        <button (click)="onEditPatient(editPatientForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+  
+       
+    </div>
+
+    <!-- Medicines -->
+    <div id="medicines" *ngIf="showMedicines">
+        <div class="container" id="medicine-Container">
+            <div class="row">
+                <div *ngFor="let medicine of medicines" class="col-md-6 col-xl-4">
+                    <div class="card m-b-30">
+                        <div class="card-body row">
+                            <div class="col-6 cardImage">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.998 511.998"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M401.232,178.711l-63.822-75.578h18.015c6.888,0,12.47-5.583,12.47-12.47V12.47c0-6.888-5.582-12.47-12.47-12.47H156.576
+                                    c-6.888,0-12.47,5.582-12.47,12.47v78.192c0,6.887,5.582,12.47,12.47,12.47h18.013l-63.822,75.578
+                                    c-1.9,2.251-2.943,5.099-2.943,8.046c0,14.625,0,302.44,0,312.772c0,6.887,5.583,12.47,12.47,12.47h271.408
+                                    c6.888,0,12.47-5.583,12.47-12.47c0-16.572,0-300.944,0-312.772C404.175,183.812,403.132,180.962,401.232,178.711z
+                                     M169.046,78.192V24.94h173.909v53.252C309.454,78.192,206.887,78.192,169.046,78.192z M379.235,487.06H132.767v-59.682h246.468
+                                    V487.06z M379.235,402.438H132.767V260.07h246.468V402.438z M379.235,235.13H132.767v-43.813l74.468-88.185h97.532l74.468,88.185
+                                    V235.13z"/>
+                                    <path d="M214.86,347.555h20.118c2.609,0,4.724,2.115,4.724,4.724v20.118c0,2.609,2.115,4.724,4.724,4.724h23.151
+                                    c2.609,0,4.724-2.115,4.724-4.724v-20.118c0-2.609,2.115-4.724,4.725-4.724h20.118c2.609,0,4.724-2.115,4.724-4.724V319.68
+                                    c0-2.609-2.115-4.724-4.724-4.724h-20.118c-2.609,0-4.725-2.115-4.725-4.724v-20.118c0-2.609-2.115-4.724-4.724-4.724h-23.151
+                                    c-2.609,0-4.724,2.115-4.724,4.724v20.118c0,2.609-2.115,4.724-4.724,4.724H214.86c-2.609,0-4.724,2.115-4.724,4.724v23.151
+                                    C210.136,345.44,212.251,347.555,214.86,347.555z"/></svg>
+                            </div>
+                            <div class="col-6 card-title align-self-center mb-0">
+                                <h5>{{medicine.medicineName}}</h5>
+                            </div>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fa fa-raindrops float-right"></i><h5>Volume :</h5><a></a>{{medicine.volume}}</li>
+                            <li class="list-group-item"><i class="fa fa-raindrops float-right"></i><h5>Dosage :</h5><a></a>{{medicine.dosage}}</li>
+                            <li class="list-group-item"><i class="fa fa-money float-right"></i><h5>Price :</h5><a></a>{{medicine.price}}</li>
+                        </ul>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+
+
+    <!-- Procedure -->
+    <div id="procedures" *ngIf="showProcedures">
+        <div class="container" id="procedure-Container">
+            <div class="row">
+                <div *ngFor="let procedure of procedures" class="col-md-6 col-xl-4">
+                    <div class="card m-b-30">
+                        <div class="card-body row">
+                            <div class="col-6 cardImage">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32.75 32.75"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                    <path d="M29.375,1.25h-1.124c0.028-0.093,0.058-0.186,0.058-0.289C28.311,0.431,27.879,0,27.348,0s-0.961,0.431-0.961,0.961
+                                    c0,0.103,0.028,0.196,0.059,0.289h-3.68c0.029-0.093,0.058-0.186,0.058-0.289C22.823,0.43,22.393,0,21.861,0
+                                    C21.331,0,20.9,0.431,20.9,0.961c0,0.103,0.029,0.196,0.059,0.289h-3.68c0.029-0.093,0.058-0.186,0.058-0.289
+                                    C17.336,0.431,16.906,0,16.375,0c-0.531,0-0.961,0.431-0.961,0.961c0,0.103,0.029,0.196,0.058,0.289h-3.68
+                                    c0.029-0.093,0.058-0.186,0.058-0.289C11.85,0.431,11.419,0,10.888,0c-0.531,0-0.961,0.431-0.961,0.961
+                                    c0,0.103,0.028,0.196,0.058,0.289h-3.68c0.03-0.093,0.058-0.186,0.058-0.289C6.363,0.43,5.933,0,5.402,0
+                                    C4.871,0,4.441,0.431,4.441,0.961c0,0.103,0.029,0.196,0.058,0.289H3.375c-1.517,0-2.75,1.233-2.75,2.75v26
+                                    c0,1.518,1.233,2.75,2.75,2.75H26.27l5.855-5.855V4C32.125,2.483,30.893,1.25,29.375,1.25z M30.625,26.273l-0.311,0.311h-2.356
+                                    c-1.101,0-2,0.9-2,2v2.355l-0.31,0.311H3.375c-0.689,0-1.25-0.561-1.25-1.25V7h28.5V26.273z"/>
+                                    <path d="M11.036,27.875h10.678c1.958,0,3.56-1.602,3.56-3.559V13.638c0-1.958-1.603-3.559-3.56-3.559H11.036
+                                    c-1.958,0-3.559,1.602-3.559,3.559v10.678C7.477,26.273,9.079,27.875,11.036,27.875z M12.822,26.984h-0.72
+                                    c-0.098,0-0.178-0.079-0.178-0.178c0-0.098,0.08-0.178,0.178-0.178h0.72c0.098,0,0.178,0.08,0.178,0.178
+                                    C13,26.905,12.92,26.984,12.822,26.984z M14.982,26.984h-0.72c-0.098,0-0.178-0.079-0.178-0.178c0-0.098,0.08-0.178,0.178-0.178
+                                    h0.72c0.098,0,0.178,0.08,0.178,0.178C15.16,26.905,15.081,26.984,14.982,26.984z M17.145,26.984h-0.722
+                                    c-0.098,0-0.178-0.079-0.178-0.178c0-0.098,0.08-0.178,0.178-0.178h0.722c0.098,0,0.178,0.08,0.178,0.178
+                                    C17.322,26.905,17.242,26.984,17.145,26.984z M19.305,26.984h-0.721c-0.098,0-0.178-0.079-0.178-0.178
+                                    c0-0.098,0.08-0.178,0.178-0.178h0.721c0.098,0,0.178,0.08,0.178,0.178C19.482,26.905,19.402,26.984,19.305,26.984z
+                                     M21.465,26.984h-0.72c-0.099,0-0.179-0.079-0.179-0.178c0-0.098,0.08-0.178,0.179-0.178h0.72c0.098,0,0.178,0.08,0.178,0.178
+                                    C21.643,26.905,21.562,26.984,21.465,26.984z M24.383,22.717c0,0.098-0.08,0.178-0.178,0.178s-0.178-0.08-0.178-0.178v-0.72
+                                    c0-0.099,0.08-0.179,0.178-0.179s0.178,0.08,0.178,0.179V22.717z M24.383,20.557c0,0.099-0.08,0.178-0.178,0.178
+                                    s-0.178-0.079-0.178-0.178v-0.72c0-0.098,0.08-0.178,0.178-0.178s0.178,0.08,0.178,0.178V20.557z M24.383,18.396
+                                    c0,0.098-0.08,0.178-0.178,0.178s-0.178-0.08-0.178-0.178v-0.721c0-0.098,0.08-0.178,0.178-0.178s0.178,0.08,0.178,0.178V18.396z
+                                     M24.383,16.235c0,0.098-0.08,0.178-0.178,0.178s-0.178-0.08-0.178-0.178v-0.72c0-0.098,0.08-0.178,0.178-0.178
+                                    s0.178,0.08,0.178,0.178V16.235z M24.17,13.178c0.096-0.011,0.186,0.06,0.196,0.157c0.011,0.1,0.018,0.2,0.018,0.303v0.436
+                                    c0,0.098-0.079,0.178-0.178,0.178s-0.179-0.08-0.179-0.178v-0.436c0-0.089-0.004-0.177-0.014-0.264
+                                    C24.001,13.277,24.072,13.188,24.17,13.178z M24.027,24.314v-0.157c0-0.099,0.08-0.179,0.178-0.179s0.178,0.08,0.178,0.179v0.159
+                                    c-0.001,0.203-0.023,0.403-0.066,0.597c-0.021,0.083-0.094,0.138-0.174,0.138c-0.014,0-0.026-0.001-0.041-0.004
+                                    c-0.096-0.021-0.156-0.117-0.134-0.213C24.007,24.666,24.025,24.492,24.027,24.314z M22.95,11.469
+                                    c0.056-0.082,0.166-0.103,0.248-0.049c0.213,0.144,0.405,0.317,0.571,0.515c0.062,0.076,0.051,0.188-0.023,0.251
+                                    c-0.034,0.028-0.074,0.041-0.114,0.041c-0.051,0-0.103-0.021-0.137-0.064c-0.144-0.172-0.31-0.322-0.496-0.447
+                                    C22.917,11.661,22.896,11.551,22.95,11.469z M22.777,26.37c0.197-0.103,0.379-0.234,0.541-0.39c0.07-0.068,0.184-0.066,0.25,0.004
+                                    c0.068,0.07,0.066,0.184-0.004,0.25c-0.187,0.181-0.396,0.332-0.623,0.449c-0.026,0.015-0.055,0.021-0.082,0.021
+                                    c-0.064,0-0.127-0.035-0.158-0.097C22.656,26.523,22.689,26.415,22.777,26.37z M20.994,10.969h0.72
+                                    c0.099,0,0.192,0.08,0.192,0.179c0,0.098-0.065,0.178-0.163,0.178c-0.005,0-0.038-0.001-0.042-0.001h-0.708
+                                    c-0.099,0-0.179-0.08-0.179-0.178S20.896,10.969,20.994,10.969z M18.833,10.969h0.72c0.098,0,0.178,0.08,0.178,0.178
+                                    s-0.08,0.178-0.178,0.178h-0.72c-0.099,0-0.179-0.08-0.179-0.178S18.734,10.969,18.833,10.969z M16.672,10.969h0.721
+                                    c0.098,0,0.178,0.08,0.178,0.178s-0.08,0.178-0.178,0.178h-0.721c-0.098,0-0.178-0.08-0.178-0.178S16.575,10.969,16.672,10.969z
+                                     M14.512,10.969h0.72c0.098,0,0.178,0.08,0.178,0.178s-0.08,0.178-0.178,0.178h-0.72c-0.098,0-0.178-0.08-0.178-0.178
+                                    S14.414,10.969,14.512,10.969z M12.351,10.969h0.72c0.098,0,0.178,0.08,0.178,0.178s-0.08,0.178-0.178,0.178h-0.72
+                                    c-0.098,0-0.178-0.08-0.178-0.178S12.253,10.969,12.351,10.969z M11.466,17.014h2.945v-2.946h3.927v2.946h2.946v3.928h-2.946
+                                    v2.944h-3.927v-2.944h-2.945V17.014z M10.147,11.122c0.243-0.086,0.497-0.137,0.754-0.15c0.102-0.006,0.182,0.071,0.187,0.169
+                                    s-0.071,0.182-0.169,0.187c-0.224,0.011-0.443,0.055-0.654,0.129c-0.02,0.007-0.04,0.01-0.059,0.01
+                                    c-0.073,0-0.142-0.046-0.167-0.119C10.006,11.256,10.054,11.154,10.147,11.122z M9.815,26.495c0.042-0.09,0.149-0.126,0.237-0.085
+                                    c0.203,0.096,0.417,0.16,0.637,0.193c0.097,0.016,0.164,0.105,0.149,0.203c-0.013,0.088-0.089,0.151-0.176,0.151
+                                    c-0.008,0-0.018-0.001-0.026-0.002c-0.254-0.038-0.501-0.113-0.736-0.224C9.812,26.689,9.774,26.584,9.815,26.495z M8.917,12.017
+                                    c0.059-0.079,0.171-0.093,0.25-0.033c0.078,0.06,0.092,0.171,0.032,0.25c-0.136,0.177-0.246,0.373-0.326,0.582
+                                    c-0.027,0.071-0.095,0.114-0.167,0.114c-0.021,0-0.043-0.003-0.064-0.012c-0.091-0.036-0.137-0.138-0.102-0.23
+                                    C8.633,12.447,8.76,12.222,8.917,12.017z M8.367,14.171c0-0.098,0.08-0.178,0.178-0.178s0.178,0.08,0.178,0.178v0.72
+                                    c0,0.098-0.08,0.178-0.178,0.178s-0.178-0.08-0.178-0.178V14.171z M8.367,16.332c0-0.098,0.08-0.178,0.178-0.178
+                                    s0.178,0.08,0.178,0.178v0.72c0,0.099-0.08,0.179-0.178,0.179s-0.178-0.08-0.178-0.179V16.332z M8.367,18.493
+                                    c0-0.099,0.08-0.179,0.178-0.179s0.178,0.08,0.178,0.179v0.72c0,0.098-0.08,0.178-0.178,0.178s-0.178-0.08-0.178-0.178V18.493z
+                                     M8.367,20.652c0-0.098,0.08-0.178,0.178-0.178s0.178,0.08,0.178,0.178v0.721c0,0.098-0.08,0.178-0.178,0.178
+                                    s-0.178-0.08-0.178-0.178V20.652z M8.367,23.534v-0.72c0-0.099,0.08-0.179,0.178-0.179s0.178,0.08,0.178,0.179v0.72
+                                    c0,0.098-0.08,0.178-0.178,0.178S8.367,23.632,8.367,23.534z M8.584,24.795c0.095-0.025,0.192,0.03,0.218,0.125
+                                    c0.059,0.215,0.148,0.42,0.266,0.61c0.052,0.083,0.026,0.192-0.058,0.245c-0.029,0.019-0.062,0.026-0.094,0.026
+                                    c-0.059,0-0.118-0.03-0.152-0.084c-0.135-0.219-0.239-0.456-0.306-0.704C8.434,24.918,8.489,24.82,8.584,24.795z"/></svg>
+                            </div>
+                            <div class="col-6 card-title align-self-center mb-0">
+                                <h5>{{procedure.procedureName}}</h5>
+                            </div>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fa fa-file-text-o float-right"></i><h5>Description :</h5><a></a>{{procedure.procedureDescription}}</li>
+                            <li class="list-group-item"><i class="fa fa-money float-right"></i><h5>Cost :</h5><a></a>{{procedure.procedureCost}}</li>
+                        </ul>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+
+       <!-- Hospital -->
+       <div id="hospital" *ngIf="showHospital">
+
+
+        <div class="container" id="hospital-Container">
+            <div class="row">
+                <div *ngFor="let hospital of hospitals" class="col-md-6 col-xl-4">
+                    <div class="card m-b-30">
+                        <div class="card-body row">
+                            <div class="col-6 cardImage">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M192 48c0-26.5 21.5-48 48-48H400c26.5 0 48 21.5 48 48V512H368V432c0-26.5-21.5-48-48-48s-48 21.5-48 48v80H192V48zM48 96H160V512H48c-26.5 0-48-21.5-48-48V320H80c8.8 0 16-7.2 16-16s-7.2-16-16-16H0V224H80c8.8 0 16-7.2 16-16s-7.2-16-16-16H0V144c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48v48H560c-8.8 0-16 7.2-16 16s7.2 16 16 16h80v64H560c-8.8 0-16 7.2-16 16s7.2 16 16 16h80V464c0 26.5-21.5 48-48 48H480V96H592zM312 64c-8.8 0-16 7.2-16 16v24H272c-8.8 0-16 7.2-16 16v16c0 8.8 7.2 16 16 16h24v24c0 8.8 7.2 16 16 16h16c8.8 0 16-7.2 16-16V152h24c8.8 0 16-7.2 16-16V120c0-8.8-7.2-16-16-16H344V80c0-8.8-7.2-16-16-16H312z"/></svg>                            </div>
+                            <div class="col-6 card-title align-self-center mb-0">
+                                <h5>{{hospital.hospitalName}}</h5>
+                            </div>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fa fa-hospital-o float-right"></i><h5>Hospital Name :</h5><a></a>{{hospital.hospitalName}}</li>
+                            <li class="list-group-item"><i class="fa fa-hospital-o float-right"></i><h5>Hospital Capacity :</h5><a></a>{{hospital.hospitalCapacity}}</li>
+                            <li class="list-group-item"><i class="fa fa-medkit float-right"></i><h5>Hospital Sector :</h5><a></a>{{hospital.hospitalSector}}</li>
+                        </ul>
+                        <div class="card-body">
+                            <div class="float-right btn-group btn-group-sm">
+                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+       </div>
+
+       <!-- Location -->
+    <div id="location" *ngIf="showLocation">
+
+
+        <div class="container" id="location-Container">
+            <div class="row">
+                <div *ngFor="let location of locations" class="col-md-6 col-xl-4">
+                    <div class="card m-b-30">
+                        <div class="card-body row">
+                            <div class="col-6 cardImage">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M216.1 408.1C207.6 418.3 192.4 418.3 183 408.1L119 344.1C109.7 335.6 109.7 320.4 119 311C128.4 301.7 143.6 301.7 152.1 311L200 358.1L295 263C304.4 253.7 319.6 253.7 328.1 263C338.3 272.4 338.3 287.6 328.1 296.1L216.1 408.1zM128 0C141.3 0 152 10.75 152 24V64H296V24C296 10.75 306.7 0 320 0C333.3 0 344 10.75 344 24V64H384C419.3 64 448 92.65 448 128V448C448 483.3 419.3 512 384 512H64C28.65 512 0 483.3 0 448V128C0 92.65 28.65 64 64 64H104V24C104 10.75 114.7 0 128 0zM400 192H48V448C48 456.8 55.16 464 64 464H384C392.8 464 400 456.8 400 448V192z"/></svg>
+                            </div>
+                            <div class="col-6 card-title align-self-center mb-0">
+                                <h5>{{location.streetNum}} {{location.streetName}}</h5>
+                            </div>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fa fa-list-ol float-right"></i><h5>Street Number :</h5><a></a>{{location.streetNum}}</li>
+                            <li class="list-group-item"><i class="fa fa-road float-right"></i><h5>Street Name :</h5><a></a>{{location.streetName}}</li>
+                            <li class="list-group-item"><i class="fa fa-home float-right"></i><h5>Suburb :</h5><a></a>{{location.suburb}}</li>
+                            <li class="list-group-item"><i class="fa fa-thumb-tack float-right"></i><h5>Postal Code :</h5><a></a>{{location.postalCode}}</li>
+                        </ul>
+                        <div class="card-body">
+                            <div class="float-right btn-group btn-group-sm">
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+
+    <!-- Prescriptions -->
+    <div id="prescriptions" *ngIf="showPrescriptions">
+       
+        <div class="container" id="prescription-Container">
+            <div class="row">
+                <div *ngFor="let prescription of prescriptions" class="col-md-6 col-xl-4">
+                    <div class="card m-b-30">
+                        <div class="card-body row">
+                            <div class="col-6 cardImage">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M365.3 93.38l-74.63-74.64C278.6 6.742 262.3 0 245.4 0L64-.0001c-35.35 0-64 28.65-64 64l.0065 384c0 35.34 28.65 64 64 64H320c35.2 0 64-28.8 64-64V138.6C384 121.7 377.3 105.4 365.3 93.38zM336 448c0 8.836-7.164 16-16 16H64.02c-8.838 0-16-7.164-16-16L48 64.13c0-8.836 7.164-16 16-16h160L224 128c0 17.67 14.33 32 32 32h79.1V448zM96 280C96 293.3 106.8 304 120 304h144C277.3 304 288 293.3 288 280S277.3 256 264 256h-144C106.8 256 96 266.8 96 280zM264 352h-144C106.8 352 96 362.8 96 376s10.75 24 24 24h144c13.25 0 24-10.75 24-24S277.3 352 264 352z"/></svg>
+                            </div>
+                            <div class="col-6 card-title align-self-center mb-0">
+                                <h5>{{prescription.scriptIssueDate}}</h5>
+                            </div>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fa fa-eyedropper float-right"></i><h5>Medicine :</h5><a></a>{{prescription.medicineID.medicineName}}</li>
+                            <!--<li class="list-group-item"><i class="fa fa-calendar float-right"></i><h5>Prescription Issued :</h5><a></a>{{prescription.scriptIssueDate}}</li>-->
+                            <li class="list-group-item"><i class="fa fa-plus-square float-right"></i><h5>Medicine Refill :</h5><a></a>{{prescription.scriptRecurrence}}</li>
+                        </ul>
+                        <div class="card-body">
+                            <div class="float-right btn-group btn-group-sm">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+    </div>
+    
+       
+
+    <br><br><br><br><br><br><br><br><br><br>
+
+</div>
+
+
+
+

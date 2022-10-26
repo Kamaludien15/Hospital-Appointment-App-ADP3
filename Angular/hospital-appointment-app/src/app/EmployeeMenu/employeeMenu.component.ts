@@ -19,6 +19,9 @@ import { Medicine } from '../Domain/medicine';
 import { MedicineService } from '../Service/medicine.service';
 import { Location } from '../Domain/location';
 import { LocationService } from '../Service/location.service';
+import Swal from 'sweetalert2'
+
+
 
 @Component({ templateUrl: 'employeeMenu.component.html' })
 export class EmployeeMenuComponent implements OnInit{
@@ -121,6 +124,7 @@ export class EmployeeMenuComponent implements OnInit{
                 alert(error.message);
             })
 
+
     }
 
     //Generating Id
@@ -139,6 +143,8 @@ export class EmployeeMenuComponent implements OnInit{
     public showPrescriptions = false;
     public showHospital = false;
     public showLocation = false;
+    public showDepartments = false;
+    public showGenders = false;
 
     //Hide All
     public hideAll(): void{
@@ -150,12 +156,15 @@ export class EmployeeMenuComponent implements OnInit{
         this.showPrescriptions = false;
         this.showHospital = false;
         this.showLocation = false;
+        this.showDepartments = false;
+        this.showGenders = false;
     }  
 
     //Appointment//////////////////////////////////////////////////
     public displayAppointment(): void{
         this.hideAll();
         this.showAppointment = true;
+        
     }   
 
     public onAddAppointment(addAppointmentForm: NgForm): void{
@@ -172,6 +181,13 @@ export class EmployeeMenuComponent implements OnInit{
                             this.appointments.push(response[i]) 
                         }
                         addAppointmentForm.reset();
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Appointment has been saved',
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
                     }
                     },
                     (error: HttpErrorResponse) => {
@@ -235,6 +251,13 @@ export class EmployeeMenuComponent implements OnInit{
                             this.appointments.push(response[i]) 
                         }
                     }
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Appointment has been edited',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
                     },
                     (error: HttpErrorResponse) => {
                       alert(error.message);
@@ -261,6 +284,13 @@ export class EmployeeMenuComponent implements OnInit{
                             this.appointments.push(response[i]) 
                         }
                     }
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Appointment has been deleted',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
                     },
                     (error: HttpErrorResponse) => {
                       alert(error.message);
@@ -304,6 +334,20 @@ export class EmployeeMenuComponent implements OnInit{
 
     public onAddEmployee(addEmployeeForm: NgForm): void{
         document.getElementById('add-employee-form')?.click();
+
+        for (let i = 0; i < this.employees.length; i++) {
+            if(this.employees[i].username == addEmployeeForm.value.username){
+                
+                addEmployeeForm.reset();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'A employee with the same username already exists',
+                  })
+                break;
+            }
+        }
+
         this.employeeService.addEmployee(addEmployeeForm.value).subscribe(
             (response: Employee) => {
 
@@ -312,6 +356,13 @@ export class EmployeeMenuComponent implements OnInit{
                     (response: Employee[]) => {
                       this.employees = response;
                       addEmployeeForm.reset();
+                      Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Employee has been saved',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
                     },
                     (error: HttpErrorResponse) => {
                       alert(error.message);
@@ -332,7 +383,14 @@ export class EmployeeMenuComponent implements OnInit{
                 //Reloading Employee cards
                 this.employeeService.getEmployees().subscribe(
                     (response: Employee[]) => {
-                      this.employees = response;    
+                      this.employees = response;  
+                      Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Employee has been edited',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })  
                     },
                     (error: HttpErrorResponse) => {
                       alert(error.message);
@@ -354,6 +412,13 @@ export class EmployeeMenuComponent implements OnInit{
                 this.employeeService.getEmployees().subscribe(
                     (response: Employee[]) => {
                       this.employees = response;
+                      Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Employee has been deleted',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
                     },
                     (error: HttpErrorResponse) => {
                       alert(error.message);
@@ -398,6 +463,20 @@ export class EmployeeMenuComponent implements OnInit{
 
     public onAddPatient(addPatientForm: NgForm): void{
         document.getElementById('add-patient-form')?.click();
+
+        for (let i = 0; i < this.patients.length; i++) {
+            if(this.patients[i].username == addPatientForm.value.username){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'A patient with the same username already exists',
+                  })
+                addPatientForm.reset();
+                break;
+            }
+        }
+
+
         this.patientService.addPatient(addPatientForm.value).subscribe(
             (response: Patient) => {
 
@@ -411,6 +490,13 @@ export class EmployeeMenuComponent implements OnInit{
                       alert(error.message);
                       addPatientForm.reset();
                     })
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Patent has been saved',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
             },
             (error: HttpErrorResponse) => {
                 alert(error.message)
@@ -431,6 +517,13 @@ export class EmployeeMenuComponent implements OnInit{
                     (error: HttpErrorResponse) => {
                       alert(error.message);
                     })
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Patient has been edited',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
             },
             (error: HttpErrorResponse) => {
                 alert(error.message)
@@ -452,6 +545,13 @@ export class EmployeeMenuComponent implements OnInit{
                     (error: HttpErrorResponse) => {
                       alert(error.message);
                     })
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Patient has been edited',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
             },
             (error: HttpErrorResponse) => {
                 alert(error.message)
@@ -504,11 +604,19 @@ export class EmployeeMenuComponent implements OnInit{
                         this.procedures.push(response[i]) 
                         addProcedureForm.reset();
                     }
+                   
                     },
                     (error: HttpErrorResponse) => {
                       alert(error.message);
                       addProcedureForm.reset();
                     })
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Procedure has been saved',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
             },
             (error: HttpErrorResponse) => {
                 alert(error.message)
@@ -533,6 +641,13 @@ export class EmployeeMenuComponent implements OnInit{
                     (error: HttpErrorResponse) => {
                       alert(error.message);
                     })
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Procedure has been edited',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
             },
             (error: HttpErrorResponse) => {
                 alert(error.message)
@@ -556,6 +671,13 @@ export class EmployeeMenuComponent implements OnInit{
                     (error: HttpErrorResponse) => {
                       alert(error.message);
                     })
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Procedure has been deleted',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
             },
             (error: HttpErrorResponse) => {
                 alert(error.message)
@@ -613,6 +735,13 @@ export class EmployeeMenuComponent implements OnInit{
                       alert(error.message);
                       addMedicineForm.reset();
                     })
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Medicine has been saved',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
             },
             (error: HttpErrorResponse) => {
                 alert(error.message)
@@ -637,6 +766,13 @@ export class EmployeeMenuComponent implements OnInit{
                     (error: HttpErrorResponse) => {
                       alert(error.message);
                     })
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Medicine has been edited',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
             },
             (error: HttpErrorResponse) => {
                 alert(error.message)
@@ -660,6 +796,14 @@ export class EmployeeMenuComponent implements OnInit{
                     (error: HttpErrorResponse) => {
                       alert(error.message);
                     })
+
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Medicine has been deleted',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
             },
             (error: HttpErrorResponse) => {
                 alert(error.message)
@@ -716,6 +860,13 @@ export class EmployeeMenuComponent implements OnInit{
                       alert(error.message);
                       addHospitalForm.reset();
                     })
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Hospital has been saved',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
             },
             (error: HttpErrorResponse) => {
                 alert(error.message)
@@ -738,6 +889,13 @@ export class EmployeeMenuComponent implements OnInit{
                     (error: HttpErrorResponse) => {
                       alert(error.message);
                     })
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Hospital has been edited',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
             },
             (error: HttpErrorResponse) => {
                 alert(error.message)
@@ -761,6 +919,13 @@ export class EmployeeMenuComponent implements OnInit{
                       },
                       (error: HttpErrorResponse) => {
                         alert(error.message);
+                      })
+                      Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Hospital has been delete',
+                        showConfirmButton: false,
+                        timer: 1500
                       })
               },
             (error: HttpErrorResponse) => {
@@ -816,6 +981,13 @@ export class EmployeeMenuComponent implements OnInit{
                       alert(error.message);
                       addLocationForm.reset();
                     })
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Location has been saved',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
             },
             (error: HttpErrorResponse) => {
                 alert(error.message)
@@ -838,6 +1010,13 @@ export class EmployeeMenuComponent implements OnInit{
                     (error: HttpErrorResponse) => {
                       alert(error.message);
                     })
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Location has been edited',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
             },
             (error: HttpErrorResponse) => {
                 alert(error.message)
@@ -862,6 +1041,13 @@ export class EmployeeMenuComponent implements OnInit{
                     (error: HttpErrorResponse) => {
                       alert(error.message);
                     })
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Location has been delete',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
             },
             (error: HttpErrorResponse) => {
                 alert(error.message)
@@ -916,6 +1102,13 @@ public onAddPrescription(addPrescriptionForm: NgForm): void{
                   alert(error.message);
                   addPrescriptionForm.reset();
                 })
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Prescription has been saved',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
         },
         (error: HttpErrorResponse) => {
             alert(error.message)
@@ -947,6 +1140,13 @@ public onEditPrescription(prescription: Prescription): void{
                 (error: HttpErrorResponse) => {
                   alert(error.message);
                 })
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Prescription has been edited',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
         },
         (error: HttpErrorResponse) => {
             alert(error.message)
@@ -971,6 +1171,13 @@ public onDeletePrescription(scriptRef?: string): void{
                 (error: HttpErrorResponse) => {
                   alert(error.message);
                 })
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Prescription has been saved',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
         },
         (error: HttpErrorResponse) => {
             alert(error.message)
@@ -998,4 +1205,21 @@ public onDeletePrescription(scriptRef?: string): void{
         container?.appendChild(button);
         button.click();
     }
+
+    /*Departments*/
+     public displayDepartments() : void{
+        this.hideAll();
+        this.showDepartments = true;
+    }
+  
+    /*Departments*/
+        public displayGenders() : void{
+        this.hideAll();
+        this.showGenders = true;
+  }
+
+}
+
+function successNotification() {
+    throw new Error('Function not implemented.');
 }

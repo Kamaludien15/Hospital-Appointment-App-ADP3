@@ -13,10 +13,10 @@ import za.ac.cput.domain.Patient;
 import za.ac.cput.util.*;
 
 public class PatientFactory {
-    public static Patient createPatient(String patientFirstName, String patientLastName, String patientDateOfBirth, String password){
+    public static Patient createPatient(String patientFirstName, String patientLastName, String patientDateOfBirth, String password, String username){
 
         //Check for empty or null
-        if(Helper.isEmptyOrNull(patientFirstName) || Helper.isEmptyOrNull(patientLastName) || Helper.isEmptyOrNull(patientDateOfBirth) || Helper.isEmptyOrNull(password))
+        if(Helper.isEmptyOrNull(patientFirstName) || Helper.isEmptyOrNull(patientLastName) || Helper.isEmptyOrNull(patientDateOfBirth) || Helper.isEmptyOrNull(password) || Helper.isEmptyOrNull(username))
             return null;
 
         //Generating patientID
@@ -27,6 +27,7 @@ public class PatientFactory {
                                            .setPatientLastName(patientLastName)
                                            .setPatientDateOfBirth(patientDateOfBirth)
                                            .setPassword(password)
+                                           .setUsername(username)
                                            .build();
     }
 }

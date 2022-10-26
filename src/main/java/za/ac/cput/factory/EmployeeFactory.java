@@ -14,9 +14,9 @@ public class EmployeeFactory {
 
     private EmployeeFactory(){}
 
-    public static Employee createEmployee(String firstName, String lastName, String dateOfBirth, String password)
+    public static Employee createEmployee(String firstName, String lastName, String dateOfBirth, String password, String username)
     {
-        if(Helper.isEmptyOrNull(firstName) || Helper.isEmptyOrNull(lastName) || Helper.isEmptyOrNull(dateOfBirth) || Helper.isEmptyOrNull(password))
+        if(Helper.isEmptyOrNull(firstName) || Helper.isEmptyOrNull(lastName) || Helper.isEmptyOrNull(dateOfBirth) || Helper.isEmptyOrNull(password) || Helper.isEmptyOrNull(username))
             return null;
 
         String empId = Helper.generateID();
@@ -27,6 +27,7 @@ public class EmployeeFactory {
                 .buildLastName(lastName)
                 .buildDateOfBirth(dateOfBirth)
                 .buildPassword(password)
+                .buildUsername(username)
                 .getEmployee();
 
     }//end of getEmployee method

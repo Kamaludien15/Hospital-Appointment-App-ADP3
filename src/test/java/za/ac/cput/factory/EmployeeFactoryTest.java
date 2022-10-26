@@ -22,8 +22,8 @@ class EmployeeFactoryTest {
 
     @BeforeEach
     public void setUp() {
-       employee  = EmployeeFactory.createEmployee("Peter", "Bale", "02-03-88", "123456789");
-       employee2 = EmployeeFactory.createEmployee("Kate", "Derek", "02-03-88", "123456789");
+       employee  = EmployeeFactory.createEmployee("Peter", "Bale", "02-03-88", "123456789", "gg");
+       employee2 = EmployeeFactory.createEmployee("Kate", "Derek", "02-03-88", "123456789", "gg");
     }
 
     @Test
@@ -37,9 +37,8 @@ class EmployeeFactoryTest {
     }//end of testEquality method
 
     @Test
-    @Disabled
     public void testIdentity(){
-        assertSame(employee,employee2);//failed test, objects are not the same
+        assertNotSame(employee,employee2);//pass test, objects are the same
     }//end of testIdentity method
 
     @Test

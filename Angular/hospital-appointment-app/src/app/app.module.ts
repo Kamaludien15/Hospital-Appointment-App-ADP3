@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './Login';
 import { EmployeeMenuComponent } from './EmployeeMenu';
 import { PatientMenuComponent } from './PatientMenu';
+import { DepartmentMenuComponent } from './DepartmentMenu';
+import { GenderMenuComponent } from './GenderMenu';
 import { FormsModule } from '@angular/forms';
 
 
@@ -16,7 +18,9 @@ import { FormsModule } from '@angular/forms';
     AppComponent,
     LoginComponent,
     EmployeeMenuComponent,
-    PatientMenuComponent
+    PatientMenuComponent,
+    DepartmentMenuComponent,
+    GenderMenuComponent
   ],
   imports: [
     appRoutingModule,
