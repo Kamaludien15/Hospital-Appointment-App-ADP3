@@ -89,6 +89,15 @@ export class EmployeeMenuComponent implements OnInit{
             (error: HttpErrorResponse) => {
                 alert(error.message);
             })
+
+        this.locationService.getLocations().subscribe(
+            (response: Location[]) => {
+                this.locations = response;
+            },
+            (error: HttpErrorResponse) => {
+                alert(error.message);
+            })
+
         this.prescriptionService.getPrescriptions().subscribe(
             (response: Prescription[]) => {
                 this.prescriptions = response;
@@ -127,9 +136,9 @@ export class EmployeeMenuComponent implements OnInit{
     public showEmployees = false;
     public showMedicines = false;
     public showProcedures = false;
+    public showPrescriptions = false;
     public showHospital = false;
     public showLocation = false;
-    public showPrescriptions = false;
 
     //Hide All
     public hideAll(): void{
@@ -138,9 +147,9 @@ export class EmployeeMenuComponent implements OnInit{
         this.showEmployees = false;
         this.showMedicines = false;
         this.showProcedures = false;
+        this.showPrescriptions = false;
         this.showHospital = false;
         this.showLocation = false;
-        this.showPrescriptions = false;
     }  
 
     //Appointment//////////////////////////////////////////////////
