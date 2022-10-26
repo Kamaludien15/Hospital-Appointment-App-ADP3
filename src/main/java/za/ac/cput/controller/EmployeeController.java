@@ -45,8 +45,8 @@ public class EmployeeController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("delete")
-    public ResponseEntity<Void> delete(@Valid @RequestBody Employee employee){
+    @DeleteMapping("delete/{employee}")
+    public ResponseEntity<Void> delete(@PathVariable Employee employee){
         log.info("Delete request: {}", employee);
         this.employeeAPI.delete(employee);
         return ResponseEntity.noContent().build();
